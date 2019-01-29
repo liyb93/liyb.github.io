@@ -1,0 +1,3218 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Objective-C,Swift,Xcode,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="使用方式在需要忽略警告的方法中使用一下代码标注即可:     #pragma clang diagnostic push #pragma clang diagnostic ignored &amp;quot;警告类型&amp;quot; // 需要忽略警告的代码 #pragma clang diagnostic pop 警告类型原文地址:点击这里跳转 Semantic Warnings(语义警告)    tabl">
+<meta name="keywords" content="Objective-C,Swift,Xcode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xcode警告忽略">
+<meta property="og:url" content="http://liyb.club/2018/11/27/Xcode警告忽略/index.html">
+<meta property="og:site_name" content="落秋的笔记小屋">
+<meta property="og:description" content="使用方式在需要忽略警告的方法中使用一下代码标注即可:     #pragma clang diagnostic push #pragma clang diagnostic ignored &amp;quot;警告类型&amp;quot; // 需要忽略警告的代码 #pragma clang diagnostic pop 警告类型原文地址:点击这里跳转 Semantic Warnings(语义警告)    tabl">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-29T10:03:12.558Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xcode警告忽略">
+<meta name="twitter:description" content="使用方式在需要忽略警告的方法中使用一下代码标注即可:     #pragma clang diagnostic push #pragma clang diagnostic ignored &amp;quot;警告类型&amp;quot; // 需要忽略警告的代码 #pragma clang diagnostic pop 警告类型原文地址:点击这里跳转 Semantic Warnings(语义警告)    tabl">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://liyb.club/2018/11/27/Xcode警告忽略/">
+
+
+
+
+
+  <title> Xcode警告忽略 | 落秋的笔记小屋 </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">落秋的笔记小屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">笔记小屋</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://liyb.club/2018/11/27/Xcode警告忽略/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liyb">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落秋的笔记小屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Xcode警告忽略
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-27T15:39:08+08:00">
+                2018-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/27/Xcode警告忽略/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/11/27/Xcode警告忽略/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h1><pre><code>在需要忽略警告的方法中使用一下代码标注即可:    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored &quot;警告类型&quot;
+// 需要忽略警告的代码
+#pragma clang diagnostic pop
+</code></pre><h1 id="警告类型"><a href="#警告类型" class="headerlink" title="警告类型"></a>警告类型</h1><p>原文地址:<a href="http://fuckingclangwarnings.com&amp;/" target="_blank" rel="noopener">点击这里跳转</a></p>
+<h2 id="Semantic-Warnings-语义警告"><a href="#Semantic-Warnings-语义警告" class="headerlink" title="Semantic Warnings(语义警告)"></a>Semantic Warnings(语义警告)</h2><table>
+<thead>
+<tr>
+<th style="text-align:left"><style> table th:first-of-type { width: 20%; } </style>Warning</th>
+<th style="text-align:left"><style> table th:nth-of-type(2) { width: 80%; } </style>Message </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">-WCFString-literal</td>
+<td style="text-align:left">input conversion stopped due to an input byte that does not belong to the input codeset UTF-8</td>
+</tr>
+<tr>
+<td style="text-align:left">-WNSObject-attribute</td>
+<td style="text-align:left">__attribute ((NSObject)) may be put on a typedef only, attribute is ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wabstract-vbase-init</td>
+<td style="text-align:left">initializer for virtual base class %0 of abstract class %1 will never be used</td>
+</tr>
+<tr>
+<td style="text-align:left">-Waddress-of-array-temporary</td>
+<td style="text-align:left">pointer is initialized by a temporary array, which will be destroyed at the end of the full-expression</td>
+</tr>
+<tr>
+<td style="text-align:left">-Warc-maybe-repeated-use-of-weak</td>
+<td style="text-align:left">“weak %select{variable&#124;property&#124;implicit property&#124;instance variable}0 %1 may be accessed multiple times in this %select{function&#124;method&#124;block&#124;lambda}2 and may be unpredictably set to nil assign to a strong variable to keep the object alive</td>
+</tr>
+<tr>
+<td style="text-align:left">-Warc-non-pod-memaccess</td>
+<td style="text-align:left">%select{destination for&#124;source of}0 this %1 call is a pointer to ownership-qualified type %2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Warc-performSelector-leaks</td>
+<td style="text-align:left">performSelector may cause a leak because its selector is unknown</td>
+</tr>
+<tr>
+<td style="text-align:left">-Warc-repeated-use-of-weak</td>
+<td style="text-align:left">“weak %select{variable &#124;property&#124;implicit property&#124;instance variable}0 %1 is accessed multiple times in this %select{function&#124;method&#124;block&#124;lambda}2 but may be unpredictably set to nil assign to a strong variable to keep the object alive</td>
+</tr>
+<tr>
+<td style="text-align:left">-Warc-retain-cycles</td>
+<td style="text-align:left">capturing %0 strongly in this block is likely to lead to a retain cycle</td>
+</tr>
+<tr>
+<td style="text-align:left">-Warc-unsafe-retained-assign</td>
+<td style="text-align:left">assigning retained object to unsafe property object will be released after assignment</td>
+</tr>
+<tr>
+<td style="text-align:left">-Warc-unsafe-retained-assign</td>
+<td style="text-align:left">assigning %select{array literal&#124;dictionary literal&#124;numeric literal&#124;boxed expression&#124;should not happen&#124;block literal}0 to a weak %select{property&#124;variable}1 object will be released after assignment</td>
+</tr>
+<tr>
+<td style="text-align:left">-Warc-unsafe-retained-assign</td>
+<td style="text-align:left">assigning retained object to %select{weak&#124;unsafe_unretained}0 %select{property&#124;variable}1 object will be released after assignment</td>
+</tr>
+<tr>
+<td style="text-align:left">-Warray-bounds</td>
+<td style="text-align:left">array index %0 is past the end of the array (which contains %1 element%s2)</td>
+</tr>
+<tr>
+<td style="text-align:left">-Warray-bounds</td>
+<td style="text-align:left">array index %0 is before the beginning of the array</td>
+</tr>
+<tr>
+<td style="text-align:left">-Warray-bounds</td>
+<td style="text-align:left">‘static’ has no effect on zero-length arrays</td>
+</tr>
+<tr>
+<td style="text-align:left">-Warray-bounds</td>
+<td style="text-align:left">array argument is too small contains %0 elements, callee requires at least %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Warray-bounds-pointer-arithmetic</td>
+<td style="text-align:left">the pointer incremented by %0 refers past the end of the array (that contains %1 element%s2)</td>
+</tr>
+<tr>
+<td style="text-align:left">-Warray-bounds-pointer-arithmetic</td>
+<td style="text-align:left">the pointer decremented by %0 refers before the beginning of the array</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wassign-enum</td>
+<td style="text-align:left">integer constant not in range of enumerated type %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Watomic-property-with-user-defined-accessor</td>
+<td style="text-align:left">writable atomic property %0 cannot pair a synthesized %select{getter&#124;setter}1 with a user defined %select{getter&#124;setter}2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wattributes</td>
+<td style="text-align:left">unknown attribute %0 ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wauto-var-id</td>
+<td style="text-align:left">‘auto’ deduced as ‘id’ in declaration of %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wavailability</td>
+<td style="text-align:left">unknown platform %0 in availability macro</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wavailability</td>
+<td style="text-align:left">overriding method %select{introduced after&#124;deprecated before&#124;obsoleted before}0 overridden method on %1 (%2 vs. %3)</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wavailability</td>
+<td style="text-align:left">availability does not match previous declaration</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wavailability</td>
+<td style="text-align:left">overriding method cannot be unavailable on %0 when its overridden method is available</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wavailability</td>
+<td style="text-align:left">feature cannot be %select{introduced&#124;deprecated&#124;obsoleted}0 in %1 version %2 before it was %select{introduced&#124;deprecated&#124;obsoleted}3 in version %4 attribute ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wbad-function-cast</td>
+<td style="text-align:left">cast from function call of type %0 to non-matching type %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wbitfield-constant-conversion</td>
+<td style="text-align:left">implicit truncation from %2 to bitfield changes value from %0 to %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wbitwise-op-parentheses</td>
+<td style="text-align:left">‘&amp;’ within &#124;</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wbool-conversion</td>
+<td style="text-align:left">“initialization of pointer of type %0 to null from a constant boolean “ “expression</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wbridge-cast</td>
+<td style="text-align:left">%0 cannot bridge to %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wbridge-cast</td>
+<td style="text-align:left">%0 bridges to %1, not %2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wbuiltin-requires-header</td>
+<td style="text-align:left">declaration of built-in function ‘%0’ requires inclusion of the header stdio.h</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wbuiltin-requires-header</td>
+<td style="text-align:left">declaration of built-in function ‘%0’ requires inclusion of the header setjmp.h</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wbuiltin-requires-header</td>
+<td style="text-align:left">declaration of built-in function ‘%0’ requires inclusion of the header ucontext.h</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++-compat</td>
+<td style="text-align:left">%select{&#124;empty }0%select{struct&#124;union}1 has size 0 in C, %select{size 1&#124;non-zero size}2 in C++</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++11-compat</td>
+<td style="text-align:left">explicit instantiation cannot be ‘inline’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++11-compat</td>
+<td style="text-align:left">explicit instantiation of %0 must occur at global scope</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++11-compat</td>
+<td style="text-align:left">explicit instantiation of %0 not in a namespace enclosing %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++11-compat</td>
+<td style="text-align:left">explicit instantiation of %q0 must occur in namespace %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++11-narrowing</td>
+<td style="text-align:left">constant expression evaluates to %0 which cannot be narrowed to type %1 in C++11</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++11-narrowing</td>
+<td style="text-align:left">type %0 cannot be narrowed to %1 in initializer list in C++11</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++11-narrowing</td>
+<td style="text-align:left">non-constant-expression cannot be narrowed from type %0 to %1 in initializer list in C++11</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-c++11-compat</td>
+<td style="text-align:left">type definition in a constexpr %select{function&#124;constructor}0 is incompatible with C++ standards before C++1y</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-c++11-compat</td>
+<td style="text-align:left">use of this statement in a constexpr %select{function&#124;constructor}0 is incompatible with C++ standards before C++1y</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-c++11-compat</td>
+<td style="text-align:left">init-captures.def warn_cxx11_compat_init_capture : Warning “initialized lambda captures are incompatible with C++ standards “ “before C++1y</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-c++11-compat</td>
+<td style="text-align:left">variable declaration in a constexpr %select{function&#124;constructor}0 is incompatible with C++ standards before C++1y</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-c++11-compat</td>
+<td style="text-align:left">constexpr function with no return statements is incompatible with C++ standards before C++1y</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-c++11-compat</td>
+<td style="text-align:left">multiple return statements in constexpr function is incompatible with C++ standards before C++1y</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-c++11-compat</td>
+<td style="text-align:left">variable templates are incompatible with C++ standards before C++1y</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">substitution failure due to access control is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">%select{anonymous struct&#124;union}0 member %1 with a non-trivial %select{constructor&#124;copy constructor&#124;move constructor&#124;copy assignment operator&#124;move assignment operator&#124;destructor}2 is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">enumeration type in nested name specifier is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">static data member %0 in union is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">default template arguments for a function template are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">scalar initialized from empty initializer list is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">befriending %1 without ‘%select{struct&#124;interface&#124;union&#124;class&#124;enum}0’ keyword is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">use of null pointer as non-type template argument is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">friend declaration naming a member of the declaring class is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">non-class friend type %0 is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">befriending enumeration type %0 is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">use of non-static data member %0 in an unevaluated context is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">friend function %0 would be implicitly redefined in C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">%select{class template&#124;class template partial&#124;variable template&#124;variable template partial&#124;function template&#124;member function&#124;static data member&#124;member class&#124;member enumeration}0 specialization of %1 outside namespace %2 is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">reference initialized from initializer list is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">redundant parentheses surrounding address non-type template argument are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">initialization of initializer_list object is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">use of ‘template’ keyword outside of a template is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">non-type template argument referring to %select{function&#124;object}0 %1 with internal linkage is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">use of ‘typename’ outside of a template is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">passing object of trivial but non-POD type %0 through variadic %select{function&#124;block&#124;method&#124;constructor}1 is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">goto would jump into protected scope in C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">constructor call from initializer list is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">‘auto’ type specifier is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">delegating constructors are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">‘constexpr’ specifier is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">inheriting constructors are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">explicit conversion functions are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">switch case would be in a protected scope in C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">‘%0’ type specifier is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">indirect goto might cross protected scopes in C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat-pedantic</td>
+<td style="text-align:left">cast between pointer-to-function and pointer-to-object is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat-pedantic</td>
+<td style="text-align:left">implicit conversion from array size expression of type %0 to %select{integral&#124;enumeration}1 type %2 is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wcast-align</td>
+<td style="text-align:left">cast from %0 to %1 increases required alignment from %2 to %3</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wcast-of-sel-type</td>
+<td style="text-align:left">cast of type %0 to %1 is deprecated use sel_getName instead</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wchar-subscripts</td>
+<td style="text-align:left">array subscript is of type ‘char’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconditional-uninitialized</td>
+<td style="text-align:left">variable %0 may be uninitialized when %select{used here&#124;captured by block}1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconstant-logical-operand</td>
+<td style="text-align:left">use of logical ‘%0’ with constant operand</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconstexpr-not-const</td>
+<td style="text-align:left">‘constexpr’ non-static member function will not be implicitly ‘const’ in C++1y add ‘const’ to avoid a change in behavior</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconsumed</td>
+<td style="text-align:left">state of variable ‘%0’ must match at the entry and exit of loop</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconsumed</td>
+<td style="text-align:left">parameter ‘%0’ not in expected state when the function returns: expected ‘%1’, observed ‘%2’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconsumed</td>
+<td style="text-align:left">argument not in expected state expected ‘%0’, observed ‘%1’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconsumed</td>
+<td style="text-align:left">invalid invocation of method ‘%0’ on a temporary object while it is in the ‘%1’ state</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconsumed</td>
+<td style="text-align:left">return state set for an unconsumable type ‘%0’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconsumed</td>
+<td style="text-align:left">consumed analysis attribute is attached to member of class ‘%0’ which isn’t marked as consumable</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconsumed</td>
+<td style="text-align:left">invalid invocation of method ‘%0’ on object ‘%1’ while it is in the ‘%2’ state</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconsumed</td>
+<td style="text-align:left">return value not in expected state expected ‘%0’, observed ‘%1’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconversion</td>
+<td style="text-align:left">implicit conversion discards imaginary component: %0 to %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconversion</td>
+<td style="text-align:left">non-type template argument with value ‘%0’ converted to ‘%1’ for unsigned template parameter of type %2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconversion</td>
+<td style="text-align:left">implicit conversion loses floating-point precision: %0 to %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconversion</td>
+<td style="text-align:left">implicit conversion loses integer precision: %0 to %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconversion</td>
+<td style="text-align:left">non-type template argument value ‘%0’ truncated to ‘%1’ for template parameter of type %2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconversion</td>
+<td style="text-align:left">implicit conversion turns vector to scalar: %0 to %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wconversion</td>
+<td style="text-align:left">implicit conversion turns floating-point number into integer: %0 to %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wcovered-switch-default</td>
+<td style="text-align:left">default label in switch which covers all enumeration values</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wcustom-atomic-properties</td>
+<td style="text-align:left">atomic by default property %0 has a user defined %select{getter&#124;setter}1 (property should be marked ‘atomic’ if this is intended)</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdangling-field</td>
+<td style="text-align:left">initializing pointer member %0 with the stack address of parameter %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdangling-field</td>
+<td style="text-align:left">binding reference %select{&#124;subobject of }1member %0 to a temporary value</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdangling-field</td>
+<td style="text-align:left">binding reference member %0 to stack allocated parameter %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdangling-initializer-list</td>
+<td style="text-align:left">array backing the initializer list will be destroyed at the end of %select{the full-expression&#124;the constructor}0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdelete-incomplete</td>
+<td style="text-align:left">deleting pointer to incomplete type %0 may cause undefined behavior</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdelete-non-virtual-dtor</td>
+<td style="text-align:left">delete called on %0 that is abstract but has non-virtual destructor</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdelete-non-virtual-dtor</td>
+<td style="text-align:left">delete called on %0 that has virtual functions but non-virtual destructor</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdeprecated</td>
+<td style="text-align:left">access declarations are deprecated use using declarations instead</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdeprecated</td>
+<td style="text-align:left">definition of implicit copy %select{constructor&#124;assignment operator}1 for %0 is deprecated because it has a user-declared %select{copy %select{assignment operator&#124;constructor}1&#124;destructor}2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdeprecated</td>
+<td style="text-align:left">dynamic exception specifications are deprecated</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdeprecated-increment-bool</td>
+<td style="text-align:left">incrementing expression of type bool is deprecated</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdeprecated-objc-isa-usage</td>
+<td style="text-align:left">assignment to Objective-C’s isa is deprecated in favor of object_setClass()</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdeprecated-objc-isa-usage</td>
+<td style="text-align:left">direct access to Objective-C’s isa is deprecated in favor of object_getClass()</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdeprecated-objc-pointer-introspection</td>
+<td style="text-align:left">bitmasking for introspection of Objective-C object pointers is strongly discouraged</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdeprecated-objc-pointer-introspection-performSelector</td>
+<td style="text-align:left">warn_objc_pointer_masking.Text</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdeprecated-writable-strings</td>
+<td style="text-align:left">dummy warning to enable -fconst-strings</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdirect-ivar-access</td>
+<td style="text-align:left">instance variable %0 is being directly accessed</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdistributed-object-modifiers</td>
+<td style="text-align:left">conflicting distributed object modifiers on return type in implementation of %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdistributed-object-modifiers</td>
+<td style="text-align:left">conflicting distributed object modifiers on parameter type in implementation of %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdivision-by-zero</td>
+<td style="text-align:left">division by zero is undefined</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdivision-by-zero</td>
+<td style="text-align:left">remainder by zero is undefined</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdocumentation</td>
+<td style="text-align:left">parameter ‘%0’ not found in the function declaration</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdocumentation</td>
+<td style="text-align:left">not a Doxygen trailing comment</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wduplicate-enum</td>
+<td style="text-align:left">element %0 has been implicitly assigned %1 which another element has been assigned</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wduplicate-method-match</td>
+<td style="text-align:left">multiple declarations of method %0 found and ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdynamic-class-memaccess</td>
+<td style="text-align:left">%select{destination for&#124;source of&#124;first operand of&#124;second operand of}0 this %1 call is a pointer to dynamic class %2 vtable pointer will be %select{overwritten&#124;copied&#124;moved&#124;compared}3</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wempty-body</td>
+<td style="text-align:left">switch statement has empty body</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wempty-body</td>
+<td style="text-align:left">for loop has empty body</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wempty-body</td>
+<td style="text-align:left">if statement has empty body</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wempty-body</td>
+<td style="text-align:left">range-based for loop has empty body</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wempty-body</td>
+<td style="text-align:left">while loop has empty body</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wenum-compare</td>
+<td style="text-align:left">comparison of two values with different enumeration types%  diff{ ($ and $)&#124;}0,1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wenum-conversion</td>
+<td style="text-align:left">implicit conversion from enumeration type %0 to different enumeration type %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wexit-time-destructors</td>
+<td style="text-align:left">declaration requires an exit-time destructor</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wexplicit-ownership-type</td>
+<td style="text-align:left">method parameter of type %0 with no explicit ownership</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wextern-c-compat</td>
+<td style="text-align:left">%select{&#124;empty }0%select{struct&#124;union}1 has size 0 in C, %select{size 1&#124;non-zero size}2 in C++</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wextern-initializer</td>
+<td style="text-align:left">‘extern’ variable has an initializer</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wfloat-equal</td>
+<td style="text-align:left">comparing floating point with == or != is unsafe</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">“data argument position ‘%0’ exceeds the number of data arguments (%1)</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">position arguments in format strings start counting at 1 (not 0)</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">invalid position specified for %select{field width&#124;field precision}0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">cannot mix positional and non-positional arguments in format string</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">values of type ‘%0’ should not be used as format arguments add an explicit cast to %1 instead</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">format specifies type %0 but the argument has type %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">zero field width in scanf format string is unused</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">no closing ‘]’ for ‘%%[‘ in scanf format string</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">format string should not be a wide string</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">format string contains ‘\0’ within the string body</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">‘%select{<em>&#124;.</em>}0’ specified field %select{width&#124;precision}0 is missing a matching ‘int’ argument</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">field %select{width&#124;precision}0 should have type %1, but argument has type %2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">%select{field width&#124;precision}0 used with ‘%1’ conversion specifier, resulting in undefined behavior</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">format string missing</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">incomplete format specifier</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">flag ‘%0’ results in undefined behavior with ‘%1’ conversion specifier</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">flag ‘%0’ is ignored when flag ‘%1’ is present</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">more ‘%%’ conversions than data arguments</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat</td>
+<td style="text-align:left">length modifier ‘%0’ results in undefined behavior or no effect with ‘%1’ conversion specifier</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat-extra-args</td>
+<td style="text-align:left">data argument not used by format string</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat-invalid-specifier</td>
+<td style="text-align:left">invalid conversion specifier ‘%0’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat-nonliteral</td>
+<td style="text-align:left">format string is not a string literal</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat-security</td>
+<td style="text-align:left">format string is not a string literal (potentially insecure)</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wformat-zero-length</td>
+<td style="text-align:left">format string is empty</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wgcc-compat</td>
+<td style="text-align:left">GCC does not allow the ‘cleanup’ attribute argument to be anything other than a simple identifier</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wglobal-constructors</td>
+<td style="text-align:left">declaration requires a global constructor</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wglobal-constructors</td>
+<td style="text-align:left">declaration requires a global destructor</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wgnu-conditional-omitted-operand</td>
+<td style="text-align:left">use of GNU ?: conditional expression extension, omitting middle operand</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wheader-hygiene</td>
+<td style="text-align:left">using namespace directive in global context in header</td>
+</tr>
+<tr>
+<td style="text-align:left">-Widiomatic-parentheses</td>
+<td style="text-align:left">using the result of an assignment as a condition without parentheses</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">‘malloc’ attribute only applies to functions returning a pointer type</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">%0 attribute only applies to %select{functions&#124;unions&#124;variables and functions&#124;functions and methods&#124;parameters&#124;functions, methods and blocks&#124;functions, methods, and classes&#124;functions, methods, and parameters&#124;classes&#124;variables&#124;methods&#124;variables, functions and labels&#124;fields and global variables&#124;structs&#124;variables, functions and tag types&#124;thread-local variables&#124;variables and fields&#124;variables, data members and tag types&#124;types and namespaces&#124;Objective-C interfaces}1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">‘%0’ attribute cannot be specified on a definition</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">__weak attribute cannot be specified on an automatic variable when ARC is not enabled</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">Objective-C GC does not allow weak variables on the stack</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">__weak attribute cannot be specified on a field declaration</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">attribute %0 cannot be applied to %select{functions&#124;Objective-C method}1 without return value</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">attribute declaration must precede definition</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">attribute %0 is ignored, place it after \”%select{class&#124;struct&#124;union&#124;interface&#124;enum}1\” to apply attribute to type declaration</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">__declspec attribute %0 is not supported</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">attribute %0 ignored, because it cannot be applied to a type</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">attribute %0 after definition is ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">%0 attribute ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">‘sentinel’ attribute only supported for variadic %select{functions&#124;blocks}0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">‘sentinel’ attribute requires named arguments</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">‘%0’ only applies to %select{function&#124;pointer&#124;Objective-C object or block pointer}1 types type here is %2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">‘nonnull’ attribute applied to function with no pointer arguments</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">%0 attribute can only be applied to instance variables or properties</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">ibaction attribute can only be applied to Objective-C instance methods</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">%0 calling convention ignored on variadic function</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">%0 only applies to variables with static storage duration and functions</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">%0 attribute argument not supported: %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">#pramga ms_struct can not be used with dynamic classes or structures</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">transparent union definition must contain at least one field transparent_union attribute ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">first field of a transparent union cannot have %select{floating point&#124;vector}0 type %1 transparent_union attribute ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">‘gnu_inline’ attribute requires function to be marked ‘inline’, attribute ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">calling convention %0 ignored for this target</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">transparent_union attribute can only be applied to a union definition attribute ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">%select{alignment&#124;size}0 of field %1 (%2 bits) does not match the %select{alignment&#124;size}0 of the first field in transparent union transparent_union attribute ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">attribute %0 is already applied</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">%0 attribute ignored for field of type %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">%0 attribute ignored when parsing type</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">%0 attribute only applies to %select{functions&#124;methods&#124;properties}1 that return %select{an Objective-C object&#124;a pointer&#124;a non-retainable pointer}2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">%0 attribute only applies to %select{Objective-C object&#124;pointer}1 parameters</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">attribute %0 is already applied with different parameters</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">unknown visibility %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-qualifiers</td>
+<td style="text-align:left">“‘%0’ type qualifier%s1 on return type %plural{1:has&#124;:have}1 no effect</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-qualifiers</td>
+<td style="text-align:left">ARC %select{unused&#124;<strong>unsafe_unretained&#124;</strong>strong&#124;<strong>weak&#124;</strong>autoreleasing}0 lifetime qualifier on return type is ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wimplicit-atomic-properties</td>
+<td style="text-align:left">property is assumed atomic by default</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wimplicit-atomic-properties</td>
+<td style="text-align:left">property is assumed atomic when auto-synthesizing the property</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wimplicit-fallthrough</td>
+<td style="text-align:left">fallthrough annotation in unreachable code</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wimplicit-fallthrough</td>
+<td style="text-align:left">unannotated fall-through between switch labels</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wimplicit-fallthrough</td>
+<td style="text-align:left">fallthrough annotation does not directly precede switch label</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wimplicit-function-declaration</td>
+<td style="text-align:left">implicit declaration of function %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wimplicit-function-declaration</td>
+<td style="text-align:left">use of unknown builtin %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wimplicit-retain-self</td>
+<td style="text-align:left">“block implicitly retains ‘self’ explicitly mention ‘self’ to indicate this is intended behavior</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wincompatible-library-redeclaration</td>
+<td style="text-align:left">incompatible redeclaration of library function %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wincomplete-implementation</td>
+<td style="text-align:left">method definition for %0 not found</td>
+</tr>
+<tr>
+<td style="text-align:left">-Winherited-variadic-ctor</td>
+<td style="text-align:left">inheriting constructor does not inherit ellipsis</td>
+</tr>
+<tr>
+<td style="text-align:left">-Winitializer-overrides</td>
+<td style="text-align:left">subobject initialization overrides initialization of other fields within its enclosing subobject</td>
+</tr>
+<tr>
+<td style="text-align:left">-Winitializer-overrides</td>
+<td style="text-align:left">initializer overrides prior initialization of this subobject</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wint-to-pointer-cast</td>
+<td style="text-align:left">cast to %1 from smaller integer type %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wint-to-void-pointer-cast</td>
+<td style="text-align:left">cast to %1 from smaller integer type %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Winvalid-iboutlet</td>
+<td style="text-align:left">IBOutletCollection properties should be copy&#124;strong and not assign</td>
+</tr>
+<tr>
+<td style="text-align:left">-Winvalid-iboutlet</td>
+<td style="text-align:left">%select{instance variable&#124;property}2 with %0 attribute must be an object type (invalid %1)</td>
+</tr>
+<tr>
+<td style="text-align:left">-Winvalid-noreturn</td>
+<td style="text-align:left">function %0 declared ‘noreturn’ should not return</td>
+</tr>
+<tr>
+<td style="text-align:left">-Winvalid-noreturn</td>
+<td style="text-align:left">function declared ‘noreturn’ should not return</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wlarge-by-value-copy</td>
+<td style="text-align:left">return value of %0 is a large (%1 bytes) pass-by-value object pass it by reference instead ?</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wlarge-by-value-copy</td>
+<td style="text-align:left">%0 is a large (%1 bytes) pass-by-value argument pass it by reference instead ?</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wliteral-conversion</td>
+<td style="text-align:left">implicit conversion from %0 to %1 changes value from %2 to %3</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wliteral-range</td>
+<td style="text-align:left">magnitude of floating-point constant too large for type %0 maximum is %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wliteral-range</td>
+<td style="text-align:left">magnitude of floating-point constant too small for type %0 minimum is %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wlogical-not-parentheses</td>
+<td style="text-align:left">logical not is only applied to the left hand side of this comparison</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wlogical-op-parentheses</td>
+<td style="text-align:left">‘&amp;&amp;’ within &#124;&#124;</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wloop-analysis</td>
+<td style="text-align:left">variable%select{s&#124; %1&#124;s %1 and %2&#124;s %1, %2, and %3&#124;s %1, %2, %3, and %4}0 used in loop condition not modified in loop body</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wloop-analysis</td>
+<td style="text-align:left">variable %0 is %select{decremented&#124;incremented}1 both in the loop header and in the loop body</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmethod-signatures</td>
+<td style="text-align:left">conflicting parameter types in implementation of %0: %1 vs %2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmethod-signatures</td>
+<td style="text-align:left">conflicting return type in implementation of %0: %1 vs %2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmicrosoft</td>
+<td style="text-align:left">extra qualification on member %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmismatched-method-attributes</td>
+<td style="text-align:left">attributes on method implementation and its declaration must match</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmismatched-parameter-types</td>
+<td style="text-align:left">conflicting parameter types in implementation of %0<code>%diff</code>{: $ vs $&#124;}1,2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmismatched-return-types</td>
+<td style="text-align:left">conflicting return type in implementation of %0%  diff{: $ vs $&#124;}1,2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmissing-braces</td>
+<td style="text-align:left">suggest braces around initialization of subobject</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmissing-declarations</td>
+<td style="text-align:left">‘%0’ ignored on this declaration</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmissing-field-initializers</td>
+<td style="text-align:left">missing field ‘%0’ initializer</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmissing-method-return-type</td>
+<td style="text-align:left">method has no return type specified defaults to ‘id’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmissing-noreturn</td>
+<td style="text-align:left">%select{function&#124;method}0 %1 could be declared with attribute ‘noreturn’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmissing-noreturn</td>
+<td style="text-align:left">block could be declared with attribute ‘noreturn’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmissing-prototypes</td>
+<td style="text-align:left">no previous prototype for function %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmissing-variable-declarations</td>
+<td style="text-align:left">no previous extern declaration for non-static variable %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmultiple-move-vbase</td>
+<td style="text-align:left">defaulted move assignment operator of %0 will move assign virtual base class %1 multiple times</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wnested-anon-types</td>
+<td style="text-align:left">anonymous types declared in an anonymous union&#124;struct are an extension</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wno-typedef-redefinition</td>
+<td style="text-align:left">Redefinition of typedef ‘%0’ is a C11 feature</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wnon-literal-null-conversion</td>
+<td style="text-align:left">“expression which evaluates to zero treated as a null pointer constant of “ “type %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wnon-pod-varargs</td>
+<td style="text-align:left">second argument to ‘va_arg’ is of ARC ownership-qualified type %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wnon-pod-varargs</td>
+<td style="text-align:left">cannot pass %select{non-POD&#124;non-trivial}0 object of type %1 to variadic %select{function&#124;block&#124;method&#124;constructor}2 expected type from format string was %3</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wnon-pod-varargs</td>
+<td style="text-align:left">second argument to ‘va_arg’ is of non-POD type %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wnon-pod-varargs</td>
+<td style="text-align:left">cannot pass object of %select{non-POD&#124;non-trivial}0 type %1 through variadic %select{function&#124;block&#124;method&#124;constructor}2 call will abort at runtime</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wnon-virtual-dtor</td>
+<td style="text-align:left">%0 has virtual functions but non-virtual destructor</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wnonnull</td>
+<td style="text-align:left">null passed to a callee which requires a non-null argument</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wnull-arithmetic</td>
+<td style="text-align:left">use of NULL in arithmetic operation</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wnull-arithmetic</td>
+<td style="text-align:left">comparison between NULL and non-pointer %select{(%1 and NULL)&#124;(NULL and %1)}0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wnull-dereference</td>
+<td style="text-align:left">indirection of non-volatile null pointer will be deleted, not trap</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-autosynthesis-property-ivar-name-match</td>
+<td style="text-align:left">autosynthesized property %0 will use %select{&#124;synthesized}1 instance variable %2, not existing instance variable %3</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-forward-class-redefinition</td>
+<td style="text-align:left">redefinition of forward class %0 of a typedef name of an object type is ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-interface-ivars</td>
+<td style="text-align:left">declaration of instance variables in the interface is deprecated</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-literal-compare</td>
+<td style="text-align:left">direct comparison of %select{an array literal&#124;a dictionary literal&#124;a numeric literal&#124;a boxed expression&#124;}0 has undefined behavior</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-literal-missing-atsign</td>
+<td style="text-align:left">string literal must be prefixed by ‘@’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-method-access</td>
+<td style="text-align:left">instance method %objcinstance0 not found (return type defaults to ‘id’) did you mean %objcinstance2?</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-method-access</td>
+<td style="text-align:left">class method %objcclass0 not found (return type defaults to ‘id’) did you mean %objcclass2?</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-method-access</td>
+<td style="text-align:left">instance method %objcinstance0 not found (return type defaults to ‘id’)</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-method-access</td>
+<td style="text-align:left">instance method %0 is being used on ‘Class’ which is not in the root class</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-method-access</td>
+<td style="text-align:left">class method %objcclass0 not found (return type defaults to ‘id’)</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-method-access</td>
+<td style="text-align:left">instance method %0 found instead of class method %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-missing-property-synthesis</td>
+<td style="text-align:left">“auto property synthesis is synthesizing property not explicitly synthesized</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-missing-super-calls</td>
+<td style="text-align:left">method possibly missing a [super %0] call</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-noncopy-retain-block-property</td>
+<td style="text-align:left">“retain’ed block property does not copy the block “ “- use copy attribute instead</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-nonunified-exceptions</td>
+<td style="text-align:left">can not catch an exception thrown with @throw in C++ in the non-unified exception model</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-property-implementation</td>
+<td style="text-align:left">property %0 requires method %1 to be defined - use @dynamic or provide a method implementation in this category</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-property-implementation</td>
+<td style="text-align:left">property %0 requires method %1 to be defined - use @synthesize, @dynamic or provide a method implementation in this class implementation</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-property-implicit-mismatch</td>
+<td style="text-align:left">“primary property declaration is implicitly strong while redeclaration in class extension is weak</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-property-matches-cocoa-ownership-rule</td>
+<td style="text-align:left">property’s synthesized getter follows Cocoa naming convention for returning ‘owned’ objects</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-property-no-attribute</td>
+<td style="text-align:left">no ‘assign’, ‘retain’, or ‘copy’ attribute is specified - ‘assign’ is assumed</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-property-no-attribute</td>
+<td style="text-align:left">default property attribute ‘assign’ not appropriate for non-GC object</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-property-synthesis</td>
+<td style="text-align:left">auto property synthesis will not synthesize property ‘%0’ because it is ‘readwrite’ but it will be synthesized ‘readonly’ via another property</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-property-synthesis</td>
+<td style="text-align:left">“auto property synthesis will not synthesize property ‘%0’ because it cannot share an ivar with another synthesized property</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-protocol-method-implementation</td>
+<td style="text-align:left">category is implementing a method which will also be implemented by its primary class</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-protocol-property-synthesis</td>
+<td style="text-align:left">auto property synthesis will not synthesize property declared in a protocol</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-redundant-literal-use</td>
+<td style="text-align:left">using %0 with a literal is redundant</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-root-class</td>
+<td style="text-align:left">class %0 defined without specifying a base class</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-string-compare</td>
+<td style="text-align:left">direct comparison of a string literal has undefined behavior</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wobjc-string-concatenation</td>
+<td style="text-align:left">concatenated NSString literal for an NSArray expression - possibly missing a comma</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wover-aligned</td>
+<td style="text-align:left">type %0 requires %1 bytes of alignment and the default allocator only guarantees %2 bytes</td>
+</tr>
+<tr>
+<td style="text-align:left">-Woverloaded-shift-op-parentheses</td>
+<td style="text-align:left">overloaded operator %select{&#124;}0 has lower precedence than comparison operator</td>
+</tr>
+<tr>
+<td style="text-align:left">-Woverloaded-virtual</td>
+<td style="text-align:left">%q0 hides overloaded virtual %select{function&#124;functions}1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Woverriding-method-mismatch</td>
+<td style="text-align:left">conflicting distributed object modifiers on parameter type in declaration of %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Woverriding-method-mismatch</td>
+<td style="text-align:left">conflicting parameter types in declaration of %0: %1 vs %2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Woverriding-method-mismatch</td>
+<td style="text-align:left">conflicting variadic declaration of method and its implementation</td>
+</tr>
+<tr>
+<td style="text-align:left">-Woverriding-method-mismatch</td>
+<td style="text-align:left">conflicting distributed object modifiers on return type in declaration of %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Woverriding-method-mismatch</td>
+<td style="text-align:left">conflicting parameter types in declaration of %0<code>%diff</code>{: $ vs $&#124;}1,2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Woverriding-method-mismatch</td>
+<td style="text-align:left">conflicting return type in declaration of %0<code>%diff</code>{: $ vs $&#124;}1,2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Woverriding-method-mismatch</td>
+<td style="text-align:left">conflicting return type in declaration of %0: %1 vs %2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wpacked</td>
+<td style="text-align:left">packed attribute is unnecessary for %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wpadded</td>
+<td style="text-align:left">padding %select{struct&#124;interface&#124;class}0 %1 with %2 %select{byte&#124;bit}3%select{&#124;s}4 to align anonymous bit-field</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wpadded</td>
+<td style="text-align:left">padding %select{struct&#124;interface&#124;class}0 %1 with %2 %select{byte&#124;bit}3%select{&#124;s}4 to align %5</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wpadded</td>
+<td style="text-align:left">padding size of %0 with %1 %select{byte&#124;bit}2%select{&#124;s}3 to alignment boundary</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wparentheses</td>
+<td style="text-align:left">using the result of an assignment as a condition without parentheses</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wparentheses</td>
+<td style="text-align:left">%0 has lower precedence than %1 %1 will be evaluated first</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wparentheses</td>
+<td style="text-align:left">operator ‘?:’ has lower precedence than ‘%0’ ‘%0’ will be evaluated first</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wparentheses-equality</td>
+<td style="text-align:left">equality comparison with extraneous parentheses</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wpointer-arith</td>
+<td style="text-align:left">subtraction of pointers to type %0 of zero size has undefined behavior</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wpredefined-identifier-outside-function</td>
+<td style="text-align:left">predefined identifier is only valid inside function</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wprivate-extern</td>
+<td style="text-align:left">use of <strong>private_extern</strong> on a declaration may not produce external symbol private to the linkage unit and is deprecated</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wprotocol</td>
+<td style="text-align:left">method %0 in protocol not implemented</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wprotocol-property-synthesis-ambiguity</td>
+<td style="text-align:left">property of type %0 was selected for synthesis</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreadonly-iboutlet-property</td>
+<td style="text-align:left">readonly IBOutlet property ‘%0’ when auto-synthesized may not work correctly with ‘nib’ loader</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreadonly-setter-attrs</td>
+<td style="text-align:left">property attributes ‘%0’ and ‘%1’ are mutually exclusive</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreceiver-expr</td>
+<td style="text-align:left">receiver type %0 is not ‘id’ or interface pointer, consider casting it to ‘id’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreceiver-forward-class</td>
+<td style="text-align:left">receiver type %0 for instance message is a forward declaration</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreceiver-is-weak</td>
+<td style="text-align:left">“weak %select{receiver&#124;property&#124;implicit property}0 may be unpredictably set to nil</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreinterpret-base-class</td>
+<td style="text-align:left">‘reinterpret_cast’ %select{from&#124;to}3 class %0 %select{to&#124;from}3 its %select{virtual base&#124;base at non-zero offset}2 %1 behaves differently from ‘static_cast’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreorder</td>
+<td style="text-align:left">%select{field&#124;base class}0 %1 will be initialized after %select{field&#124;base}2 %3</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wrequires-super-attribute</td>
+<td style="text-align:left">%0 attribute cannot be applied to %select{methods in protocols&#124;dealloc}1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreturn-stack-address</td>
+<td style="text-align:left">returning address of local temporary object</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreturn-stack-address</td>
+<td style="text-align:left">returning address of label, which is local</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreturn-stack-address</td>
+<td style="text-align:left">address of stack memory associated with local variable %0 returned</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreturn-stack-address</td>
+<td style="text-align:left">reference to stack memory associated with local variable %0 returned</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreturn-stack-address</td>
+<td style="text-align:left">returning reference to local temporary object</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreturn-type</td>
+<td style="text-align:left">control may reach end of non-void function</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreturn-type</td>
+<td style="text-align:left">non-void %select{function&#124;method}1 %0 should return a value, DefaultError</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreturn-type</td>
+<td style="text-align:left">control reaches end of non-void function</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreturn-type-c-linkage</td>
+<td style="text-align:left">%0 has C-linkage specified, but returns incomplete type %1 which could be incompatible with C</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wreturn-type-c-linkage</td>
+<td style="text-align:left">%0 has C-linkage specified, but returns user-defined type %1 which is incompatible with C</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wsection</td>
+<td style="text-align:left">section does not match previous declaration</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wselector</td>
+<td style="text-align:left">creating selector for nonexistent method %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wselector-type-mismatch</td>
+<td style="text-align:left">multiple selectors named %0 found</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wself-assign</td>
+<td style="text-align:left">explicitly assigning a variable of type %0 to itself</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wself-assign-field</td>
+<td style="text-align:left">assigning %select{field&#124;instance variable}0 to itself</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wsentinel</td>
+<td style="text-align:left">“missing sentinel in %select{function call&#124;method dispatch&#124;block call}0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wsentinel</td>
+<td style="text-align:left">not enough variable arguments in %0 declaration to fit a sentinel</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wshadow</td>
+<td style="text-align:left">declaration shadows a %select{“ “local variable&#124;” “variable in %2&#124;” “static data member of %2&#124;” “field of %2}1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wshadow-ivar</td>
+<td style="text-align:left">local declaration of %0 hides instance variable</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wshift-count-negative</td>
+<td style="text-align:left">shift count is negative</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wshift-count-overflow</td>
+<td style="text-align:left">shift count = width of type</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wshift-op-parentheses</td>
+<td style="text-align:left">operator ‘%0’ has lower precedence than ‘%1’ ‘%1’ will be evaluated first</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wshift-overflow</td>
+<td style="text-align:left">signed shift result (%0) requires %1 bits to represent, but %2 only has %3 bits</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wshift-sign-overflow</td>
+<td style="text-align:left">signed shift result (%0) sets the sign bit of the shift expression’s type (%1) and becomes negative</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wshorten-64-to-32</td>
+<td style="text-align:left">implicit conversion loses integer precision: %0 to %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wsign-compare</td>
+<td style="text-align:left">comparison of integers of different signs: %0 and %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wsign-conversion</td>
+<td style="text-align:left">implicit conversion changes signedness: %0 to %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wsign-conversion</td>
+<td style="text-align:left">operand of ? changes signedness: %0 to %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wsizeof-array-argument</td>
+<td style="text-align:left">sizeof on array function parameter will return size of %0 instead of %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wsizeof-array-decay</td>
+<td style="text-align:left">sizeof on pointer operation will return size of %0 instead of %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wsizeof-pointer-memaccess</td>
+<td style="text-align:left">‘%0’ call operates on objects of type %1 while the size is based on a “ “different type %2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wsizeof-pointer-memaccess</td>
+<td style="text-align:left">argument to ‘sizeof’ in %0 call is the same pointer type %1 as the %select{destination&#124;source}2 expected %3 or an explicit length</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wsometimes-uninitialized</td>
+<td style="text-align:left">variable %0 is %select{used&#124;captured}1 uninitialized whenever %select{‘%3’ condition is %select{true&#124;false}4&#124;’%3’ loop %select{is entered&#124;exits because its condition is false}4&#124;’%3’ loop %select{condition is true&#124;exits because its condition is false}4&#124;switch %3 is taken&#124;its declaration is reached&#124;%3 is called}2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wstatic-local-in-inline</td>
+<td style="text-align:left">non-constant static local variable in inline function may be different in different files</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wstatic-self-init</td>
+<td style="text-align:left">static variable %0 is suspiciously used within its own initialization</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wstrict-selector-match</td>
+<td style="text-align:left">multiple methods named %0 found</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wstring-compare</td>
+<td style="text-align:left">result of comparison against %select{a string literal&#124;@encode}0 is unspecified (use strncmp instead)</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wstring-conversion</td>
+<td style="text-align:left">implicit conversion turns string literal into bool: %0 to %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wstring-plus-char</td>
+<td style="text-align:left">adding %0 to a string pointer does not append to the string</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wstring-plus-int</td>
+<td style="text-align:left">adding %0 to a string does not append to the string</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wstrlcpy-strlcat-size</td>
+<td style="text-align:left">size argument in %0 call appears to be size of the source expected the size of the destination</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wstrncat-size</td>
+<td style="text-align:left">the value of the size argument in ‘strncat’ is too large, might lead to a “ “buffer overflow</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wstrncat-size</td>
+<td style="text-align:left">size argument in ‘strncat’ call appears “ “to be size of the source</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wstrncat-size</td>
+<td style="text-align:left">the value of the size argument to ‘strncat’ is wrong</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wsuper-class-method-mismatch</td>
+<td style="text-align:left">method parameter type <code>%diff</code>{$ does not match super class method parameter type $&#124;does not match super class method parameter type}0,1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wswitch</td>
+<td style="text-align:left">overflow converting case value to switch condition type (%0 to %1)</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wswitch</td>
+<td style="text-align:left">case value not in enumerated type %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wswitch</td>
+<td style="text-align:left">%0 enumeration values not handled in switch: %1, %2, %3…</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wswitch</td>
+<td style="text-align:left">enumeration values %0 and %1 not handled in switch</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wswitch</td>
+<td style="text-align:left">enumeration value %0 not handled in switch</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wswitch</td>
+<td style="text-align:left">enumeration values %0, %1, and %2 not handled in switch</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wswitch-enum</td>
+<td style="text-align:left">enumeration values %0, %1, and %2 not explicitly handled in switch</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wswitch-enum</td>
+<td style="text-align:left">enumeration values %0 and %1 not explicitly handled in switch</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wswitch-enum</td>
+<td style="text-align:left">%0 enumeration values not explicitly handled in switch: %1, %2, %3…</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wswitch-enum</td>
+<td style="text-align:left">enumeration value %0 not explicitly handled in switch</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wtautological-compare</td>
+<td style="text-align:left">comparison of %0 unsigned%select{&#124; enum}2 expression is always %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wtautological-compare</td>
+<td style="text-align:left">%select{self-&#124;array }0comparison always evaluates to %select{false&#124;true&#124;a constant}1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wtautological-compare</td>
+<td style="text-align:left">comparison of unsigned%select{&#124; enum}2 expression %0 is always %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wtautological-constant-out-of-range-compare</td>
+<td style="text-align:left">comparison of constant %0 with expression of type %1 is always %select{false&#124;true}2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-analysis</td>
+<td style="text-align:left">locking ‘%0’ that is already locked</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-analysis</td>
+<td style="text-align:left">cannot call function ‘%0’ while mutex ‘%1’ is locked</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-analysis</td>
+<td style="text-align:left">%select{reading&#124;writing}2 the value pointed to by ‘%0’ requires locking %select{‘%1’&#124;’%1’ exclusively}2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-analysis</td>
+<td style="text-align:left">unlocking ‘%0’ that was not locked</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-analysis</td>
+<td style="text-align:left">mutex ‘%0’ is locked exclusively and shared in the same scope</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-analysis</td>
+<td style="text-align:left">calling function ‘%0’ requires %select{shared&#124;exclusive}2 lock on ‘%1’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-analysis</td>
+<td style="text-align:left">%select{reading&#124;writing}2 variable ‘%0’ requires locking %select{‘%1’&#124;’%1’ exclusively}2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-analysis</td>
+<td style="text-align:left">cannot resolve lock expression</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-analysis</td>
+<td style="text-align:left">expecting mutex ‘%0’ to be locked at the end of function</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-analysis</td>
+<td style="text-align:left">mutex ‘%0’ is not locked on every path through here</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-analysis</td>
+<td style="text-align:left">%select{reading&#124;writing}1 the value pointed to by ‘%0’ requires locking %select{any mutex&#124;any mutex exclusively}1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-analysis</td>
+<td style="text-align:left">%select{reading&#124;writing}1 variable ‘%0’ requires locking %select{any mutex&#124;any mutex exclusively}1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-analysis</td>
+<td style="text-align:left">mutex ‘%0’ is still locked at the end of function</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-analysis</td>
+<td style="text-align:left">expecting mutex ‘%0’ to be locked at start of each loop</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-attributes</td>
+<td style="text-align:left">ignoring %0 attribute because its argument is invalid</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-attributes</td>
+<td style="text-align:left">%0 attribute only applies to %select{fields and global variables&#124;functions and methods&#124;classes and structs}1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-attributes</td>
+<td style="text-align:left">%0 attribute requires arguments that are class type or point to class type type here is ‘%1’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-attributes</td>
+<td style="text-align:left">%0 attribute can only be applied in a context annotated with ‘lockable’ attribute</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-attributes</td>
+<td style="text-align:left">%0 attribute requires arguments whose type is annotated with ‘lockable’ attribute type here is ‘%1’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-attributes</td>
+<td style="text-align:left">‘%0’ only applies to pointer types type here is %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-beta</td>
+<td style="text-align:left">Thread safety beta warning.</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-precise</td>
+<td style="text-align:left">%select{reading&#124;writing}2 the value pointed to by ‘%0’ requires locking %select{‘%1’&#124;’%1’ exclusively}2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-precise</td>
+<td style="text-align:left">%select{reading&#124;writing}2 variable ‘%0’ requires locking %select{‘%1’&#124;’%1’ exclusively}2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wthread-safety-precise</td>
+<td style="text-align:left">calling function ‘%0’ requires %select{shared&#124;exclusive}2 lock on ‘%1’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wtype-safety</td>
+<td style="text-align:left">this type tag was not designed to be used with this function</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wtype-safety</td>
+<td style="text-align:left">specified %0 type tag requires a null pointer</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wtype-safety</td>
+<td style="text-align:left">argument type %0 doesn’t match specified ‘%1’ type tag %select{that requires %3&#124;}2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wundeclared-selector</td>
+<td style="text-align:left">undeclared selector %0 did you mean %1?</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wundeclared-selector</td>
+<td style="text-align:left">undeclared selector %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wundefined-inline</td>
+<td style="text-align:left">inline function %q0 is not defined</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wundefined-internal</td>
+<td style="text-align:left">%select{function&#124;variable}0 %q1 has internal linkage but is not defined</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wundefined-reinterpret-cast</td>
+<td style="text-align:left">dereference of type %1 that was reinterpret_cast from type %0 has undefined behavior</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wundefined-reinterpret-cast</td>
+<td style="text-align:left">reinterpret_cast from %0 to %1 has undefined behavior</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wuninitialized</td>
+<td style="text-align:left">reference %0 is not yet bound to a value when used within its own initialization</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wuninitialized</td>
+<td style="text-align:left">field %0 is uninitialized when used here</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wuninitialized</td>
+<td style="text-align:left">block pointer variable %0 is uninitialized when captured by block</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wuninitialized</td>
+<td style="text-align:left">variable %0 is uninitialized when used within its own initialization</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wuninitialized</td>
+<td style="text-align:left">variable %0 is uninitialized when %select{used here&#124;captured by block}1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wuninitialized</td>
+<td style="text-align:left">reference %0 is not yet bound to a value when used here</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunneeded-internal-declaration</td>
+<td style="text-align:left">%select{function&#124;variable}0 %1 is not needed and will not be emitted</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunneeded-internal-declaration</td>
+<td style="text-align:left">‘static’ function %0 declared in header file should be declared ‘static inline’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunneeded-member-function</td>
+<td style="text-align:left">member function %0 is not needed and will not be emitted</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunreachable-code</td>
+<td style="text-align:left">will never be executed</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunsequenced</td>
+<td style="text-align:left">multiple unsequenced modifications to %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunsequenced</td>
+<td style="text-align:left">unsequenced modification and access to %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunsupported-friend</td>
+<td style="text-align:left">dependent nested name specifier ‘%0’ for friend template declaration is not supported ignoring this friend declaration</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunsupported-friend</td>
+<td style="text-align:left">dependent nested name specifier ‘%0’ for friend class declaration is not supported turning off access control for %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunsupported-visibility</td>
+<td style="text-align:left">target does not support ‘protected’ visibility using ‘default’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-comparison</td>
+<td style="text-align:left">%select{equality&#124;inequality}0 comparison result unused</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-const-variable</td>
+<td style="text-align:left">unused variable %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-exception-parameter</td>
+<td style="text-align:left">unused exception parameter %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-function</td>
+<td style="text-align:left">unused function %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-label</td>
+<td style="text-align:left">unused label %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-member-function</td>
+<td style="text-align:left">unused member function %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-parameter</td>
+<td style="text-align:left">unused parameter %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-private-field</td>
+<td style="text-align:left">private field %0 is not used</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-property-ivar</td>
+<td style="text-align:left">ivar %0 which backs the property is not referenced in this property’s accessor</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-result</td>
+<td style="text-align:left">ignoring return value of function declared with warn_unused_result attribute</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-value</td>
+<td style="text-align:left">ignoring return value of function declared with %0 attribute</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-value</td>
+<td style="text-align:left">expression result unused should this cast be to ‘void’?</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-value</td>
+<td style="text-align:left">expression result unused</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-variable</td>
+<td style="text-align:left">unused variable %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-volatile-lvalue</td>
+<td style="text-align:left">expression result unused assign into a variable to force a volatile load</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wused-but-marked-unused</td>
+<td style="text-align:left">%0 was marked unused but was used</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wuser-defined-literals</td>
+<td style="text-align:left">user-defined literal suffixes not starting with ‘_’ are reserved%select{ no literal will invoke this operator&#124;}0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wvarargs</td>
+<td style="text-align:left">second parameter of ‘va_start’ not last named argument</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wvarargs</td>
+<td style="text-align:left">‘va_start’ has undefined behavior with reference types</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wvarargs</td>
+<td style="text-align:left">second argument to ‘va_arg’ is of promotable type %0 this va_arg has undefined behavior because arguments will be promoted to %1</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wvector-conversion</td>
+<td style="text-align:left">incompatible vector types %select{<code>%diff</code>{assigning to $ from $&#124;assigning to different types}0,1&#124;<code>%diff</code>{passing $ to parameter of type $&#124;passing to parameter of different type}0,1&#124;<code>%diff</code>{returning $ from a function with result type $&#124;returning from function with different return type}0,1&#124;%  diff{converting $ to type $&#124;converting between types}0,1&#124;<code>%diff</code>{initializing $ with an expression of type $&#124;initializing with expression of different type}0,1&#124;<code>%diff</code>{sending $ to parameter of type $&#124;sending to parameter of different type}0,1&#124;<code>%diff</code>{casting $ to type $&#124;casting between types}0,1}2</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wvexing-parse</td>
+<td style="text-align:left">parentheses were disambiguated as a function declaration</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wvexing-parse</td>
+<td style="text-align:left">empty parentheses interpreted as a function declaration</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wvisibility</td>
+<td style="text-align:left">declaration of %0 will not be visible outside of this function</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wvisibility</td>
+<td style="text-align:left">redefinition of %0 will not be visible outside of this function</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wvla</td>
+<td style="text-align:left">variable length array used</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wvla-extension</td>
+<td style="text-align:left">variable length arrays are a C99 feature</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wweak-template-vtables</td>
+<td style="text-align:left">explicit template instantiation %0 will emit a vtable in every translation unit</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wweak-vtables</td>
+<td style="text-align:left">%0 has no out-of-line virtual method definitions; its vtable will be emitted in every translation unit</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Lexer-Warnings-词法分析警告"><a href="#Lexer-Warnings-词法分析警告" class="headerlink" title="Lexer Warnings(词法分析警告)"></a>Lexer Warnings(词法分析警告)</h2><table>
+<thead>
+<tr>
+<th style="text-align:left"><style> table th:first-of-type { width: 20%; } </style>Warning</th>
+<th style="text-align:left"><style> table th:nth-of-type(2) { width: 80%; } </style>Message </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">-W#pragma-messages</td>
+<td style="text-align:left">%0</td>
+</tr>
+<tr>
+<td style="text-align:left">-W#warnings</td>
+<td style="text-align:left">%0</td>
+</tr>
+<tr>
+<td style="text-align:left">-W#warnings</td>
+<td style="text-align:left">%0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wambiguous-macro</td>
+<td style="text-align:left">ambiguous expansion of macro %0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wauto-import</td>
+<td style="text-align:left">treating #%select{include&#124;import&#124;include_next&#124;__include_macros}0 as an import of module ‘%1’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wbackslash-newline-escape</td>
+<td style="text-align:left">backslash and newline separated by space</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++11-compat</td>
+<td style="text-align:left">identifier after literal will be treated as a user-defined literal suffix in C++11</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++11-compat</td>
+<td style="text-align:left">‘%0’ is a keyword in C++11</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-c++11-compat</td>
+<td style="text-align:left">digit separators are incompatible with C++ standards before C++1y</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-c++11-compat-pedantic</td>
+<td style="text-align:left">binary integer literals are incompatible with C++ standards before C++1y</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">raw string literals are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">unicode literals are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">universal character name referring to a control character is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">‘::’ is treated as digraph ‘:’ (aka ‘[‘) followed by ‘:’ in C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">using this character in an identifier is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">specifying character ‘%0’ with a universal character name is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat-pedantic</td>
+<td style="text-align:left">variadic macros are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat-pedantic</td>
+<td style="text-align:left">#line number greater than 32767 is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat-pedantic</td>
+<td style="text-align:left">C++98 requires newline at end of file</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat-pedantic</td>
+<td style="text-align:left">empty macro arguments are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc99-compat</td>
+<td style="text-align:left">unicode literals are incompatible with C99</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc99-compat</td>
+<td style="text-align:left">%select{using this character in an identifier&#124;starting an identifier with this character}0 is incompatible with C99</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wcomment</td>
+<td style="text-align:left">‘&#124;*’ within block comment</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wcomment</td>
+<td style="text-align:left">escaped newline between *&#124; characters at block comment end</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdisabled-macro-expansion</td>
+<td style="text-align:left">disabled expansion of recursive macro</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wheader-guard</td>
+<td style="text-align:left">%0 is used as a header guard here, followed by #define of a different macro</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">unknown attribute ‘%0’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wincomplete-module</td>
+<td style="text-align:left">header ‘%0’ is included in module ‘%1’ but not listed in module map</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wincomplete-umbrella</td>
+<td style="text-align:left">umbrella header for module ‘%0’ does not include header ‘%1’</td>
+</tr>
+<tr>
+<td style="text-align:left">-Winvalid-token-paste</td>
+<td style="text-align:left">pasting formed ‘%0’, an invalid preprocessing token, DefaultError</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmalformed-warning-check</td>
+<td style="text-align:left">__has_warning expected option name (e.g. \”-Wundef\”)</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wnewline-eof</td>
+<td style="text-align:left">no newline at end of file</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wnull-character</td>
+<td style="text-align:left">null character ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wnull-character</td>
+<td style="text-align:left">null character(s) preserved in string literal</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wnull-character</td>
+<td style="text-align:left">null character(s) preserved in character literal</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wtrigraphs</td>
+<td style="text-align:left">ignored trigraph would end block comment</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wtrigraphs</td>
+<td style="text-align:left">trigraph ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wundef</td>
+<td style="text-align:left">%0 is not defined, evaluates to 0</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunicode</td>
+<td style="text-align:left">universal character names are only valid in C99 or C++ treating as ‘\‘ followed by identifier</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunicode</td>
+<td style="text-align:left">\%0 used with no following hex digits treating as ‘\‘ followed by identifier</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunicode</td>
+<td style="text-align:left">incomplete universal character name treating as ‘\‘ followed by identifier</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunicode</td>
+<td style="text-align:left">universal character name refers to a surrogate character</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunknown-pragmas</td>
+<td style="text-align:left">unknown pragma ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunknown-pragmas</td>
+<td style="text-align:left">pragma STDC FENV_ACCESS ON is not supported, ignoring pragma</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wunused-macros</td>
+<td style="text-align:left">macro is not used</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Parser-Warnings-解析器警告"><a href="#Parser-Warnings-解析器警告" class="headerlink" title="Parser Warnings(解析器警告)"></a>Parser Warnings(解析器警告)</h2><table>
+<thead>
+<tr>
+<th style="text-align:left"><style> table th:first-of-type { width: 20%; } </style>Warning</th>
+<th style="text-align:left"><style> table th:nth-of-type(2) { width: 80%; } </style>Message </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">-Warc-bridge-casts-disallowed-in-nonarc</td>
+<td style="text-align:left">‘%0’ casts have no effect when not using ARC</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wattributes</td>
+<td style="text-align:left">unknown __declspec attribute %0 ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wavailability</td>
+<td style="text-align:left">‘unavailable’ availability overrides all other availability information</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++11-compat</td>
+<td style="text-align:left">use of right-shift operator (‘’) in template argument will require parentheses in C++11</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++11-compat</td>
+<td style="text-align:left">‘auto’ storage class specifier is redundant and incompatible with C++11</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-c++11-compat</td>
+<td style="text-align:left">‘decltype(auto)’ type specifier is incompatible with C++ standards before C++1y</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">range-based for loop is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">alias declarations are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">in-class initialization of non-static data members is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">defaulted function definitions are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">rvalue references are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">reference qualifiers on functions are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">inline namespaces are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">generalized initializer lists are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">trailing return types are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">enumeration types with a fixed underlying type are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">alignof expressions are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">‘%0’ keyword is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">‘decltype’ type specifier is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">deleted function definitions are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">consecutive right angle brackets are incompatible with C++98 (use ‘&gt; &gt;’)</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">static_assert declarations are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">scoped enumerations are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">lambda expressions are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">attributes are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">‘alignas’ is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">noexcept specifications are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">literal operators are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">noexcept expressions are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat</td>
+<td style="text-align:left">‘nullptr’ is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat-pedantic</td>
+<td style="text-align:left">extra ‘’ outside of a function is incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat-pedantic</td>
+<td style="text-align:left">extern templates are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wc++98-compat-pedantic</td>
+<td style="text-align:left">commas at the end of enumerator lists are incompatible with C++98</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdangling-else</td>
+<td style="text-align:left">add explicit braces to avoid dangling else</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdeprecated</td>
+<td style="text-align:left">Use of ‘long’ with ‘__vector’ is deprecated</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdeprecated-declarations</td>
+<td style="text-align:left">use of C-style parameters in Objective-C method declarations is deprecated</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wdeprecated-register</td>
+<td style="text-align:left">‘register’ storage class specifier is deprecated</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wduplicate-decl-specifier</td>
+<td style="text-align:left">duplicate ‘%0’ declaration specifier</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wextra-semi</td>
+<td style="text-align:left">extra ‘;’ after member function definition</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wextra-tokens</td>
+<td style="text-align:left">“extra tokens at the end of ‘#pragma omp %0’ are ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wgcc-compat</td>
+<td style="text-align:left">GCC does not allow %0 attribute in this position on a function definition</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wignored-attributes</td>
+<td style="text-align:left">attribute %0 ignored, because it is not attached to a declaration</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmicrosoft-exists</td>
+<td style="text-align:left">dependent %select{<strong>if_not_exists&#124;</strong>if_exists}0 declarations are ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wmissing-selector-name</td>
+<td style="text-align:left">%0 used as the name of the previous parameter rather than as part of the selector</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wsemicolon-before-method-body</td>
+<td style="text-align:left">semicolon before method body is ignored</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wsource-uses-openmp</td>
+<td style="text-align:left">“unexpected ‘#pragma omp …’ in program</td>
+</tr>
+<tr>
+<td style="text-align:left">-Wstatic-inline-explicit-instantiation</td>
+<td style="text-align:left">ignoring ‘%select{static&#124;inline}0’ keyword on explicit template instantiation</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2018/11/27/Xcode警告忽略/">Xcode警告忽略</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 liyb 的个人博客">liyb</a></p>
+  <p><span>发布时间:</span>2018年11月27日 - 15:11</p>
+  <p><span>最后更新:</span>2019年01月29日 - 18:01</p>
+  <p><span>原始链接:</span><a href="/2018/11/27/Xcode警告忽略/" title="Xcode警告忽略">http://liyb.club/2018/11/27/Xcode警告忽略/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://liyb.club/2018/11/27/Xcode警告忽略/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+    
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+            <a href="/tags/Xcode/" rel="tag"># Xcode</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/27/Protocl Buffers for iOS安装及使用(安装篇)/" rel="prev" title="Protocal Buffers for iOS的安装及使用(安装篇)">
+                Protocal Buffers for iOS的安装及使用(安装篇) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/11/27/Xcode警告忽略/" data-title="Xcode警告忽略" data-url="http://liyb.club/2018/11/27/Xcode警告忽略/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="liyb">
+          <p class="site-author-name" itemprop="name">liyb</p>
+           
+              <p class="site-description motion-element" itemprop="description">生活琐事、笔记杂谈</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/libcm" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/libcm/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/f5245d5aa143" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用方式"><span class="nav-number">1.</span> <span class="nav-text">使用方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#警告类型"><span class="nav-number">2.</span> <span class="nav-text">警告类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Semantic-Warnings-语义警告"><span class="nav-number">2.1.</span> <span class="nav-text">Semantic Warnings(语义警告)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lexer-Warnings-词法分析警告"><span class="nav-number">2.2.</span> <span class="nav-text">Lexer Warnings(词法分析警告)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parser-Warnings-解析器警告"><span class="nav-number">2.3.</span> <span class="nav-text">Parser Warnings(解析器警告)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liyb</span>
+</div>
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"libcm"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="local-search-pop-overlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/particle.js" count="50" zindex="-2" opacity="1" color="0,104,183"></script>
+  <!-- 小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.liyb.vip/"/>
-  <updated>2019-05-08T03:22:37.535Z</updated>
+  <updated>2019-08-07T03:54:00.999Z</updated>
   <id>https://www.liyb.vip/</id>
   
   <author>
@@ -17,13 +17,13 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hexo博客搭建 + Next主题美化</title>
+    <title>Hexo博客搭建</title>
     <link href="https://www.liyb.vip/2019/05/07/Hexo%E5%AE%89%E8%A3%85/"/>
     <id>https://www.liyb.vip/2019/05/07/Hexo安装/</id>
     <published>2019-05-07T10:45:07.636Z</published>
-    <updated>2019-05-08T03:22:37.535Z</updated>
+    <updated>2019-08-07T03:54:00.999Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h1><h2 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h2><p>安装前提</p><ul><li><a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a></li><li><a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a></li></ul><p>如果已经安装以上两项，可以直接安装hexo</p><pre><code>$ npm install -g hexo-cli</code></pre><p>初始化Hexo</p><pre><code>$ cd &lt;存放博客的路径&gt;$ hexo init &lt;博客名&gt;$ cd &lt;博客名&gt;$ npm install</code></pre><p>创建完成,目录结构如下:</p><pre><code>.├── _config.yml    // 配置文件├── package.json    // 应用程序的信息├── scaffolds        // 模版 文件夹├── source    // 资源文件夹|   ├── _drafts    |   └── _posts    // 文章└── themes    // 主题</code></pre><p>启动服务，查看效果</p><pre><code>$ hexo server // 或 hexo s</code></pre><p>浏览器访问:<a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a></p><h2 id="Github关联"><a href="#Github关联" class="headerlink" title="Github关联"></a>Github关联</h2><p>创建仓库，命名规则 <code>&lt;账户名&gt;.github.io</code></p><p>修改_config.yml配置文件，末尾修改为以下内容<font color="red">(注意:“:”后面有一个空格)</font></p><pre><code>deploy:      type: git      repository: https://github.com/xxx/xxx.github.io.git    // 刚才创建仓库git链接      branch: master</code></pre><p>推送到github仓库</p><pre><code>$ hexo g    // 生成html静态文件$ hexo d    // push到github</code></pre><p>然后浏览器访问 <code>https://&lt;账户名&gt;.github.io</code>，即可查看博客</p><h2 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h2><p>购买域名:<a href="https://wanwang.aliyun.com/" target="_blank" rel="noopener">阿里云万网</a>、<a href="https://dnspod.cloud.tencent.com/" target="_blank" rel="noopener">腾讯云</a>等</p><p>域名解析照下图添加即可</p><p><img src="/image/hexo/域名解析.png" alt="域名解析"></p><p>打开博客仓库</p><p><img src="/image/hexo/仓库设置.png" alt="仓库设置"><br><img src="/image/hexo/仓库设置_2.png" alt="仓库设置_2"></p><h1 id="Next主题美化"><a href="#Next主题美化" class="headerlink" title="Next主题美化"></a>Next主题美化</h1><h2 id="安装Next主题"><a href="#安装Next主题" class="headerlink" title="安装Next主题"></a>安装Next主题</h2><pre><code>$ git clone https://github.com/iissnan/hexo-theme-next themes/next</code></pre><p>下载完成把next文件拷贝或移动至博客项目的themes文件下</p><p>修改博客根目录下<code>_config.yml</code>文件，把theme修改为next，如下:</p><pre><code>theme: next</code></pre><h2 id="主题设置"><a href="#主题设置" class="headerlink" title="主题设置"></a>主题设置</h2><p>打开next主题中的<code>_config.yml</code>文件</p><h3 id="设置favicon图标"><a href="#设置favicon图标" class="headerlink" title="设置favicon图标"></a>设置favicon图标</h3><p><a href="https://tool.lu/favicon/" target="_blank" rel="noopener">制作</a>32x32和16x16图标，放入「next」-&gt; 「source」-&gt;「images」下</p><pre><code>favicon:      small: /images/favicon-16x16-next.ico      medium: /images/favicon-32x32-next.ico</code></pre><h3 id="设置主题Scheme"><a href="#设置主题Scheme" class="headerlink" title="设置主题Scheme"></a>设置主题Scheme</h3><p>Next提供四种Scheme,在<code>_config.yml</code>文件中放开一个注释即可,这里我使用的是Pisces。</p><pre><code># Schemes# scheme: Muse# scheme: Mistscheme: Pisces# scheme: Gemini</code></pre><h3 id="菜单设置"><a href="#菜单设置" class="headerlink" title="菜单设置"></a>菜单设置</h3><p><code>||</code>前面表示页面的md文件相对路径，后面表示图标,可在<code>Font Awesome</code>进行查找图标并替换</p><pre><code>menu:      home: / || home        // 首页      tags: /tags/ || tags    // 标签      categories: /categories/ || th    // 分类      archives: /archives/ || archive    // 归档      # schedule: /schedule/ || calendar      # sitemap: /sitemap.xml || sitemap      about: /about/ || user    // 关于      commonweal: 404.html || heartbeat        // 404</code></pre>]]></content>
+    <content type="html"><![CDATA[<h1 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h1><h2 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h2><p>安装前提</p><ul><li><a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a></li><li><a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a></li></ul><p>如果已经安装以上两项，可以直接安装hexo</p><pre><code>$ npm install -g hexo-cli</code></pre><p>初始化Hexo</p><pre><code>$ cd &lt;存放博客的路径&gt;$ hexo init &lt;博客名&gt;$ cd &lt;博客名&gt;$ npm install</code></pre><p>创建完成,目录结构如下:</p><pre><code>.├── _config.yml    // 配置文件├── package.json    // 应用程序的信息├── scaffolds        // 模版 文件夹├── source    // 资源文件夹|   ├── _drafts    |   └── _posts    // 文章└── themes    // 主题</code></pre><p>启动服务，查看效果</p><pre><code>$ hexo server // 或 hexo s</code></pre><p>浏览器访问:<a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a></p><h2 id="Github关联"><a href="#Github关联" class="headerlink" title="Github关联"></a>Github关联</h2><p>创建仓库，命名规则 <code>&lt;账户名&gt;.github.io</code></p><p>修改_config.yml配置文件，末尾修改为以下内容<font color="red">(注意:“:”后面有一个空格)</font></p><pre><code>deploy:      type: git      repository: https://github.com/xxx/xxx.github.io.git    // 刚才创建仓库git链接      branch: master</code></pre><p>推送到github仓库</p><pre><code>$ hexo g    // 生成html静态文件$ hexo d    // push到github</code></pre><p>然后浏览器访问 <code>https://&lt;账户名&gt;.github.io</code>，即可查看博客</p><h2 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h2><p>购买域名:<a href="https://wanwang.aliyun.com/" target="_blank" rel="noopener">阿里云万网</a>、<a href="https://dnspod.cloud.tencent.com/" target="_blank" rel="noopener">腾讯云</a>等</p><p>域名解析照下图添加即可</p><p><img src="/image/hexo/域名解析.png" alt="域名解析"></p><p>打开博客仓库</p><p><img src="/image/hexo/仓库设置.png" alt="仓库设置"><br><img src="/image/hexo/仓库设置_2.png" alt="仓库设置_2"></p>]]></content>
     
     <summary type="html">
     
@@ -93,33 +93,6 @@
   </entry>
   
   <entry>
-    <title>Protocal Buffers for iOS的安装及使用(使用篇)</title>
-    <link href="https://www.liyb.vip/2018/11/27/Protocal%20Buffers%20for%20iOS%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8(%E4%BD%BF%E7%94%A8%E7%AF%87)/"/>
-    <id>https://www.liyb.vip/2018/11/27/Protocal Buffers for iOS的安装及使用(使用篇)/</id>
-    <published>2018-11-27T07:39:08.939Z</published>
-    <updated>2019-02-17T07:29:26.821Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><ul><li><p>1.从<a href="https://github.com/google/protobuf.git" target="_blank" rel="noopener">https://github.com/google/protobuf.git</a>下载源码，解压，里面有支持不同语言的版本源码，我们只需要里面的支持objc的文件夹名为：<code>objectivec</code></p><p>  <img src="/image/ProtocalBuffers/1-1.png" alt="1-1"></p></li><li><p>2.新建一个工程命名为<code>ProtocolBufferTest</code>，创建一个文件夹，假设命名为：<code>protocolbuf</code>， 把第一步的pb源码复制到此文件夹中：</p><p>  <img src="/image/ProtocalBuffers/2-1.png" alt="2-1"></p></li><li><p>3.使用Xcode打开工程，点击左下角<code>+</code>， 引用<code>protocolBuffer</code>源文件到工程中<br>(源文件里面有两个工程配置文件：<code>ProtocolBuffers_iOS.xcodeproj</code>和<code>ProtocolBuffers_OSX.xcodeproj</code>，引用<code>ProtocolBuffers_iOS.xcodeproj</code>就好)</p><p>  <img src="/image/ProtocalBuffers/3-1.png" alt="3-1"><br>  <img src="/image/ProtocalBuffers/3-2.png" alt="3-2"></p></li><li><p>4.选中工程: <code>targets</code>—&gt;<code>Build Phases</code>—&gt;<code>Link Binary With Libraries</code>， 引用源码静态库文件：<code>libProtocolBuffers.a</code></p><p>  <img src="/image/ProtocalBuffers/4-1.png" alt="4-1"></p></li><li><p>5.在工程设置搜索静态库的头文件（pb文件在protocolbuf文件夹里面）:<br><code>targets</code>—&gt;<code>Build Setting</code>—&gt;<code>Search Paths</code>—&gt;<code>Header Search Paths</code>, 写入：<code>$(PROJECT)/protocolbuf</code></p><p>   <img src="/image/ProtocalBuffers/5-1.png" alt="5-1"></p></li><li><p>6.编写测试文件<code>*.proto</code>，比如新建一个文件<code>Person.proto</code>, 按照官方标准语法<code>https://developers.google.com/protocol-buffers/</code> 编写通用代码，写好后在终端进入该<code>Person.proto</code>文件所在目录，使用protoc命令：<code>protoc *.proto --objc_out=../Pro_out</code> 进行编译。把<code>Person.proto</code>文件编译成<code>Person.pbobjc.h</code>和<code>Person.pbobjc.m</code>, 生成的文件在<code>Pro_out</code>文件夹里面。如果<code>Person.proto</code>源文件有语法问题，编译时会报错；当编译时什么提示都没有，表示编译成功：将编译好的<code>*.pbobjc.h</code>和<code>*.pbobjc.m</code>拖入工程中，因为不支持arc, 所以需要在<code>*.pbobjc.m</code>设置<code>-fno-objc-arc</code>, 然后就可以使用了</p><p>   <img src="/image/ProtocalBuffers/6-1.png" alt="6-1"><br>   <img src="/image/ProtocalBuffers/6-2.png" alt="6-2"><br>   <img src="/image/ProtocalBuffers/6-3.png" alt="6-3"><br>   <img src="/image/ProtocalBuffers/6-4.png" alt="6-4"></p></li><li><p>7.序列化与反序列化</p><pre><code>Person *p = [[Person alloc] init];p.name = @&quot;xiao&quot;;p.age = 2;p.address = @&quot;哈哈哈&quot;;NSLog(@&quot;name:%@, age:%zi, address:%@&quot;, p.name, p.age, p.address);//    序列化NSData *data = [p data];NSLog(@&quot;data:%@&quot;, data);//    反序列化    NSError *error;Person *per = [Person parseFromData:data error:&amp;error];if (!error) {    NSLog(@&quot;_____name:%@, age:%zi, address:%@_____&quot;, per.name, per.age, per.address);}</code></pre></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;使用&quot;&gt;&lt;a href=&quot;#使用&quot; class=&quot;headerlink&quot; title=&quot;使用&quot;&gt;&lt;/a&gt;使用&lt;/h1&gt;&lt;h2 id=&quot;下载源码&quot;&gt;&lt;a href=&quot;#下载源码&quot; class=&quot;headerlink&quot; title=&quot;下载源码&quot;&gt;&lt;/a&gt;下载源码&lt;/h
-      
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
-    
-    
-      <category term="Objective-C" scheme="https://www.liyb.vip/tags/Objective-C/"/>
-    
-      <category term="Protocal Buffers" scheme="https://www.liyb.vip/tags/Protocal-Buffers/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Swift和Objective-C中的小知识</title>
     <link href="https://www.liyb.vip/2018/11/27/Swift%E5%92%8CObjective-C/"/>
     <id>https://www.liyb.vip/2018/11/27/Swift和Objective-C/</id>
@@ -141,7 +114,35 @@
       <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
     
     
+      <category term="swift" scheme="https://www.liyb.vip/tags/swift/"/>
+    
       <category term="Objective-C" scheme="https://www.liyb.vip/tags/Objective-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Swift高阶函数</title>
+    <link href="https://www.liyb.vip/2018/11/27/Swift%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0/"/>
+    <id>https://www.liyb.vip/2018/11/27/Swift高阶函数/</id>
+    <published>2018-11-27T07:39:08.939Z</published>
+    <updated>2019-02-17T07:30:06.492Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><ul><li><p>转换，可以将数组中的元素格式进行转换</p><pre><code>// 将int数组转换成String数组// $0代表数组的元素let array = [1, 2, 3, 4, 5]let result = array.map {    String($0)}</code></pre></li></ul><h2 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h2><ul><li><p>过滤，可以对数组中元素按照某种规律进行过滤</p><pre><code>// 在array中过滤出偶数let result = array.filter {    $0 % 2 == 0}</code></pre></li></ul><h2 id="Reduce"><a href="#Reduce" class="headerlink" title="Reduce"></a>Reduce</h2><ul><li><p>计算，可以对数组中的元素进行计算</p><pre><code>// 计算数组array元素的和// 在这里$0和$1的意义不同，$0代表计算后的结果，$1代表元素// 10代表初始值，在这里可以理解为 $0初始值 = 10let result = array.reduce(10) {    $0 + $1} </code></pre></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Map&quot;&gt;&lt;a href=&quot;#Map&quot; class=&quot;headerlink&quot; title=&quot;Map&quot;&gt;&lt;/a&gt;Map&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;转换，可以将数组中的元素格式进行转换&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// 将int数组转换成String数组
+//
+      
+    
+    </summary>
+    
+      <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
+    
     
       <category term="swift" scheme="https://www.liyb.vip/tags/swift/"/>
     
@@ -175,22 +176,19 @@
   </entry>
   
   <entry>
-    <title>Swift高阶函数</title>
-    <link href="https://www.liyb.vip/2018/11/27/Swift%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0/"/>
-    <id>https://www.liyb.vip/2018/11/27/Swift高阶函数/</id>
+    <title>Protocal Buffers for iOS的安装及使用(使用篇)</title>
+    <link href="https://www.liyb.vip/2018/11/27/Protocal%20Buffers%20for%20iOS%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8(%E4%BD%BF%E7%94%A8%E7%AF%87)/"/>
+    <id>https://www.liyb.vip/2018/11/27/Protocal Buffers for iOS的安装及使用(使用篇)/</id>
     <published>2018-11-27T07:39:08.939Z</published>
-    <updated>2019-02-17T07:30:06.492Z</updated>
+    <updated>2019-02-17T07:29:26.821Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><ul><li><p>转换，可以将数组中的元素格式进行转换</p><pre><code>// 将int数组转换成String数组// $0代表数组的元素let array = [1, 2, 3, 4, 5]let result = array.map {    String($0)}</code></pre></li></ul><h2 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h2><ul><li><p>过滤，可以对数组中元素按照某种规律进行过滤</p><pre><code>// 在array中过滤出偶数let result = array.filter {    $0 % 2 == 0}</code></pre></li></ul><h2 id="Reduce"><a href="#Reduce" class="headerlink" title="Reduce"></a>Reduce</h2><ul><li><p>计算，可以对数组中的元素进行计算</p><pre><code>// 计算数组array元素的和// 在这里$0和$1的意义不同，$0代表计算后的结果，$1代表元素// 10代表初始值，在这里可以理解为 $0初始值 = 10let result = array.reduce(10) {    $0 + $1} </code></pre></li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><ul><li><p>1.从<a href="https://github.com/google/protobuf.git" target="_blank" rel="noopener">https://github.com/google/protobuf.git</a>下载源码，解压，里面有支持不同语言的版本源码，我们只需要里面的支持objc的文件夹名为：<code>objectivec</code></p><p>  <img src="/image/ProtocalBuffers/1-1.png" alt="1-1"></p></li><li><p>2.新建一个工程命名为<code>ProtocolBufferTest</code>，创建一个文件夹，假设命名为：<code>protocolbuf</code>， 把第一步的pb源码复制到此文件夹中：</p><p>  <img src="/image/ProtocalBuffers/2-1.png" alt="2-1"></p></li><li><p>3.使用Xcode打开工程，点击左下角<code>+</code>， 引用<code>protocolBuffer</code>源文件到工程中<br>(源文件里面有两个工程配置文件：<code>ProtocolBuffers_iOS.xcodeproj</code>和<code>ProtocolBuffers_OSX.xcodeproj</code>，引用<code>ProtocolBuffers_iOS.xcodeproj</code>就好)</p><p>  <img src="/image/ProtocalBuffers/3-1.png" alt="3-1"><br>  <img src="/image/ProtocalBuffers/3-2.png" alt="3-2"></p></li><li><p>4.选中工程: <code>targets</code>—&gt;<code>Build Phases</code>—&gt;<code>Link Binary With Libraries</code>， 引用源码静态库文件：<code>libProtocolBuffers.a</code></p><p>  <img src="/image/ProtocalBuffers/4-1.png" alt="4-1"></p></li><li><p>5.在工程设置搜索静态库的头文件（pb文件在protocolbuf文件夹里面）:<br><code>targets</code>—&gt;<code>Build Setting</code>—&gt;<code>Search Paths</code>—&gt;<code>Header Search Paths</code>, 写入：<code>$(PROJECT)/protocolbuf</code></p><p>   <img src="/image/ProtocalBuffers/5-1.png" alt="5-1"></p></li><li><p>6.编写测试文件<code>*.proto</code>，比如新建一个文件<code>Person.proto</code>, 按照官方标准语法<code>https://developers.google.com/protocol-buffers/</code> 编写通用代码，写好后在终端进入该<code>Person.proto</code>文件所在目录，使用protoc命令：<code>protoc *.proto --objc_out=../Pro_out</code> 进行编译。把<code>Person.proto</code>文件编译成<code>Person.pbobjc.h</code>和<code>Person.pbobjc.m</code>, 生成的文件在<code>Pro_out</code>文件夹里面。如果<code>Person.proto</code>源文件有语法问题，编译时会报错；当编译时什么提示都没有，表示编译成功：将编译好的<code>*.pbobjc.h</code>和<code>*.pbobjc.m</code>拖入工程中，因为不支持arc, 所以需要在<code>*.pbobjc.m</code>设置<code>-fno-objc-arc</code>, 然后就可以使用了</p><p>   <img src="/image/ProtocalBuffers/6-1.png" alt="6-1"><br>   <img src="/image/ProtocalBuffers/6-2.png" alt="6-2"><br>   <img src="/image/ProtocalBuffers/6-3.png" alt="6-3"><br>   <img src="/image/ProtocalBuffers/6-4.png" alt="6-4"></p></li><li><p>7.序列化与反序列化</p><pre><code>Person *p = [[Person alloc] init];p.name = @&quot;xiao&quot;;p.age = 2;p.address = @&quot;哈哈哈&quot;;NSLog(@&quot;name:%@, age:%zi, address:%@&quot;, p.name, p.age, p.address);//    序列化NSData *data = [p data];NSLog(@&quot;data:%@&quot;, data);//    反序列化    NSError *error;Person *per = [Person parseFromData:data error:&amp;error];if (!error) {    NSLog(@&quot;_____name:%@, age:%zi, address:%@_____&quot;, per.name, per.age, per.address);}</code></pre></li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h2 id=&quot;Map&quot;&gt;&lt;a href=&quot;#Map&quot; class=&quot;headerlink&quot; title=&quot;Map&quot;&gt;&lt;/a&gt;Map&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;转换，可以将数组中的元素格式进行转换&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;// 将int数组转换成String数组
-//
+        &lt;h1 id=&quot;使用&quot;&gt;&lt;a href=&quot;#使用&quot; class=&quot;headerlink&quot; title=&quot;使用&quot;&gt;&lt;/a&gt;使用&lt;/h1&gt;&lt;h2 id=&quot;下载源码&quot;&gt;&lt;a href=&quot;#下载源码&quot; class=&quot;headerlink&quot; title=&quot;下载源码&quot;&gt;&lt;/a&gt;下载源码&lt;/h
       
     
     </summary>
@@ -198,7 +196,9 @@
       <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
     
     
-      <category term="swift" scheme="https://www.liyb.vip/tags/swift/"/>
+      <category term="Objective-C" scheme="https://www.liyb.vip/tags/Objective-C/"/>
+    
+      <category term="Protocal Buffers" scheme="https://www.liyb.vip/tags/Protocal-Buffers/"/>
     
   </entry>
   
@@ -224,9 +224,9 @@
       <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
     
     
-      <category term="Objective-C" scheme="https://www.liyb.vip/tags/Objective-C/"/>
-    
       <category term="swift" scheme="https://www.liyb.vip/tags/swift/"/>
+    
+      <category term="Objective-C" scheme="https://www.liyb.vip/tags/Objective-C/"/>
     
       <category term="Xcode" scheme="https://www.liyb.vip/tags/Xcode/"/>
     

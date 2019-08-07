@@ -142,6 +142,14 @@
 
 <body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
+<!-- 播放器 -->
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+<!-- 看板娘 -->
+<!-- <script src="/live2d-widget/autoload.js"></script> -->
+
   
   
     
@@ -509,8 +517,8 @@ let result = array.reduce(10) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/27/Xcode警告忽略/" rel="next" title="Xcode警告忽略">
-                <i class="fa fa-chevron-left"></i> Xcode警告忽略
+              <a href="/2018/11/27/Protocl Buffers for iOS安装及使用(安装篇)/" rel="next" title="Protocal Buffers for iOS的安装及使用(安装篇)">
+                <i class="fa fa-chevron-left"></i> Protocal Buffers for iOS的安装及使用(安装篇)
               </a>
             
           </div>
@@ -519,8 +527,8 @@ let result = array.reduce(10) {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/27/Protocl Buffers for iOS安装及使用(安装篇)/" rel="prev" title="Protocal Buffers for iOS的安装及使用(安装篇)">
-                Protocal Buffers for iOS的安装及使用(安装篇) <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/27/Swift和Objective-C/" rel="prev" title="Swift和Objective-C中的小知识">
+                Swift和Objective-C中的小知识 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -681,15 +689,9 @@ var jiathis_config={
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="http://weibo.com/libcm/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="微博">
+                    <a href="mailto:libcm93@gmail.com" target="_blank" title="E-Mail">
                       
-                        <i class="fa fa-fw fa-weibo"></i>微博</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="http://www.jianshu.com/u/f5245d5aa143" target="_blank" title="简书">
-                      
-                        <i class="fa fa-fw fa-book"></i>简书</a>
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                   </span>
                 
             </div>
@@ -701,7 +703,28 @@ var jiathis_config={
           
           
 
-          
+          <div id="player1" class="aplayer"></div>
+<script src="/js/src/APlayer.min.js"></script>
+<script type="text/javascript">
+var ap = new APlayer({
+    element: document.getElementById('player1'),                       // Optional, player element
+    narrow: false,                                                     // Optional, narrow style
+    autoplay: true,                                                    // Optional, autoplay song(s), not supported by mobile browsers
+    showlrc: 0,                                                        // Optional, show lrc, can be 0, 1, 2, see: ###With lrc
+    mutex: true,                                                       // Optional, pause other players when this player playing
+    theme: '#e6d0b2',                                                  // Optional, theme color, default: #b7daff
+    mode: 'random',                                                    // Optional, play mode, can be `random` `single` `circulation`(loop) `order`(no loop), default: `circulation`
+    preload: 'metadata',                                               // Optional, the way to load music, can be 'none' 'metadata' 'auto', default: 'auto'
+    listmaxheight: '513px',                                             // Optional, max height of play list
+    music: {                                                           // Required, music info, see: ###With playlist
+        title: 'Preparation',                                          // Required, music title
+        author: 'Hans Zimmer/Richard Harvey',                          // Required, music author
+        url: 'http://7xifn9.com1.z0.glb.clouddn.com/Preparation.mp3',  // Required, music url
+        pic: 'http://7xifn9.com1.z0.glb.clouddn.com/Preparation.jpg',  // Optional, music picture
+        lrc: '[00:00.00]lrc here\n[00:01.00]aplayer'                   // Optional, lrc, see: ###With lrc
+    }
+});
+</script>
 
         </div>
       </section>
@@ -1262,8 +1285,6 @@ var jiathis_config={
 
   
 
-</body>
-<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
-<script src="/live2d-widget/autoload.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
+

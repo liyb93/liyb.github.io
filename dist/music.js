@@ -1,7 +1,7 @@
 const ap = new APlayer({
     container: document.getElementById('aplayer'),
     fixed: true,  // 开启吸底模式
-    autoplay: true, // 自动播放
+    autoplay: false, // 自动播放
     lrcType: 3, // 歌词类型
     order: 'random', // 随机播放
     loop: 'all', // 循环播放

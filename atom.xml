@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.liyb.vip/"/>
-  <updated>2019-04-19T08:18:20.692Z</updated>
+  <updated>2019-05-08T03:22:37.535Z</updated>
   <id>https://www.liyb.vip/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hexo博客搭建 + Next主题美化</title>
+    <link href="https://www.liyb.vip/2019/05/07/Hexo%E5%AE%89%E8%A3%85/"/>
+    <id>https://www.liyb.vip/2019/05/07/Hexo安装/</id>
+    <published>2019-05-07T10:45:07.636Z</published>
+    <updated>2019-05-08T03:22:37.535Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h1><h2 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h2><p>安装前提</p><ul><li><a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a></li><li><a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a></li></ul><p>如果已经安装以上两项，可以直接安装hexo</p><pre><code>$ npm install -g hexo-cli</code></pre><p>初始化Hexo</p><pre><code>$ cd &lt;存放博客的路径&gt;$ hexo init &lt;博客名&gt;$ cd &lt;博客名&gt;$ npm install</code></pre><p>创建完成,目录结构如下:</p><pre><code>.├── _config.yml    // 配置文件├── package.json    // 应用程序的信息├── scaffolds        // 模版 文件夹├── source    // 资源文件夹|   ├── _drafts    |   └── _posts    // 文章└── themes    // 主题</code></pre><p>启动服务，查看效果</p><pre><code>$ hexo server // 或 hexo s</code></pre><p>浏览器访问:<a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a></p><h2 id="Github关联"><a href="#Github关联" class="headerlink" title="Github关联"></a>Github关联</h2><p>创建仓库，命名规则 <code>&lt;账户名&gt;.github.io</code></p><p>修改_config.yml配置文件，末尾修改为以下内容<font color="red">(注意:“:”后面有一个空格)</font></p><pre><code>deploy:      type: git      repository: https://github.com/xxx/xxx.github.io.git    // 刚才创建仓库git链接      branch: master</code></pre><p>推送到github仓库</p><pre><code>$ hexo g    // 生成html静态文件$ hexo d    // push到github</code></pre><p>然后浏览器访问 <code>https://&lt;账户名&gt;.github.io</code>，即可查看博客</p><h2 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h2><p>购买域名:<a href="https://wanwang.aliyun.com/" target="_blank" rel="noopener">阿里云万网</a>、<a href="https://dnspod.cloud.tencent.com/" target="_blank" rel="noopener">腾讯云</a>等</p><p>域名解析照下图添加即可</p><p><img src="/image/hexo/域名解析.png" alt="域名解析"></p><p>打开博客仓库</p><p><img src="/image/hexo/仓库设置.png" alt="仓库设置"><br><img src="/image/hexo/仓库设置_2.png" alt="仓库设置_2"></p><h1 id="Next主题美化"><a href="#Next主题美化" class="headerlink" title="Next主题美化"></a>Next主题美化</h1><h2 id="安装Next主题"><a href="#安装Next主题" class="headerlink" title="安装Next主题"></a>安装Next主题</h2><pre><code>$ git clone https://github.com/iissnan/hexo-theme-next themes/next</code></pre><p>下载完成把next文件拷贝或移动至博客项目的themes文件下</p><p>修改博客根目录下<code>_config.yml</code>文件，把theme修改为next，如下:</p><pre><code>theme: next</code></pre><h2 id="主题设置"><a href="#主题设置" class="headerlink" title="主题设置"></a>主题设置</h2><p>打开next主题中的<code>_config.yml</code>文件</p><h3 id="设置favicon图标"><a href="#设置favicon图标" class="headerlink" title="设置favicon图标"></a>设置favicon图标</h3><p><a href="https://tool.lu/favicon/" target="_blank" rel="noopener">制作</a>32x32和16x16图标，放入「next」-&gt; 「source」-&gt;「images」下</p><pre><code>favicon:      small: /images/favicon-16x16-next.ico      medium: /images/favicon-32x32-next.ico</code></pre><h3 id="设置主题Scheme"><a href="#设置主题Scheme" class="headerlink" title="设置主题Scheme"></a>设置主题Scheme</h3><p>Next提供四种Scheme,在<code>_config.yml</code>文件中放开一个注释即可,这里我使用的是Pisces。</p><pre><code># Schemes# scheme: Muse# scheme: Mistscheme: Pisces# scheme: Gemini</code></pre><h3 id="菜单设置"><a href="#菜单设置" class="headerlink" title="菜单设置"></a>菜单设置</h3><p><code>||</code>前面表示页面的md文件相对路径，后面表示图标,可在<code>Font Awesome</code>进行查找图标并替换</p><pre><code>menu:      home: / || home        // 首页      tags: /tags/ || tags    // 标签      categories: /categories/ || th    // 分类      archives: /archives/ || archive    // 归档      # schedule: /schedule/ || calendar      # sitemap: /sitemap.xml || sitemap      about: /about/ || user    // 关于      commonweal: 404.html || heartbeat        // 404</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;博客搭建&quot;&gt;&lt;a href=&quot;#博客搭建&quot; class=&quot;headerlink&quot; title=&quot;博客搭建&quot;&gt;&lt;/a&gt;博客搭建&lt;/h1&gt;&lt;h2 id=&quot;Hexo安装&quot;&gt;&lt;a href=&quot;#Hexo安装&quot; class=&quot;headerlink&quot; title=&quot;Hexo安
+      
+    
+    </summary>
+    
+      <category term="hexo" scheme="https://www.liyb.vip/categories/hexo/"/>
+    
+    
+      <category term="other" scheme="https://www.liyb.vip/tags/other/"/>
+    
+  </entry>
   
   <entry>
     <title>MacOS 10.14.x安装旧版iTunes</title>
@@ -95,33 +120,6 @@
   </entry>
   
   <entry>
-    <title>Protocal Buffers for iOS的安装及使用(安装篇)</title>
-    <link href="https://www.liyb.vip/2018/11/27/Protocl%20Buffers%20for%20iOS%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8(%E5%AE%89%E8%A3%85%E7%AF%87)/"/>
-    <id>https://www.liyb.vip/2018/11/27/Protocl Buffers for iOS安装及使用(安装篇)/</id>
-    <published>2018-11-27T07:39:08.939Z</published>
-    <updated>2019-02-17T07:29:47.398Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="安装Protocal-Buffers"><a href="#安装Protocal-Buffers" class="headerlink" title="安装Protocal Buffers"></a>安装Protocal Buffers</h2><ul><li><p>执行 <code>brew -v</code> 命令</p><p>  这条命令是查看你的mac里面有没有装brew。brew是mac os里面，类似于ubuntu的apt-get的功能，都可以直接在终端输入命令然后安装程序。－v自然就是版本version的意思</p></li><li><p>下载brew安装环境</p><pre><code>ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</code></pre></li><li><p>分别执行下面三条命令</p><pre><code>brew install automakebrew install libtoolbrew install protobuf</code></pre><p>  就是利用brew下载安装了。protobuf就是我们想要的，另外两个是依赖库</p></li></ul><h2 id="clone-Protocal-Buffers库"><a href="#clone-Protocal-Buffers库" class="headerlink" title="clone Protocal Buffers库"></a>clone Protocal Buffers库</h2><ul><li><p>执行下列命令</p><pre><code>git clone https://github.com/alexeyxo/protobuf-objc.git./build.sh</code></pre><p>  从github下载protobuf－objc这个工程，build脚本里面做的是编译</p><p>  注意：编译工程过程中，有可能会出现错误。别慌！看编译错误的提示。一般错误只是因为环境变量和路径没有配置好，少了一些东西，例如少了编译protobuf这个工程的依赖库，按照提示添加路径即可。有了工程以后，我们就可以开始测试一下怎么用protobuf了</p></li></ul><h2 id="导入工程"><a href="#导入工程" class="headerlink" title="导入工程"></a>导入工程</h2><ul><li><p>打开Xcode！新建一个工程！ 然后有两个方法把protobuf添加到你的工程里面，一个是直接添加，一个是利用cocoapod 强烈推荐后者，因为cocoapods能够很方便的管理第三方类库，以后人家的工程升级了，你只需要一行 pod update 就ok了。关于安装和使用cocoapod，属于另一个话题，在Podfile添加下面这个句子</p><pre><code>platform :ios , 8.0pod ProtocolBuffers,</code></pre><p>  在保存之后，到终端，cd到工程里面，</p><pre><code>pod install</code></pre><p>  等一会，cocoapod就会帮我们添加好，以后我们就应该打开 project的workspace，因为添加了pod作为子工程。</p></li></ul><h2 id="创建Protocal-Buffers文件"><a href="#创建Protocal-Buffers文件" class="headerlink" title="创建Protocal Buffers文件"></a>创建Protocal Buffers文件</h2><ul><li><p>在你的工程里面，新建一个文件夹，假如命名叫Protobuf 在这个文件夹里面新建一个proto文件。例如要在本地储存用户信息，那么就新建一个user.proto 里面内容可以如下</p><pre><code>syntax = &quot;proto2&quot;;            // Protocal Buffers版本message PBUser {required string userId = 1;         // 用户IDoptional string nick = 2;            // 用户昵称optional string avatar = 3;        // 用户头像optional string password = 7;optional string email = 8;optional string mobile = 9;         // 手机号码optional string qqOpenId = 10;    // QQ IDoptional string sinaId = 11;         // SINA UserIDoptional string weixinId = 12;     // WeChat UserID}</code></pre><p>  上面这个例子包括了几个要素。 一个是包名。包的概念在object c里面没有，java里面有，c++里面namespace也是差不多意思。 顺便提一下，oc里面一般在库名前面添加两个字母，起的作用差不多就是包的作用，作为类的上一层组织结构。 例如官方的NS，例如AFNetworking这种第三方类库的AF。</p><p>  回到正题。编写pb文件，第二个要素是message 一个message就是一个整体，里面有哪些必要的内容，哪些可选的内容。详细的proto语法随便一找一大把，就不啰嗦了。</p></li></ul><h2 id="Protocal-Buffers文件转换"><a href="#Protocal-Buffers文件转换" class="headerlink" title="Protocal Buffers文件转换"></a>Protocal Buffers文件转换</h2><ul><li><p>写好了proto，接下来就是编译这个proto文件，protobuf－objc这个类库会编译声称一些源码，是读写proto数据的接口API。 编译命令如下： 先打开工程，建议单独新建一个文件夹作为输出路径，例如工程下新建文件夹Gen，用来放generate出来的.pb.h文件&amp;&amp;.pb.m文件 打开终端 cd到工程路径下</p><pre><code>protoc --plugin=/usr/local/bin/protoc-gen-objc person.proto --objc_out=./Gen</code></pre></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;h2 id=&quot;安装Protocal-Buffers&quot;&gt;&lt;a href=&quot;#安装Protocal-Buffers&quot; class=&quot;headerli
-      
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
-    
-    
-      <category term="Objective-C" scheme="https://www.liyb.vip/tags/Objective-C/"/>
-    
-      <category term="Protocal Buffers" scheme="https://www.liyb.vip/tags/Protocal-Buffers/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Swift和Objective-C中的小知识</title>
     <link href="https://www.liyb.vip/2018/11/27/Swift%E5%92%8CObjective-C/"/>
     <id>https://www.liyb.vip/2018/11/27/Swift和Objective-C/</id>
@@ -146,6 +144,33 @@
       <category term="Objective-C" scheme="https://www.liyb.vip/tags/Objective-C/"/>
     
       <category term="swift" scheme="https://www.liyb.vip/tags/swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Protocal Buffers for iOS的安装及使用(安装篇)</title>
+    <link href="https://www.liyb.vip/2018/11/27/Protocl%20Buffers%20for%20iOS%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8(%E5%AE%89%E8%A3%85%E7%AF%87)/"/>
+    <id>https://www.liyb.vip/2018/11/27/Protocl Buffers for iOS安装及使用(安装篇)/</id>
+    <published>2018-11-27T07:39:08.939Z</published>
+    <updated>2019-02-17T07:29:47.398Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="安装Protocal-Buffers"><a href="#安装Protocal-Buffers" class="headerlink" title="安装Protocal Buffers"></a>安装Protocal Buffers</h2><ul><li><p>执行 <code>brew -v</code> 命令</p><p>  这条命令是查看你的mac里面有没有装brew。brew是mac os里面，类似于ubuntu的apt-get的功能，都可以直接在终端输入命令然后安装程序。－v自然就是版本version的意思</p></li><li><p>下载brew安装环境</p><pre><code>ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</code></pre></li><li><p>分别执行下面三条命令</p><pre><code>brew install automakebrew install libtoolbrew install protobuf</code></pre><p>  就是利用brew下载安装了。protobuf就是我们想要的，另外两个是依赖库</p></li></ul><h2 id="clone-Protocal-Buffers库"><a href="#clone-Protocal-Buffers库" class="headerlink" title="clone Protocal Buffers库"></a>clone Protocal Buffers库</h2><ul><li><p>执行下列命令</p><pre><code>git clone https://github.com/alexeyxo/protobuf-objc.git./build.sh</code></pre><p>  从github下载protobuf－objc这个工程，build脚本里面做的是编译</p><p>  注意：编译工程过程中，有可能会出现错误。别慌！看编译错误的提示。一般错误只是因为环境变量和路径没有配置好，少了一些东西，例如少了编译protobuf这个工程的依赖库，按照提示添加路径即可。有了工程以后，我们就可以开始测试一下怎么用protobuf了</p></li></ul><h2 id="导入工程"><a href="#导入工程" class="headerlink" title="导入工程"></a>导入工程</h2><ul><li><p>打开Xcode！新建一个工程！ 然后有两个方法把protobuf添加到你的工程里面，一个是直接添加，一个是利用cocoapod 强烈推荐后者，因为cocoapods能够很方便的管理第三方类库，以后人家的工程升级了，你只需要一行 pod update 就ok了。关于安装和使用cocoapod，属于另一个话题，在Podfile添加下面这个句子</p><pre><code>platform :ios , 8.0pod ProtocolBuffers,</code></pre><p>  在保存之后，到终端，cd到工程里面，</p><pre><code>pod install</code></pre><p>  等一会，cocoapod就会帮我们添加好，以后我们就应该打开 project的workspace，因为添加了pod作为子工程。</p></li></ul><h2 id="创建Protocal-Buffers文件"><a href="#创建Protocal-Buffers文件" class="headerlink" title="创建Protocal Buffers文件"></a>创建Protocal Buffers文件</h2><ul><li><p>在你的工程里面，新建一个文件夹，假如命名叫Protobuf 在这个文件夹里面新建一个proto文件。例如要在本地储存用户信息，那么就新建一个user.proto 里面内容可以如下</p><pre><code>syntax = &quot;proto2&quot;;            // Protocal Buffers版本message PBUser {required string userId = 1;         // 用户IDoptional string nick = 2;            // 用户昵称optional string avatar = 3;        // 用户头像optional string password = 7;optional string email = 8;optional string mobile = 9;         // 手机号码optional string qqOpenId = 10;    // QQ IDoptional string sinaId = 11;         // SINA UserIDoptional string weixinId = 12;     // WeChat UserID}</code></pre><p>  上面这个例子包括了几个要素。 一个是包名。包的概念在object c里面没有，java里面有，c++里面namespace也是差不多意思。 顺便提一下，oc里面一般在库名前面添加两个字母，起的作用差不多就是包的作用，作为类的上一层组织结构。 例如官方的NS，例如AFNetworking这种第三方类库的AF。</p><p>  回到正题。编写pb文件，第二个要素是message 一个message就是一个整体，里面有哪些必要的内容，哪些可选的内容。详细的proto语法随便一找一大把，就不啰嗦了。</p></li></ul><h2 id="Protocal-Buffers文件转换"><a href="#Protocal-Buffers文件转换" class="headerlink" title="Protocal Buffers文件转换"></a>Protocal Buffers文件转换</h2><ul><li><p>写好了proto，接下来就是编译这个proto文件，protobuf－objc这个类库会编译声称一些源码，是读写proto数据的接口API。 编译命令如下： 先打开工程，建议单独新建一个文件夹作为输出路径，例如工程下新建文件夹Gen，用来放generate出来的.pb.h文件&amp;&amp;.pb.m文件 打开终端 cd到工程路径下</p><pre><code>protoc --plugin=/usr/local/bin/protoc-gen-objc person.proto --objc_out=./Gen</code></pre></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;h2 id=&quot;安装Protocal-Buffers&quot;&gt;&lt;a href=&quot;#安装Protocal-Buffers&quot; class=&quot;headerli
+      
+    
+    </summary>
+    
+      <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
+    
+    
+      <category term="Objective-C" scheme="https://www.liyb.vip/tags/Objective-C/"/>
+    
+      <category term="Protocal Buffers" scheme="https://www.liyb.vip/tags/Protocal-Buffers/"/>
     
   </entry>
   

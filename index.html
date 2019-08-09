@@ -150,6 +150,7 @@
     
   
 
+
   <div class="container sidebar-position-left 
   page-home">
     <div class="headband"></div>
@@ -928,7 +929,7 @@ $ pod spec create 发布的名
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.liyb.vip/2018/11/27/Swift和Objective-C/">
+    <link itemprop="mainEntityOfPage" href="https://www.liyb.vip/2018/11/27/Protocal Buffers for iOS的安装及使用(使用篇)/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="落秋">
@@ -947,7 +948,7 @@ $ pod spec create 发布的名
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/27/Swift和Objective-C/" itemprop="url">Swift和Objective-C中的小知识</a></h1>
+                <a class="post-title-link" href="/2018/11/27/Protocal Buffers for iOS的安装及使用(使用篇)/" itemprop="url">Protocal Buffers for iOS的安装及使用(使用篇)</a></h1>
         
 
         <div class="post-meta">
@@ -1000,8 +1001,8 @@ $ pod spec create 发布的名
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/11/27/Swift和Objective-C/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/11/27/Swift和Objective-C/" itemprop="commentCount"></span>
+                <a href="/2018/11/27/Protocal Buffers for iOS的安装及使用(使用篇)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/11/27/Protocal Buffers for iOS的安装及使用(使用篇)/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1023,7 +1024,7 @@ $ pod spec create 发布的名
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  353 字
+                  456 字
                 </span>
               
 
@@ -1062,18 +1063,15 @@ $ pod spec create 发布的名
       
         
           
-          为什么swift推荐用struct？
-struct是值类型，而非引用类型
-值类型相对于引用类型是线程安全的
-swift对值类型的拷贝进行了足够的优化
-对enum、struct、function给予了更大的支持
+          使用下载源码
+1.从https://github.com/google/protobuf.git下载源码，解压，里面有支持不同语言的版本源码，我们只需要里面的支持objc的文件夹名为：objectivec
+  
 
-swift是否支持runtime？
-swift是静态语言，在编译时就确定了类型。oc是在
+2.新建一个工程命名为ProtocolBufferTest，创建一个文件夹，假设命名为
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/27/Swift和Objective-C/#more" rel="contents">
+            <a class="btn" href="/2018/11/27/Protocal Buffers for iOS的安装及使用(使用篇)/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1334,7 +1332,7 @@ ruby
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.liyb.vip/2018/11/27/Protocal Buffers for iOS的安装及使用(使用篇)/">
+    <link itemprop="mainEntityOfPage" href="https://www.liyb.vip/2018/11/27/Swift和Objective-C/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="落秋">
@@ -1353,7 +1351,7 @@ ruby
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/27/Protocal Buffers for iOS的安装及使用(使用篇)/" itemprop="url">Protocal Buffers for iOS的安装及使用(使用篇)</a></h1>
+                <a class="post-title-link" href="/2018/11/27/Swift和Objective-C/" itemprop="url">Swift和Objective-C中的小知识</a></h1>
         
 
         <div class="post-meta">
@@ -1406,8 +1404,8 @@ ruby
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/11/27/Protocal Buffers for iOS的安装及使用(使用篇)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/11/27/Protocal Buffers for iOS的安装及使用(使用篇)/" itemprop="commentCount"></span>
+                <a href="/2018/11/27/Swift和Objective-C/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/11/27/Swift和Objective-C/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1429,7 +1427,7 @@ ruby
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  456 字
+                  353 字
                 </span>
               
 
@@ -1468,15 +1466,18 @@ ruby
       
         
           
-          使用下载源码
-1.从https://github.com/google/protobuf.git下载源码，解压，里面有支持不同语言的版本源码，我们只需要里面的支持objc的文件夹名为：objectivec
-  
+          为什么swift推荐用struct？
+struct是值类型，而非引用类型
+值类型相对于引用类型是线程安全的
+swift对值类型的拷贝进行了足够的优化
+对enum、struct、function给予了更大的支持
 
-2.新建一个工程命名为ProtocolBufferTest，创建一个文件夹，假设命名为
+swift是否支持runtime？
+swift是静态语言，在编译时就确定了类型。oc是在
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/27/Protocal Buffers for iOS的安装及使用(使用篇)/#more" rel="contents">
+            <a class="btn" href="/2018/11/27/Swift和Objective-C/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2080,6 +2081,24 @@ var ap = new APlayer({
       </div>
     </main>
 
+
+	<!-- 评论 -->
+	<div id="container"></div>
+	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+	<script>
+	var gitment = new Gitment({
+	  id: 'location.href', // 可选。默认为 location.href
+	  owner: 'libcm',
+	  repo: 'https://libcm.github.io',
+	  oauth: {
+	    client_id: 'Iv1.f0c3aa8c246e96d8',
+	    client_secret: '5a0c0eb374a2361befbf1135a841da5a734115c4',
+	  },
+	})
+	gitment.render('container')
+	</script>
+
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
@@ -2136,6 +2155,7 @@ var ap = new APlayer({
     
 
   </div>
+
 
   
 
@@ -2599,6 +2619,6 @@ var ap = new APlayer({
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</body>
 </html>
 

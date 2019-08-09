@@ -147,34 +147,6 @@
   </entry>
   
   <entry>
-    <title>Swift高阶函数</title>
-    <link href="https://www.liyb.vip/2018/11/27/Swift%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0/"/>
-    <id>https://www.liyb.vip/2018/11/27/Swift高阶函数/</id>
-    <published>2018-11-27T07:39:08.939Z</published>
-    <updated>2019-08-07T09:01:36.585Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><ul><li><p>转换，可以将数组中的元素格式进行转换</p><pre><code>// 将int数组转换成String数组// $0代表数组的元素let array = [1, 2, 3, 4, 5]let result = array.map {    String($0)}</code></pre></li></ul><h2 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h2><ul><li><p>过滤，可以对数组中元素按照某种规律进行过滤</p><pre><code>// 在array中过滤出偶数let result = array.filter {    $0 % 2 == 0}</code></pre></li></ul><h2 id="Reduce"><a href="#Reduce" class="headerlink" title="Reduce"></a>Reduce</h2><ul><li><p>计算，可以对数组中的元素进行计算</p><pre><code>// 计算数组array元素的和// 在这里$0和$1的意义不同，$0代表计算后的结果，$1代表元素// 10代表初始值，在这里可以理解为 $0初始值 = 10let result = array.reduce(10) {    $0 + $1} </code></pre></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;Map&quot;&gt;&lt;a href=&quot;#Map&quot; class=&quot;headerlink&quot; title=&quot;Map&quot;&gt;&lt;/a&gt;Map&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;转换，可以将数组中的元素格式进行转换&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;// 将int数组转换成String数组
-//
-      
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
-    
-    
-      <category term="swift" scheme="https://www.liyb.vip/tags/swift/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Swift和Objective-C中的小知识</title>
     <link href="https://www.liyb.vip/2018/11/27/Swift%E5%92%8CObjective-C/"/>
     <id>https://www.liyb.vip/2018/11/27/Swift和Objective-C/</id>
@@ -197,6 +169,34 @@
     
     
       <category term="Objective-C" scheme="https://www.liyb.vip/tags/Objective-C/"/>
+    
+      <category term="swift" scheme="https://www.liyb.vip/tags/swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Swift高阶函数</title>
+    <link href="https://www.liyb.vip/2018/11/27/Swift%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0/"/>
+    <id>https://www.liyb.vip/2018/11/27/Swift高阶函数/</id>
+    <published>2018-11-27T07:39:08.939Z</published>
+    <updated>2019-08-07T09:01:36.585Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><ul><li><p>转换，可以将数组中的元素格式进行转换</p><pre><code>// 将int数组转换成String数组// $0代表数组的元素let array = [1, 2, 3, 4, 5]let result = array.map {    String($0)}</code></pre></li></ul><h2 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h2><ul><li><p>过滤，可以对数组中元素按照某种规律进行过滤</p><pre><code>// 在array中过滤出偶数let result = array.filter {    $0 % 2 == 0}</code></pre></li></ul><h2 id="Reduce"><a href="#Reduce" class="headerlink" title="Reduce"></a>Reduce</h2><ul><li><p>计算，可以对数组中的元素进行计算</p><pre><code>// 计算数组array元素的和// 在这里$0和$1的意义不同，$0代表计算后的结果，$1代表元素// 10代表初始值，在这里可以理解为 $0初始值 = 10let result = array.reduce(10) {    $0 + $1} </code></pre></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Map&quot;&gt;&lt;a href=&quot;#Map&quot; class=&quot;headerlink&quot; title=&quot;Map&quot;&gt;&lt;/a&gt;Map&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;转换，可以将数组中的元素格式进行转换&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// 将int数组转换成String数组
+//
+      
+    
+    </summary>
+    
+      <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
+    
     
       <category term="swift" scheme="https://www.liyb.vip/tags/swift/"/>
     

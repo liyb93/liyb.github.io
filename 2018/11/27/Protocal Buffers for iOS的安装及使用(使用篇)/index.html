@@ -621,7 +621,7 @@ if (!error) {
 
   
 
-
+  
 
         </div>
         
@@ -978,6 +978,26 @@ var ap = new APlayer({
 
 
 
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: 'Iv1.f0c3aa8c246e96d8',
+          clientSecret: '5a0c0eb374a2361befbf1135a841da5a734115c4',
+          repo: 'libcm.github.io',
+          owner: 'libcm',
+          admin: ['['libcm']'],
+          id:'_20181127153908',
+          labels: '['Gitalk']',
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
 
   

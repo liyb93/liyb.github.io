@@ -147,34 +147,6 @@
   </entry>
   
   <entry>
-    <title>Swift和Objective-C中的小知识</title>
-    <link href="https://www.liyb.vip/2018/11/27/Swift%E5%92%8CObjective-C/"/>
-    <id>https://www.liyb.vip/2018/11/27/Swift和Objective-C/</id>
-    <published>2018-11-27T07:39:08.939Z</published>
-    <updated>2019-08-07T09:01:23.793Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="为什么swift推荐用struct？"><a href="#为什么swift推荐用struct？" class="headerlink" title="为什么swift推荐用struct？"></a>为什么swift推荐用struct？</h1><ul><li>struct是值类型，而非引用类型</li><li>值类型相对于引用类型是线程安全的</li><li>swift对值类型的拷贝进行了足够的优化</li><li>对enum、struct、function给予了更大的支持</li></ul><h1 id="swift是否支持runtime？"><a href="#swift是否支持runtime？" class="headerlink" title="swift是否支持runtime？"></a>swift是否支持runtime？</h1><ul><li>swift是静态语言，在编译时就确定了类型。oc是在运行的时候知道类型的。swift的效率要高一些。所以swift不建议使用runtime。</li><li>swift本身对runtime并不支持，需要在属性或者方法前面添加’dynamic’修饰符才能获取动态性，继承自NSObject的类起继承的弗雷的方法也具有动态性，子类的属性和方法也需要家’dynamic’才能获取动态性。</li></ul><h1 id="字符串常量"><a href="#字符串常量" class="headerlink" title="字符串常量"></a>字符串常量</h1><pre><code>const NSString * kSomeConstantString = @&quot;&quot;;const 类型 * 变量名：可以改变指针的指向，不能改变指针指向的内容.NSString * const kSomeConstantString = @&quot;&quot;;类型 * const 变量名：可以改变指针指向的内容，不能改变指针的指向.</code></pre><h1 id="NSString用copy或strong关键字的区别"><a href="#NSString用copy或strong关键字的区别" class="headerlink" title="NSString用copy或strong关键字的区别"></a>NSString用copy或strong关键字的区别</h1><pre><code>相同点:NSString是不可变，copy和strong都是分配一次内存不同点:copy会先判断NSString是不是可变的，如果是不可变就不在分配内存，是可变的就分配内存。strong不会判断NSString是不是可变的总结:如果大量运用NSString的话，如果确定NSString是不可变的就可以直接用strong</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;为什么swift推荐用struct？&quot;&gt;&lt;a href=&quot;#为什么swift推荐用struct？&quot; class=&quot;headerlink&quot; title=&quot;为什么swift推荐用struct？&quot;&gt;&lt;/a&gt;为什么swift推荐用struct？&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;
-      
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
-    
-    
-      <category term="Objective-C" scheme="https://www.liyb.vip/tags/Objective-C/"/>
-    
-      <category term="swift" scheme="https://www.liyb.vip/tags/swift/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Swift高阶函数</title>
     <link href="https://www.liyb.vip/2018/11/27/Swift%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0/"/>
     <id>https://www.liyb.vip/2018/11/27/Swift高阶函数/</id>
@@ -197,6 +169,34 @@
     
       <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
     
+    
+      <category term="swift" scheme="https://www.liyb.vip/tags/swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Swift和Objective-C中的小知识</title>
+    <link href="https://www.liyb.vip/2018/11/27/Swift%E5%92%8CObjective-C/"/>
+    <id>https://www.liyb.vip/2018/11/27/Swift和Objective-C/</id>
+    <published>2018-11-27T07:39:08.939Z</published>
+    <updated>2019-08-07T09:01:23.793Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="为什么swift推荐用struct？"><a href="#为什么swift推荐用struct？" class="headerlink" title="为什么swift推荐用struct？"></a>为什么swift推荐用struct？</h1><ul><li>struct是值类型，而非引用类型</li><li>值类型相对于引用类型是线程安全的</li><li>swift对值类型的拷贝进行了足够的优化</li><li>对enum、struct、function给予了更大的支持</li></ul><h1 id="swift是否支持runtime？"><a href="#swift是否支持runtime？" class="headerlink" title="swift是否支持runtime？"></a>swift是否支持runtime？</h1><ul><li>swift是静态语言，在编译时就确定了类型。oc是在运行的时候知道类型的。swift的效率要高一些。所以swift不建议使用runtime。</li><li>swift本身对runtime并不支持，需要在属性或者方法前面添加’dynamic’修饰符才能获取动态性，继承自NSObject的类起继承的弗雷的方法也具有动态性，子类的属性和方法也需要家’dynamic’才能获取动态性。</li></ul><h1 id="字符串常量"><a href="#字符串常量" class="headerlink" title="字符串常量"></a>字符串常量</h1><pre><code>const NSString * kSomeConstantString = @&quot;&quot;;const 类型 * 变量名：可以改变指针的指向，不能改变指针指向的内容.NSString * const kSomeConstantString = @&quot;&quot;;类型 * const 变量名：可以改变指针指向的内容，不能改变指针的指向.</code></pre><h1 id="NSString用copy或strong关键字的区别"><a href="#NSString用copy或strong关键字的区别" class="headerlink" title="NSString用copy或strong关键字的区别"></a>NSString用copy或strong关键字的区别</h1><pre><code>相同点:NSString是不可变，copy和strong都是分配一次内存不同点:copy会先判断NSString是不是可变的，如果是不可变就不在分配内存，是可变的就分配内存。strong不会判断NSString是不是可变的总结:如果大量运用NSString的话，如果确定NSString是不可变的就可以直接用strong</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;为什么swift推荐用struct？&quot;&gt;&lt;a href=&quot;#为什么swift推荐用struct？&quot; class=&quot;headerlink&quot; title=&quot;为什么swift推荐用struct？&quot;&gt;&lt;/a&gt;为什么swift推荐用struct？&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;
+      
+    
+    </summary>
+    
+      <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
+    
+    
+      <category term="Objective-C" scheme="https://www.liyb.vip/tags/Objective-C/"/>
     
       <category term="swift" scheme="https://www.liyb.vip/tags/swift/"/>
     

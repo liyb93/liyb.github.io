@@ -58,6 +58,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Swift高阶函数]]></title>
+    <url>%2F2018%2F11%2F27%2FSwift%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[Map 转换，可以将数组中的元素格式进行转换 // 将int数组转换成String数组 // $0代表数组的元素 let array = [1, 2, 3, 4, 5] let result = array.map { String($0) } Filter 过滤，可以对数组中元素按照某种规律进行过滤 // 在array中过滤出偶数 let result = array.filter { $0 % 2 == 0 } Reduce 计算，可以对数组中的元素进行计算 // 计算数组array元素的和 // 在这里$0和$1的意义不同，$0代表计算后的结果，$1代表元素 // 10代表初始值，在这里可以理解为 $0初始值 = 10 let result = array.reduce(10) { $0 + $1 }]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>swift</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Swift和Objective-C中的小知识]]></title>
     <url>%2F2018%2F11%2F27%2FSwift%E5%92%8CObjective-C%2F</url>
     <content type="text"><![CDATA[为什么swift推荐用struct？ struct是值类型，而非引用类型 值类型相对于引用类型是线程安全的 swift对值类型的拷贝进行了足够的优化 对enum、struct、function给予了更大的支持 swift是否支持runtime？ swift是静态语言，在编译时就确定了类型。oc是在运行的时候知道类型的。swift的效率要高一些。所以swift不建议使用runtime。 swift本身对runtime并不支持，需要在属性或者方法前面添加’dynamic’修饰符才能获取动态性，继承自NSObject的类起继承的弗雷的方法也具有动态性，子类的属性和方法也需要家’dynamic’才能获取动态性。 字符串常量const NSString * kSomeConstantString = @&quot;&quot;; const 类型 * 变量名：可以改变指针的指向，不能改变指针指向的内容. NSString * const kSomeConstantString = @&quot;&quot;; 类型 * const 变量名：可以改变指针指向的内容，不能改变指针的指向. NSString用copy或strong关键字的区别相同点: NSString是不可变，copy和strong都是分配一次内存 不同点: copy会先判断NSString是不是可变的，如果是不可变就不在分配内存，是可变的就分配内存。 strong不会判断NSString是不是可变的 总结: 如果大量运用NSString的话，如果确定NSString是不可变的就可以直接用strong]]></content>
@@ -66,17 +77,6 @@
       </categories>
       <tags>
         <tag>Objective-C</tag>
-        <tag>swift</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Swift高阶函数]]></title>
-    <url>%2F2018%2F11%2F27%2FSwift%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[Map 转换，可以将数组中的元素格式进行转换 // 将int数组转换成String数组 // $0代表数组的元素 let array = [1, 2, 3, 4, 5] let result = array.map { String($0) } Filter 过滤，可以对数组中元素按照某种规律进行过滤 // 在array中过滤出偶数 let result = array.filter { $0 % 2 == 0 } Reduce 计算，可以对数组中的元素进行计算 // 计算数组array元素的和 // 在这里$0和$1的意义不同，$0代表计算后的结果，$1代表元素 // 10代表初始值，在这里可以理解为 $0初始值 = 10 let result = array.reduce(10) { $0 + $1 }]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
-      <tags>
         <tag>swift</tag>
       </tags>
   </entry>

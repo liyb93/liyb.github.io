@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[iOS逆向学习(一)-环境搭建]]></title>
+    <url>%2F2019%2F08%2F11%2FiOS%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0(%E4%B8%80)-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%2F</url>
+    <content type="text"><![CDATA[前提 越狱手机 如果没有越狱后面的操作无法实现，如何越狱，这里我们就不讲了，网上教程很多。 配置SSHSSH是Secure Shell简称， 是一种加密的网络传输协议，可在不安全的网络中为网络服务提供安全的传输环境。SSH通过在网络中创建安全隧道来实现SSH客户端与服务器之间的连接。 配置SSH是我们后续工作的基础，我们可以通过SSH实现PC端访问iPhone手机。 安装所需APP卸载OpenSSH与OpenSSLiOS 10以后越狱自带SSH,但是无法连接iPhone或报错,所以需要首先卸载OpenSSH与OpenSSL。在Cydia中搜索OpenSSH与OpenSSL,然后卸载。 添加源自带源没有Dropbear，所以需要添加新源，这里我提供一个源: http://apt.abcydia.com,也可以自己搜索其他源。 安装Dropbear搜索Dropbear并安装。 安装MTerminal搜索MTerminal并安装。 连接iPhoneWIFI连接前提 PC与iPhone在同一局域网 打开MTerminal，输入以下命令 su 输入root密码，默认为alpine,然后执行以下命令，查看dropbear进程是否执行 ps aux|grep dropbear 如果没有dropbear进程，执行以下命令 /usr/local/bin/dropbear -F -R -p 22 然后获取iPhone所在网络下的ip地址,PC终端执行以下命令 // 172.20.122.108是iPhone ip地址 ssh root@172.20.122.108 如果有以下提示 The authenticity of host &apos;192.168.1.105 (192.168.1.105)&apos; can&apos;t be established. ECDSA key fingerprint is SHA256:ANF7Cvc1yM/ZdaHyz9V1EHjG115cylIcHWyOzCL+kzs. Are you sure you want to continue connecting (yes/no)? 输入yes即可,然后输入root密码，默认密码alpine USB连接有时候网络不稳定的时候，使用WIFI连接响应可能会很慢，所以这里讲下比WIFI连接响应更快的USB连接。 安装usbmuxdbrew install usbmuxd 安装成功后,执行以下命令连接iPhone // 把iPhone的默认端口22映射到PC 2222端口上面 iproxy 2222 22 执行完后，会一直显示waiting for connection，此时不要慌，再打开一个终端窗口,执行以下命令 ssh -p 2222 root@localhost // 或 ssh -p 2222 root@127.0.0.1 如果连接失败，请查看数据线是否连接正常;连接成功后就可以尽情访问iPhone里面数据了。 修改SSH密码ROOT密码1.首先使用root权限连接iPhone ssh root@xxx.xxx.xxx.xxx 2.执行下面命令，修改密码 passwd 3.按提示输入两次新密码即可。4.exit命令退出连接。 mobile密码1.首先使用mobile权限连接iPhone ssh mobile@xxx.xxx.xxx.xxx 2.执行下面命令，修改密码 passwd 3.按提示输入两次新密码即可。4.exit命令退出连接。 免密登录首先查看.ssh目录下是否存在id_rsa和id_rsa.pub，如果已存在，无需再次生成。 生成RSA公私钥终端执行以下命令 ssh-keygen 查看.ssh目录下是否生成了id_rsa和id_rsa.pub文件。 推送公钥到iPhone连接iPhone，执行以下命令 // 2222 iPhone的默认端口22映射PC端的端口号 ssh-copy-id root@localhost -p 2222 输入密码，如果已修改，输入修改后的密码,未修改输入默认密码alpine。 接下来再次登录就会发线不用输入密码了。]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>逆向</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Hexo博客搭建]]></title>
     <url>%2F2019%2F05%2F07%2FHexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%2F</url>
     <content type="text"><![CDATA[博客搭建Hexo安装安装前提 Node.js Git 如果已经安装以上两项，可以直接安装hexo $ npm install -g hexo-cli 初始化Hexo $ cd &lt;存放博客的路径&gt; $ hexo init &lt;博客名&gt; $ cd &lt;博客名&gt; $ npm install 创建完成,目录结构如下: . ├── _config.yml // 配置文件 ├── package.json // 应用程序的信息 ├── scaffolds // 模版 文件夹 ├── source // 资源文件夹 | ├── _drafts | └── _posts // 文章 └── themes // 主题 启动服务，查看效果 $ hexo server // 或 hexo s 浏览器访问:http://localhost:4000/ Github关联创建仓库，命名规则 &lt;账户名&gt;.github.io 修改_config.yml配置文件，末尾修改为以下内容(注意:“:”后面有一个空格) deploy: type: git repository: https://github.com/xxx/xxx.github.io.git // 刚才创建仓库git链接 branch: master 推送到github仓库 $ hexo g // 生成html静态文件 $ hexo d // push到github 然后浏览器访问 https://&lt;账户名&gt;.github.io，即可查看博客 绑定域名购买域名:阿里云万网、腾讯云等 域名解析照下图添加即可 打开博客仓库]]></content>
@@ -45,17 +56,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Protocal Buffers for iOS的安装及使用(安装篇)]]></title>
-    <url>%2F2018%2F11%2F27%2FProtocl%20Buffers%20for%20iOS%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8(%E5%AE%89%E8%A3%85%E7%AF%87)%2F</url>
-    <content type="text"><![CDATA[安装安装Protocal Buffers 执行 brew -v 命令 这条命令是查看你的mac里面有没有装brew。brew是mac os里面，类似于ubuntu的apt-get的功能，都可以直接在终端输入命令然后安装程序。－v自然就是版本version的意思 下载brew安装环境 ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install) 分别执行下面三条命令 brew install automake brew install libtool brew install protobuf 就是利用brew下载安装了。protobuf就是我们想要的，另外两个是依赖库 clone Protocal Buffers库 执行下列命令 git clone https://github.com/alexeyxo/protobuf-objc.git ./build.sh 从github下载protobuf－objc这个工程，build脚本里面做的是编译 注意：编译工程过程中，有可能会出现错误。别慌！看编译错误的提示。一般错误只是因为环境变量和路径没有配置好，少了一些东西，例如少了编译protobuf这个工程的依赖库，按照提示添加路径即可。有了工程以后，我们就可以开始测试一下怎么用protobuf了 导入工程 打开Xcode！新建一个工程！ 然后有两个方法把protobuf添加到你的工程里面，一个是直接添加，一个是利用cocoapod 强烈推荐后者，因为cocoapods能够很方便的管理第三方类库，以后人家的工程升级了，你只需要一行 pod update 就ok了。关于安装和使用cocoapod，属于另一个话题，在Podfile添加下面这个句子 platform :ios , 8.0 pod ProtocolBuffers, 在保存之后，到终端，cd到工程里面， pod install 等一会，cocoapod就会帮我们添加好，以后我们就应该打开 project的workspace，因为添加了pod作为子工程。 创建Protocal Buffers文件 在你的工程里面，新建一个文件夹，假如命名叫Protobuf 在这个文件夹里面新建一个proto文件。例如要在本地储存用户信息，那么就新建一个user.proto 里面内容可以如下 syntax = &quot;proto2&quot;; // Protocal Buffers版本 message PBUser { required string userId = 1; // 用户ID optional string nick = 2; // 用户昵称 optional string avatar = 3; // 用户头像 optional string password = 7; optional string email = 8; optional string mobile = 9; // 手机号码 optional string qqOpenId = 10; // QQ ID optional string sinaId = 11; // SINA UserID optional string weixinId = 12; // WeChat UserID } 上面这个例子包括了几个要素。 一个是包名。包的概念在object c里面没有，java里面有，c++里面namespace也是差不多意思。 顺便提一下，oc里面一般在库名前面添加两个字母，起的作用差不多就是包的作用，作为类的上一层组织结构。 例如官方的NS，例如AFNetworking这种第三方类库的AF。 回到正题。编写pb文件，第二个要素是message 一个message就是一个整体，里面有哪些必要的内容，哪些可选的内容。详细的proto语法随便一找一大把，就不啰嗦了。 Protocal Buffers文件转换 写好了proto，接下来就是编译这个proto文件，protobuf－objc这个类库会编译声称一些源码，是读写proto数据的接口API。 编译命令如下： 先打开工程，建议单独新建一个文件夹作为输出路径，例如工程下新建文件夹Gen，用来放generate出来的.pb.h文件&amp;&amp;.pb.m文件 打开终端 cd到工程路径下 protoc --plugin=/usr/local/bin/protoc-gen-objc person.proto --objc_out=./Gen]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
-      <tags>
-        <tag>Objective-C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Swift高阶函数]]></title>
     <url>%2F2018%2F11%2F27%2FSwift%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%2F</url>
     <content type="text"><![CDATA[Map 转换，可以将数组中的元素格式进行转换 // 将int数组转换成String数组 // $0代表数组的元素 let array = [1, 2, 3, 4, 5] let result = array.map { String($0) } Filter 过滤，可以对数组中元素按照某种规律进行过滤 // 在array中过滤出偶数 let result = array.filter { $0 % 2 == 0 } Reduce 计算，可以对数组中的元素进行计算 // 计算数组array元素的和 // 在这里$0和$1的意义不同，$0代表计算后的结果，$1代表元素 // 10代表初始值，在这里可以理解为 $0初始值 = 10 let result = array.reduce(10) { $0 + $1 }]]></content>
@@ -64,6 +64,17 @@
       </categories>
       <tags>
         <tag>swift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Protocal Buffers for iOS的安装及使用(安装篇)]]></title>
+    <url>%2F2018%2F11%2F27%2FProtocl%20Buffers%20for%20iOS%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8(%E5%AE%89%E8%A3%85%E7%AF%87)%2F</url>
+    <content type="text"><![CDATA[安装安装Protocal Buffers 执行 brew -v 命令 这条命令是查看你的mac里面有没有装brew。brew是mac os里面，类似于ubuntu的apt-get的功能，都可以直接在终端输入命令然后安装程序。－v自然就是版本version的意思 下载brew安装环境 ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install) 分别执行下面三条命令 brew install automake brew install libtool brew install protobuf 就是利用brew下载安装了。protobuf就是我们想要的，另外两个是依赖库 clone Protocal Buffers库 执行下列命令 git clone https://github.com/alexeyxo/protobuf-objc.git ./build.sh 从github下载protobuf－objc这个工程，build脚本里面做的是编译 注意：编译工程过程中，有可能会出现错误。别慌！看编译错误的提示。一般错误只是因为环境变量和路径没有配置好，少了一些东西，例如少了编译protobuf这个工程的依赖库，按照提示添加路径即可。有了工程以后，我们就可以开始测试一下怎么用protobuf了 导入工程 打开Xcode！新建一个工程！ 然后有两个方法把protobuf添加到你的工程里面，一个是直接添加，一个是利用cocoapod 强烈推荐后者，因为cocoapods能够很方便的管理第三方类库，以后人家的工程升级了，你只需要一行 pod update 就ok了。关于安装和使用cocoapod，属于另一个话题，在Podfile添加下面这个句子 platform :ios , 8.0 pod ProtocolBuffers, 在保存之后，到终端，cd到工程里面， pod install 等一会，cocoapod就会帮我们添加好，以后我们就应该打开 project的workspace，因为添加了pod作为子工程。 创建Protocal Buffers文件 在你的工程里面，新建一个文件夹，假如命名叫Protobuf 在这个文件夹里面新建一个proto文件。例如要在本地储存用户信息，那么就新建一个user.proto 里面内容可以如下 syntax = &quot;proto2&quot;; // Protocal Buffers版本 message PBUser { required string userId = 1; // 用户ID optional string nick = 2; // 用户昵称 optional string avatar = 3; // 用户头像 optional string password = 7; optional string email = 8; optional string mobile = 9; // 手机号码 optional string qqOpenId = 10; // QQ ID optional string sinaId = 11; // SINA UserID optional string weixinId = 12; // WeChat UserID } 上面这个例子包括了几个要素。 一个是包名。包的概念在object c里面没有，java里面有，c++里面namespace也是差不多意思。 顺便提一下，oc里面一般在库名前面添加两个字母，起的作用差不多就是包的作用，作为类的上一层组织结构。 例如官方的NS，例如AFNetworking这种第三方类库的AF。 回到正题。编写pb文件，第二个要素是message 一个message就是一个整体，里面有哪些必要的内容，哪些可选的内容。详细的proto语法随便一找一大把，就不啰嗦了。 Protocal Buffers文件转换 写好了proto，接下来就是编译这个proto文件，protobuf－objc这个类库会编译声称一些源码，是读写proto数据的接口API。 编译命令如下： 先打开工程，建议单独新建一个文件夹作为输出路径，例如工程下新建文件夹Gen，用来放generate出来的.pb.h文件&amp;&amp;.pb.m文件 打开终端 cd到工程路径下 protoc --plugin=/usr/local/bin/protoc-gen-objc person.proto --objc_out=./Gen]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>Objective-C</tag>
       </tags>
   </entry>
   <entry>

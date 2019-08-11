@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.liyb.vip/"/>
-  <updated>2019-08-10T03:52:31.540Z</updated>
+  <updated>2019-08-11T08:08:53.720Z</updated>
   <id>https://www.liyb.vip/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS逆向学习(一)-环境搭建</title>
+    <link href="https://www.liyb.vip/2019/08/11/iOS%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0(%E4%B8%80)-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    <id>https://www.liyb.vip/2019/08/11/iOS逆向学习(一)-环境搭建/</id>
+    <published>2019-08-11T08:08:53.720Z</published>
+    <updated>2019-08-11T08:08:53.720Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><ul><li>越狱手机</li></ul><p>如果没有越狱后面的操作无法实现，如何越狱，这里我们就不讲了，网上教程很多。</p><h1 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h1><p>SSH是Secure Shell简称， 是一种加密的网络传输协议，可在不安全的网络中为网络服务提供安全的传输环境。SSH通过在网络中创建安全隧道来实现SSH客户端与服务器之间的连接。</p><p>配置SSH是我们后续工作的基础，我们可以通过SSH实现PC端访问iPhone手机。</p><h2 id="安装所需APP"><a href="#安装所需APP" class="headerlink" title="安装所需APP"></a>安装所需APP</h2><h3 id="卸载OpenSSH与OpenSSL"><a href="#卸载OpenSSH与OpenSSL" class="headerlink" title="卸载OpenSSH与OpenSSL"></a>卸载OpenSSH与OpenSSL</h3><p>iOS 10以后越狱自带SSH,但是无法连接iPhone或报错,所以需要首先卸载OpenSSH与OpenSSL。在Cydia中搜索OpenSSH与OpenSSL,然后卸载。</p><h3 id="添加源"><a href="#添加源" class="headerlink" title="添加源"></a>添加源</h3><p>自带源没有Dropbear，所以需要添加新源，这里我提供一个源: <code>http://apt.abcydia.com</code>,也可以自己搜索其他源。</p><h3 id="安装Dropbear"><a href="#安装Dropbear" class="headerlink" title="安装Dropbear"></a>安装Dropbear</h3><p>搜索Dropbear并安装。</p><h3 id="安装MTerminal"><a href="#安装MTerminal" class="headerlink" title="安装MTerminal"></a>安装MTerminal</h3><p>搜索MTerminal并安装。</p><h1 id="连接iPhone"><a href="#连接iPhone" class="headerlink" title="连接iPhone"></a>连接iPhone</h1><h2 id="WIFI连接"><a href="#WIFI连接" class="headerlink" title="WIFI连接"></a>WIFI连接</h2><h3 id="前提-1"><a href="#前提-1" class="headerlink" title="前提"></a>前提</h3><ul><li>PC与iPhone在同一局域网</li></ul><p>打开MTerminal，输入以下命令</p><pre><code>su</code></pre><p>输入root密码，默认为<code>alpine</code>,然后执行以下命令，查看dropbear进程是否执行</p><pre><code>ps aux|grep dropbear</code></pre><p>如果没有<code>dropbear</code>进程，执行以下命令</p><pre><code>/usr/local/bin/dropbear -F -R -p 22</code></pre><p>然后获取iPhone所在网络下的ip地址,PC终端执行以下命令</p><pre><code>// 172.20.122.108是iPhone ip地址ssh root@172.20.122.108</code></pre><p>如果有以下提示</p><pre><code>The authenticity of host &apos;192.168.1.105 (192.168.1.105)&apos; can&apos;t be established.ECDSA key fingerprint is SHA256:ANF7Cvc1yM/ZdaHyz9V1EHjG115cylIcHWyOzCL+kzs.Are you sure you want to continue connecting (yes/no)?</code></pre><p>输入<code>yes</code>即可,然后输入root密码，默认密码<code>alpine</code></p><h2 id="USB连接"><a href="#USB连接" class="headerlink" title="USB连接"></a>USB连接</h2><p>有时候网络不稳定的时候，使用WIFI连接响应可能会很慢，所以这里讲下比WIFI连接响应更快的USB连接。</p><h3 id="安装usbmuxd"><a href="#安装usbmuxd" class="headerlink" title="安装usbmuxd"></a>安装usbmuxd</h3><pre><code>brew install usbmuxd</code></pre><p>安装成功后,执行以下命令连接iPhone</p><pre><code>// 把iPhone的默认端口22映射到PC 2222端口上面iproxy 2222 22</code></pre><p>执行完后，会一直显示<code>waiting for connection</code>，此时不要慌，再打开一个终端窗口,执行以下命令</p><pre><code>ssh -p 2222 root@localhost// 或ssh -p 2222 root@127.0.0.1</code></pre><p>如果连接失败，请查看数据线是否连接正常;连接成功后就可以尽情访问iPhone里面数据了。</p><h1 id="修改SSH密码"><a href="#修改SSH密码" class="headerlink" title="修改SSH密码"></a>修改SSH密码</h1><h2 id="ROOT密码"><a href="#ROOT密码" class="headerlink" title="ROOT密码"></a>ROOT密码</h2><p>1.首先使用root权限连接iPhone</p><pre><code>ssh root@xxx.xxx.xxx.xxx</code></pre><p>2.执行下面命令，修改密码</p><pre><code>passwd</code></pre><p>3.按提示输入两次新密码即可。<br>4.<code>exit</code>命令退出连接。</p><h2 id="mobile密码"><a href="#mobile密码" class="headerlink" title="mobile密码"></a>mobile密码</h2><p>1.首先使用mobile权限连接iPhone</p><pre><code>ssh mobile@xxx.xxx.xxx.xxx</code></pre><p>2.执行下面命令，修改密码</p><pre><code>passwd</code></pre><p>3.按提示输入两次新密码即可。<br>4.<code>exit</code>命令退出连接。</p><h1 id="免密登录"><a href="#免密登录" class="headerlink" title="免密登录"></a>免密登录</h1><p>首先查看<code>.ssh</code>目录下是否存在<code>id_rsa</code>和<code>id_rsa.pub</code>，如果已存在，无需再次生成。</p><h2 id="生成RSA公私钥"><a href="#生成RSA公私钥" class="headerlink" title="生成RSA公私钥"></a>生成RSA公私钥</h2><p>终端执行以下命令</p><pre><code>ssh-keygen</code></pre><p>查看<code>.ssh</code>目录下是否生成了<code>id_rsa</code>和<code>id_rsa.pub</code>文件。</p><h2 id="推送公钥到iPhone"><a href="#推送公钥到iPhone" class="headerlink" title="推送公钥到iPhone"></a>推送公钥到iPhone</h2><p>连接iPhone，执行以下命令</p><pre><code>// 2222 iPhone的默认端口22映射PC端的端口号ssh-copy-id root@localhost -p 2222</code></pre><p>输入密码，如果已修改，输入修改后的密码,未修改输入默认密码<code>alpine</code>。</p><p>接下来再次登录就会发线不用输入密码了。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前提&quot;&gt;&lt;a href=&quot;#前提&quot; class=&quot;headerlink&quot; title=&quot;前提&quot;&gt;&lt;/a&gt;前提&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;越狱手机&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果没有越狱后面的操作无法实现，如何越狱，这里我们就不讲了，网上教程很多。&lt;/p&gt;
+&lt;h1
+      
+    
+    </summary>
+    
+      <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
+    
+    
+      <category term="逆向" scheme="https://www.liyb.vip/tags/%E9%80%86%E5%90%91/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo博客搭建</title>
@@ -118,31 +147,6 @@
   </entry>
   
   <entry>
-    <title>Protocal Buffers for iOS的安装及使用(安装篇)</title>
-    <link href="https://www.liyb.vip/2018/11/27/Protocl%20Buffers%20for%20iOS%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8(%E5%AE%89%E8%A3%85%E7%AF%87)/"/>
-    <id>https://www.liyb.vip/2018/11/27/Protocl Buffers for iOS安装及使用(安装篇)/</id>
-    <published>2018-11-27T07:39:08.939Z</published>
-    <updated>2019-08-10T03:54:02.437Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="安装Protocal-Buffers"><a href="#安装Protocal-Buffers" class="headerlink" title="安装Protocal Buffers"></a>安装Protocal Buffers</h2><ul><li><p>执行 <code>brew -v</code> 命令</p><p>  这条命令是查看你的mac里面有没有装brew。brew是mac os里面，类似于ubuntu的apt-get的功能，都可以直接在终端输入命令然后安装程序。－v自然就是版本version的意思</p></li><li><p>下载brew安装环境</p><pre><code>ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</code></pre></li><li><p>分别执行下面三条命令</p><pre><code>brew install automakebrew install libtoolbrew install protobuf</code></pre><p>  就是利用brew下载安装了。protobuf就是我们想要的，另外两个是依赖库</p></li></ul><h2 id="clone-Protocal-Buffers库"><a href="#clone-Protocal-Buffers库" class="headerlink" title="clone Protocal Buffers库"></a>clone Protocal Buffers库</h2><ul><li><p>执行下列命令</p><pre><code>git clone https://github.com/alexeyxo/protobuf-objc.git./build.sh</code></pre><p>  从github下载protobuf－objc这个工程，build脚本里面做的是编译</p><p>  注意：编译工程过程中，有可能会出现错误。别慌！看编译错误的提示。一般错误只是因为环境变量和路径没有配置好，少了一些东西，例如少了编译protobuf这个工程的依赖库，按照提示添加路径即可。有了工程以后，我们就可以开始测试一下怎么用protobuf了</p></li></ul><h2 id="导入工程"><a href="#导入工程" class="headerlink" title="导入工程"></a>导入工程</h2><ul><li><p>打开Xcode！新建一个工程！ 然后有两个方法把protobuf添加到你的工程里面，一个是直接添加，一个是利用cocoapod 强烈推荐后者，因为cocoapods能够很方便的管理第三方类库，以后人家的工程升级了，你只需要一行 pod update 就ok了。关于安装和使用cocoapod，属于另一个话题，在Podfile添加下面这个句子</p><pre><code>platform :ios , 8.0pod ProtocolBuffers,</code></pre><p>  在保存之后，到终端，cd到工程里面，</p><pre><code>pod install</code></pre><p>  等一会，cocoapod就会帮我们添加好，以后我们就应该打开 project的workspace，因为添加了pod作为子工程。</p></li></ul><h2 id="创建Protocal-Buffers文件"><a href="#创建Protocal-Buffers文件" class="headerlink" title="创建Protocal Buffers文件"></a>创建Protocal Buffers文件</h2><ul><li><p>在你的工程里面，新建一个文件夹，假如命名叫Protobuf 在这个文件夹里面新建一个proto文件。例如要在本地储存用户信息，那么就新建一个user.proto 里面内容可以如下</p><pre><code>syntax = &quot;proto2&quot;;            // Protocal Buffers版本message PBUser {required string userId = 1;         // 用户IDoptional string nick = 2;            // 用户昵称optional string avatar = 3;        // 用户头像optional string password = 7;optional string email = 8;optional string mobile = 9;         // 手机号码optional string qqOpenId = 10;    // QQ IDoptional string sinaId = 11;         // SINA UserIDoptional string weixinId = 12;     // WeChat UserID}</code></pre><p>  上面这个例子包括了几个要素。 一个是包名。包的概念在object c里面没有，java里面有，c++里面namespace也是差不多意思。 顺便提一下，oc里面一般在库名前面添加两个字母，起的作用差不多就是包的作用，作为类的上一层组织结构。 例如官方的NS，例如AFNetworking这种第三方类库的AF。</p><p>  回到正题。编写pb文件，第二个要素是message 一个message就是一个整体，里面有哪些必要的内容，哪些可选的内容。详细的proto语法随便一找一大把，就不啰嗦了。</p></li></ul><h2 id="Protocal-Buffers文件转换"><a href="#Protocal-Buffers文件转换" class="headerlink" title="Protocal Buffers文件转换"></a>Protocal Buffers文件转换</h2><ul><li><p>写好了proto，接下来就是编译这个proto文件，protobuf－objc这个类库会编译声称一些源码，是读写proto数据的接口API。 编译命令如下： 先打开工程，建议单独新建一个文件夹作为输出路径，例如工程下新建文件夹Gen，用来放generate出来的.pb.h文件&amp;&amp;.pb.m文件 打开终端 cd到工程路径下</p><pre><code>protoc --plugin=/usr/local/bin/protoc-gen-objc person.proto --objc_out=./Gen</code></pre></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;h2 id=&quot;安装Protocal-Buffers&quot;&gt;&lt;a href=&quot;#安装Protocal-Buffers&quot; class=&quot;headerli
-      
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
-    
-    
-      <category term="Objective-C" scheme="https://www.liyb.vip/tags/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Swift高阶函数</title>
     <link href="https://www.liyb.vip/2018/11/27/Swift%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0/"/>
     <id>https://www.liyb.vip/2018/11/27/Swift高阶函数/</id>
@@ -167,6 +171,31 @@
     
     
       <category term="swift" scheme="https://www.liyb.vip/tags/swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Protocal Buffers for iOS的安装及使用(安装篇)</title>
+    <link href="https://www.liyb.vip/2018/11/27/Protocl%20Buffers%20for%20iOS%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8(%E5%AE%89%E8%A3%85%E7%AF%87)/"/>
+    <id>https://www.liyb.vip/2018/11/27/Protocl Buffers for iOS安装及使用(安装篇)/</id>
+    <published>2018-11-27T07:39:08.939Z</published>
+    <updated>2019-08-10T03:54:02.437Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="安装Protocal-Buffers"><a href="#安装Protocal-Buffers" class="headerlink" title="安装Protocal Buffers"></a>安装Protocal Buffers</h2><ul><li><p>执行 <code>brew -v</code> 命令</p><p>  这条命令是查看你的mac里面有没有装brew。brew是mac os里面，类似于ubuntu的apt-get的功能，都可以直接在终端输入命令然后安装程序。－v自然就是版本version的意思</p></li><li><p>下载brew安装环境</p><pre><code>ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</code></pre></li><li><p>分别执行下面三条命令</p><pre><code>brew install automakebrew install libtoolbrew install protobuf</code></pre><p>  就是利用brew下载安装了。protobuf就是我们想要的，另外两个是依赖库</p></li></ul><h2 id="clone-Protocal-Buffers库"><a href="#clone-Protocal-Buffers库" class="headerlink" title="clone Protocal Buffers库"></a>clone Protocal Buffers库</h2><ul><li><p>执行下列命令</p><pre><code>git clone https://github.com/alexeyxo/protobuf-objc.git./build.sh</code></pre><p>  从github下载protobuf－objc这个工程，build脚本里面做的是编译</p><p>  注意：编译工程过程中，有可能会出现错误。别慌！看编译错误的提示。一般错误只是因为环境变量和路径没有配置好，少了一些东西，例如少了编译protobuf这个工程的依赖库，按照提示添加路径即可。有了工程以后，我们就可以开始测试一下怎么用protobuf了</p></li></ul><h2 id="导入工程"><a href="#导入工程" class="headerlink" title="导入工程"></a>导入工程</h2><ul><li><p>打开Xcode！新建一个工程！ 然后有两个方法把protobuf添加到你的工程里面，一个是直接添加，一个是利用cocoapod 强烈推荐后者，因为cocoapods能够很方便的管理第三方类库，以后人家的工程升级了，你只需要一行 pod update 就ok了。关于安装和使用cocoapod，属于另一个话题，在Podfile添加下面这个句子</p><pre><code>platform :ios , 8.0pod ProtocolBuffers,</code></pre><p>  在保存之后，到终端，cd到工程里面，</p><pre><code>pod install</code></pre><p>  等一会，cocoapod就会帮我们添加好，以后我们就应该打开 project的workspace，因为添加了pod作为子工程。</p></li></ul><h2 id="创建Protocal-Buffers文件"><a href="#创建Protocal-Buffers文件" class="headerlink" title="创建Protocal Buffers文件"></a>创建Protocal Buffers文件</h2><ul><li><p>在你的工程里面，新建一个文件夹，假如命名叫Protobuf 在这个文件夹里面新建一个proto文件。例如要在本地储存用户信息，那么就新建一个user.proto 里面内容可以如下</p><pre><code>syntax = &quot;proto2&quot;;            // Protocal Buffers版本message PBUser {required string userId = 1;         // 用户IDoptional string nick = 2;            // 用户昵称optional string avatar = 3;        // 用户头像optional string password = 7;optional string email = 8;optional string mobile = 9;         // 手机号码optional string qqOpenId = 10;    // QQ IDoptional string sinaId = 11;         // SINA UserIDoptional string weixinId = 12;     // WeChat UserID}</code></pre><p>  上面这个例子包括了几个要素。 一个是包名。包的概念在object c里面没有，java里面有，c++里面namespace也是差不多意思。 顺便提一下，oc里面一般在库名前面添加两个字母，起的作用差不多就是包的作用，作为类的上一层组织结构。 例如官方的NS，例如AFNetworking这种第三方类库的AF。</p><p>  回到正题。编写pb文件，第二个要素是message 一个message就是一个整体，里面有哪些必要的内容，哪些可选的内容。详细的proto语法随便一找一大把，就不啰嗦了。</p></li></ul><h2 id="Protocal-Buffers文件转换"><a href="#Protocal-Buffers文件转换" class="headerlink" title="Protocal Buffers文件转换"></a>Protocal Buffers文件转换</h2><ul><li><p>写好了proto，接下来就是编译这个proto文件，protobuf－objc这个类库会编译声称一些源码，是读写proto数据的接口API。 编译命令如下： 先打开工程，建议单独新建一个文件夹作为输出路径，例如工程下新建文件夹Gen，用来放generate出来的.pb.h文件&amp;&amp;.pb.m文件 打开终端 cd到工程路径下</p><pre><code>protoc --plugin=/usr/local/bin/protoc-gen-objc person.proto --objc_out=./Gen</code></pre></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;h2 id=&quot;安装Protocal-Buffers&quot;&gt;&lt;a href=&quot;#安装Protocal-Buffers&quot; class=&quot;headerli
+      
+    
+    </summary>
+    
+      <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
+    
+    
+      <category term="Objective-C" scheme="https://www.liyb.vip/tags/Objective-C/"/>
     
   </entry>
   

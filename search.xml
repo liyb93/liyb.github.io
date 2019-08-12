@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[视频提取音频和音频裁剪]]></title>
+    <url>%2F2019%2F08%2F12%2F%E8%A7%86%E9%A2%91%E6%8F%90%E5%8F%96%E9%9F%B3%E9%A2%91%E5%92%8C%E9%9F%B3%E9%A2%91%E8%A3%81%E5%89%AA%2F</url>
+    <content type="text"><![CDATA[最近项目中需要从视频中提取音频，并需要根据音频时间间隔进行裁剪，所以在此记录下实现过程。 音频提取音频提取原理是通过创建只包含原始文件的音频音轨并使用 AVAssetExportSession导出组合文件的AVMutableComposition 来完成音频提取。 123456789101112131415161718192021222324252627282930/*输出路径self.cachePath: 获取缓存路径*/NSString *outPath = [self.cachePath stringByAppendingPathComponent: [NSString stringWithFormat:@"%@.m4a", name]];// 创建组合文件AVMutableComposition *composition = [[AVMutableComposition alloc] init];NSURL *url = [NSURL fileURLWithPath:path];AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];AVAssetTrack *track = [asset tracksWithMediaType:AVMediaTypeAudio].firstObject;AVMutableCompositionTrack *comTrack = [composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];NSError *error;[comTrack insertTimeRange:track.timeRange ofTrack:track atTime:kCMTimeZero error:&amp;error];if (error) &#123; NSLog(@"创建失败");&#125;// 创建只包含原始文件的音频音轨AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:composition presetName:AVAssetExportPresetPassthrough];// 导出文件类型.m4a格式session.outputFileType = AVFileTypeAppleM4A;session.outputURL = [NSURL fileURLWithPath:outPath];// 音频导出[session exportAsynchronouslyWithCompletionHandler:^&#123; AVAssetExportSessionStatus status = session.status; if(AVAssetExportSessionStatusCompleted == status) &#123; NSLog(@"音频导出成功"); &#125; else &#123; NSLog(@"音频导出失败"); &#125;&#125;]; 音频裁剪1234567891011121314151617181920212223242526272829303132333435363738394041424344454647/*根据时间间隔裁剪音频path: 音频路径time: 时间间隔*/- (void)cutAudioWithPath:(NSString *)path intervalTime:(NSInteger)time &#123; // 获取音频时长 NSURL *url = [NSURL fileURLWithPath:path]; AVURLAsset*audioAsset = [AVURLAsset URLAssetWithURL:url options:nil]; CMTime totalDuration = audioAsset.duration; CGFloat audioSeconds = CMTimeGetSeconds(totalDuration); if (audioSeconds &gt; time) &#123; NSInteger number = ceil(audioSeconds / time); for (NSInteger idx = 0; idx &lt; number; idx ++) &#123; NSInteger t = idx * time; CMTime startTime = CMTimeMake(t, 1);; CMTime endTime; if (t &gt; audioSeconds) &#123; endTime = CMTimeMake(audioSeconds, 1); &#125; else &#123; endTime = CMTimeMake(time, 1); &#125; NSString *fileName = [NSString stringWithFormat:@"%zi.m4a", t]; NSString *outPutPath = [[self composeDir] stringByAppendingPathComponent:fileName]; NSURL *audioFileOutput = [NSURL fileURLWithPath:outPutPath]; [[NSFileManager defaultManager] removeItemAtURL:audioFileOutput error:NULL]; AVAsset *asset = [AVAsset assetWithURL:url]; AVAssetExportSession *exportSession = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetAppleM4A]; CMTimeRange exportTimeRange = CMTimeRangeFromTimeToTime(startTime, endTime); exportSession.outputURL = audioFileOutput; exportSession.outputFileType = AVFileTypeAppleM4A; exportSession.timeRange = exportTimeRange; [exportSession exportAsynchronouslyWithCompletionHandler:^&#123; if (AVAssetExportSessionStatusCompleted == exportSession.status) &#123; NSLog(@"导出完成: %@", outPutPath); &#125; else if (AVAssetExportSessionStatusFailed == exportSession.status) &#123; NSLog(@"导出失败: %@", exportSession.error.localizedDescription); &#125; &#125;]; &#125; &#125; else &#123; NSLog(@"音频时长小于裁剪时间间隔"); &#125;&#125;]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>音视频</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[iOS逆向学习(一)-环境搭建]]></title>
     <url>%2F2019%2F08%2F11%2FiOS%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0(%E4%B8%80)-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%2F</url>
     <content type="text"><![CDATA[前提 越狱手机 如果没有越狱后面的操作无法实现，如何越狱，这里我们就不讲了，网上教程很多。 配置SSHSSH是Secure Shell简称， 是一种加密的网络传输协议，可在不安全的网络中为网络服务提供安全的传输环境。SSH通过在网络中创建安全隧道来实现SSH客户端与服务器之间的连接。 配置SSH是我们后续工作的基础，我们可以通过SSH实现PC端访问iPhone手机。 安装所需APP卸载OpenSSH与OpenSSLiOS 10以后越狱自带SSH,但是无法连接iPhone或报错,所以需要首先卸载OpenSSH与OpenSSL。在Cydia中搜索OpenSSH与OpenSSL,然后卸载。 添加源自带源没有Dropbear，所以需要添加新源，这里我提供一个源: http://apt.abcydia.com,也可以自己搜索其他源。 安装Dropbear搜索Dropbear并安装。 安装MTerminal搜索MTerminal并安装。 连接iPhoneWIFI连接前提 PC与iPhone在同一局域网 打开MTerminal，输入以下命令 1su 输入root密码，默认为alpine,然后执行以下命令，查看dropbear进程是否执行 1ps aux|grep dropbear 如果没有dropbear进程，执行以下命令 1/usr/local/bin/dropbear -F -R -p 22 然后获取iPhone所在网络下的ip地址,PC终端执行以下命令 12// 172.20.122.108 iPhone ip地址ssh root@172.20.122.108 如果有以下提示 The authenticity of host &apos;192.168.1.105 (192.168.1.105)&apos; can&apos;t be established. ECDSA key fingerprint is SHA256:ANF7Cvc1yM/ZdaHyz9V1EHjG115cylIcHWyOzCL+kzs. Are you sure you want to continue connecting (yes/no)? 输入yes即可,然后输入root密码，默认密码alpine USB连接有时候网络不稳定的时候，使用WIFI连接响应可能会很慢，所以这里讲下比WIFI连接响应更快的USB连接。 安装usbmuxd1brew install usbmuxd 安装成功后,执行以下命令连接iPhone 12// 把iPhone的默认端口22映射到PC 2222端口上面iproxy 2222 22 执行完后，会一直显示waiting for connection，此时不要慌，再打开一个终端窗口,执行以下命令 123ssh -p 2222 root@localhost// 或ssh -p 2222 root@127.0.0.1 如果连接失败，请查看数据线是否连接正常;连接成功后就可以尽情访问iPhone里面数据了。 修改SSH密码ROOT密码1.首先使用root权限连接iPhone 1ssh root@xxx.xxx.xxx.xxx 2.执行下面命令，修改密码 1passwd 3.按提示输入两次新密码即可。4.exit命令退出连接。 mobile密码1.首先使用mobile权限连接iPhone 1ssh mobile@xxx.xxx.xxx.xxx 2.执行下面命令，修改密码 1passwd 3.按提示输入两次新密码即可。4.exit命令退出连接。 免密登录首先查看.ssh目录下是否存在id_rsa和id_rsa.pub，如果已存在，无需再次生成。 生成RSA公私钥终端执行以下命令 1ssh-keygen 查看.ssh目录下是否生成了id_rsa和id_rsa.pub文件。 推送公钥到iPhone连接iPhone，执行以下命令 12// 2222 iPhone的默认端口22映射PC端的端口号ssh-copy-id root@localhost -p 2222 输入密码，如果已修改，输入修改后的密码,未修改输入默认密码alpine。 接下来再次登录就会发线不用输入密码了。]]></content>
@@ -16,10 +27,10 @@
     <url>%2F2019%2F05%2F07%2FHexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%2F</url>
     <content type="text"><![CDATA[博客搭建Hexo安装安装前提 Node.js Git 如果已经安装以上两项，可以直接安装hexo 1$ npm install -g hexo-cli 初始化Hexo 1234$ cd &lt;存放博客的路径&gt;$ hexo init &lt;博客名&gt;$ cd &lt;博客名&gt;$ npm install 创建完成,目录结构如下: . ├── _config.yml // 配置文件 ├── package.json // 应用程序的信息 ├── scaffolds // 模版 文件夹 ├── source // 资源文件夹 | ├── _drafts | └── _posts // 文章 └── themes // 主题 启动服务，查看效果 1$ hexo server // 或 hexo s 浏览器访问:http://localhost:4000/ Github关联创建仓库，命名规则 &lt;账户名&gt;.github.io 修改_config.yml配置文件，末尾修改为以下内容(注意:“:”后面有一个空格) deploy: type: git repository: https://github.com/xxx/xxx.github.io.git // 刚才创建仓库git链接 branch: master 推送到github仓库 12$ hexo g // 生成html静态文件$ hexo d // push到github 然后浏览器访问 https://&lt;账户名&gt;.github.io，即可查看博客 绑定域名购买域名:阿里云万网、腾讯云等 域名解析照下图添加即可 打开博客仓库]]></content>
       <categories>
-        <category>hexo</category>
+        <category>Hexo</category>
       </categories>
       <tags>
-        <tag>other</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -30,7 +41,7 @@
         <category>MacOS</category>
       </categories>
       <tags>
-        <tag>other</tag>
+        <tag>iTunes</tag>
       </tags>
   </entry>
   <entry>
@@ -41,7 +52,7 @@
         <category>iOS</category>
       </categories>
       <tags>
-        <tag>other</tag>
+        <tag>cocoapods</tag>
       </tags>
   </entry>
   <entry>
@@ -52,7 +63,7 @@
         <category>iOS</category>
       </categories>
       <tags>
-        <tag>Objective-C</tag>
+        <tag>ProtocalBuffers</tag>
       </tags>
   </entry>
   <entry>
@@ -63,7 +74,7 @@
         <category>iOS</category>
       </categories>
       <tags>
-        <tag>Objective-C</tag>
+        <tag>ProtocalBuffers</tag>
       </tags>
   </entry>
 </search>

@@ -203,31 +203,6 @@
   </entry>
   
   <entry>
-    <title>Protocal Buffers for iOS的安装及使用(使用篇)</title>
-    <link href="https://www.liyb.vip/2018/11/27/Protocal%20Buffers%20for%20iOS%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8(%E4%BD%BF%E7%94%A8%E7%AF%87)/"/>
-    <id>https://www.liyb.vip/2018/11/27/Protocal Buffers for iOS的安装及使用(使用篇)/</id>
-    <published>2018-11-27T07:39:08.939Z</published>
-    <updated>2019-09-09T06:15:46.977Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><ul><li><p>1.从<a href="https://github.com/google/protobuf.git" target="_blank" rel="noopener">https://github.com/google/protobuf.git</a>下载源码，解压，里面有支持不同语言的版本源码，我们只需要里面的支持objc的文件夹名为：<code>objectivec</code></p><p>  <img src="/resource/ProtocalBuffers/1-1.png" alt="1-1"></p></li><li><p>2.新建一个工程命名为<code>ProtocolBufferTest</code>，创建一个文件夹，假设命名为：<code>protocolbuf</code>， 把第一步的pb源码复制到此文件夹中：</p><p>  <img src="/resource/ProtocalBuffers/2-1.png" alt="2-1"></p></li><li><p>3.使用Xcode打开工程，点击左下角<code>+</code>， 引用<code>protocolBuffer</code>源文件到工程中<br>(源文件里面有两个工程配置文件：<code>ProtocolBuffers_iOS.xcodeproj</code>和<code>ProtocolBuffers_OSX.xcodeproj</code>，引用<code>ProtocolBuffers_iOS.xcodeproj</code>就好)</p><p>  <img src="/resource/ProtocalBuffers/3-1.png" alt="3-1"><br>  <img src="/resource/ProtocalBuffers/3-2.png" alt="3-2"></p></li><li><p>4.选中工程: <code>targets</code>—&gt;<code>Build Phases</code>—&gt;<code>Link Binary With Libraries</code>， 引用源码静态库文件：<code>libProtocolBuffers.a</code></p><p>  <img src="/resource/ProtocalBuffers/4-1.png" alt="4-1"></p></li><li><p>5.在工程设置搜索静态库的头文件（pb文件在protocolbuf文件夹里面）:<br><code>targets</code>—&gt;<code>Build Setting</code>—&gt;<code>Search Paths</code>—&gt;<code>Header Search Paths</code>, 写入：<code>$(PROJECT)/protocolbuf</code></p><p>   <img src="/resource/ProtocalBuffers/5-1.png" alt="5-1"></p></li><li><p>6.编写测试文件<code>*.proto</code>，比如新建一个文件<code>Person.proto</code>, 按照官方标准语法<code>https://developers.google.com/protocol-buffers/</code> 编写通用代码，写好后在终端进入该<code>Person.proto</code>文件所在目录，使用protoc命令：<code>protoc *.proto --objc_out=../Pro_out</code> 进行编译。把<code>Person.proto</code>文件编译成<code>Person.pbobjc.h</code>和<code>Person.pbobjc.m</code>, 生成的文件在<code>Pro_out</code>文件夹里面。如果<code>Person.proto</code>源文件有语法问题，编译时会报错；当编译时什么提示都没有，表示编译成功：将编译好的<code>*.pbobjc.h</code>和<code>*.pbobjc.m</code>拖入工程中，因为不支持arc, 所以需要在<code>*.pbobjc.m</code>设置<code>-fno-objc-arc</code>, 然后就可以使用了</p><p>   <img src="/resource/ProtocalBuffers/6-1.png" alt="6-1"><br>   <img src="/resource/ProtocalBuffers/6-2.png" alt="6-2"><br>   <img src="/resource/ProtocalBuffers/6-3.png" alt="6-3"><br>   <img src="/resource/ProtocalBuffers/6-4.png" alt="6-4"></p></li><li><p>7.序列化与反序列化</p></li></ul><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Person *p = [[Person alloc] init];</span><br><span class="line">p.name = <span class="string">@"xiao"</span>;</span><br><span class="line">p.age = <span class="number">2</span>;</span><br><span class="line">p.address = <span class="string">@"哈哈哈"</span>;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"name:%@, age:%zi, address:%@"</span>, p.name, p.age, p.address);</span><br><span class="line">    </span><br><span class="line"><span class="comment">//序列化</span></span><br><span class="line"><span class="built_in">NSData</span> *data = [p data];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"data:%@"</span>, data);</span><br><span class="line"></span><br><span class="line"><span class="comment">//反序列化    </span></span><br><span class="line"><span class="built_in">NSError</span> *error;</span><br><span class="line">Person *per = [Person parseFromData:data error:&amp;error];</span><br><span class="line"><span class="keyword">if</span> (!error) &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"_____name:%@, age:%zi, address:%@_____"</span>, per.name, per.age, per.address);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;使用&quot;&gt;&lt;a href=&quot;#使用&quot; class=&quot;headerlink&quot; title=&quot;使用&quot;&gt;&lt;/a&gt;使用&lt;/h1&gt;&lt;h2 id=&quot;下载源码&quot;&gt;&lt;a href=&quot;#下载源码&quot; class=&quot;headerlink&quot; title=&quot;下载源码&quot;&gt;&lt;/a&gt;下载源码&lt;/h
-      
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
-    
-    
-      <category term="ProtocalBuffers" scheme="https://www.liyb.vip/tags/ProtocalBuffers/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Protocal Buffers for iOS的安装及使用(安装篇)</title>
     <link href="https://www.liyb.vip/2018/11/27/Protocl%20Buffers%20for%20iOS%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8(%E5%AE%89%E8%A3%85%E7%AF%87)/"/>
     <id>https://www.liyb.vip/2018/11/27/Protocl Buffers for iOS安装及使用(安装篇)/</id>
@@ -241,6 +216,31 @@
       
       
         &lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;h2 id=&quot;安装Protocal-Buffers&quot;&gt;&lt;a href=&quot;#安装Protocal-Buffers&quot; class=&quot;headerli
+      
+    
+    </summary>
+    
+      <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
+    
+    
+      <category term="ProtocalBuffers" scheme="https://www.liyb.vip/tags/ProtocalBuffers/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Protocal Buffers for iOS的安装及使用(使用篇)</title>
+    <link href="https://www.liyb.vip/2018/11/27/Protocal%20Buffers%20for%20iOS%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8(%E4%BD%BF%E7%94%A8%E7%AF%87)/"/>
+    <id>https://www.liyb.vip/2018/11/27/Protocal Buffers for iOS的安装及使用(使用篇)/</id>
+    <published>2018-11-27T07:39:08.939Z</published>
+    <updated>2019-09-09T06:15:46.977Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><ul><li><p>1.从<a href="https://github.com/google/protobuf.git" target="_blank" rel="noopener">https://github.com/google/protobuf.git</a>下载源码，解压，里面有支持不同语言的版本源码，我们只需要里面的支持objc的文件夹名为：<code>objectivec</code></p><p>  <img src="/resource/ProtocalBuffers/1-1.png" alt="1-1"></p></li><li><p>2.新建一个工程命名为<code>ProtocolBufferTest</code>，创建一个文件夹，假设命名为：<code>protocolbuf</code>， 把第一步的pb源码复制到此文件夹中：</p><p>  <img src="/resource/ProtocalBuffers/2-1.png" alt="2-1"></p></li><li><p>3.使用Xcode打开工程，点击左下角<code>+</code>， 引用<code>protocolBuffer</code>源文件到工程中<br>(源文件里面有两个工程配置文件：<code>ProtocolBuffers_iOS.xcodeproj</code>和<code>ProtocolBuffers_OSX.xcodeproj</code>，引用<code>ProtocolBuffers_iOS.xcodeproj</code>就好)</p><p>  <img src="/resource/ProtocalBuffers/3-1.png" alt="3-1"><br>  <img src="/resource/ProtocalBuffers/3-2.png" alt="3-2"></p></li><li><p>4.选中工程: <code>targets</code>—&gt;<code>Build Phases</code>—&gt;<code>Link Binary With Libraries</code>， 引用源码静态库文件：<code>libProtocolBuffers.a</code></p><p>  <img src="/resource/ProtocalBuffers/4-1.png" alt="4-1"></p></li><li><p>5.在工程设置搜索静态库的头文件（pb文件在protocolbuf文件夹里面）:<br><code>targets</code>—&gt;<code>Build Setting</code>—&gt;<code>Search Paths</code>—&gt;<code>Header Search Paths</code>, 写入：<code>$(PROJECT)/protocolbuf</code></p><p>   <img src="/resource/ProtocalBuffers/5-1.png" alt="5-1"></p></li><li><p>6.编写测试文件<code>*.proto</code>，比如新建一个文件<code>Person.proto</code>, 按照官方标准语法<code>https://developers.google.com/protocol-buffers/</code> 编写通用代码，写好后在终端进入该<code>Person.proto</code>文件所在目录，使用protoc命令：<code>protoc *.proto --objc_out=../Pro_out</code> 进行编译。把<code>Person.proto</code>文件编译成<code>Person.pbobjc.h</code>和<code>Person.pbobjc.m</code>, 生成的文件在<code>Pro_out</code>文件夹里面。如果<code>Person.proto</code>源文件有语法问题，编译时会报错；当编译时什么提示都没有，表示编译成功：将编译好的<code>*.pbobjc.h</code>和<code>*.pbobjc.m</code>拖入工程中，因为不支持arc, 所以需要在<code>*.pbobjc.m</code>设置<code>-fno-objc-arc</code>, 然后就可以使用了</p><p>   <img src="/resource/ProtocalBuffers/6-1.png" alt="6-1"><br>   <img src="/resource/ProtocalBuffers/6-2.png" alt="6-2"><br>   <img src="/resource/ProtocalBuffers/6-3.png" alt="6-3"><br>   <img src="/resource/ProtocalBuffers/6-4.png" alt="6-4"></p></li><li><p>7.序列化与反序列化</p></li></ul><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Person *p = [[Person alloc] init];</span><br><span class="line">p.name = <span class="string">@"xiao"</span>;</span><br><span class="line">p.age = <span class="number">2</span>;</span><br><span class="line">p.address = <span class="string">@"哈哈哈"</span>;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"name:%@, age:%zi, address:%@"</span>, p.name, p.age, p.address);</span><br><span class="line">    </span><br><span class="line"><span class="comment">//序列化</span></span><br><span class="line"><span class="built_in">NSData</span> *data = [p data];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"data:%@"</span>, data);</span><br><span class="line"></span><br><span class="line"><span class="comment">//反序列化    </span></span><br><span class="line"><span class="built_in">NSError</span> *error;</span><br><span class="line">Person *per = [Person parseFromData:data error:&amp;error];</span><br><span class="line"><span class="keyword">if</span> (!error) &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"_____name:%@, age:%zi, address:%@_____"</span>, per.name, per.age, per.address);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;使用&quot;&gt;&lt;a href=&quot;#使用&quot; class=&quot;headerlink&quot; title=&quot;使用&quot;&gt;&lt;/a&gt;使用&lt;/h1&gt;&lt;h2 id=&quot;下载源码&quot;&gt;&lt;a href=&quot;#下载源码&quot; class=&quot;headerlink&quot; title=&quot;下载源码&quot;&gt;&lt;/a&gt;下载源码&lt;/h
       
     
     </summary>

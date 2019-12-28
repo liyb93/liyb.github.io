@@ -72,6 +72,33 @@
   </entry>
   
   <entry>
+    <title>MacOS开发-Sugarpaper一款小巧的壁纸应用</title>
+    <link href="https://www.liyb.vip/2019/09/14/MacOS%E5%BC%80%E5%8F%91-Sugarpaper%E4%B8%80%E6%AC%BE%E5%B0%8F%E5%B7%A7%E7%9A%84%E5%A3%81%E7%BA%B8%E5%BA%94%E7%94%A8/"/>
+    <id>https://www.liyb.vip/2019/09/14/MacOS开发-Sugarpaper一款小巧的壁纸应用/</id>
+    <published>2019-09-14T08:35:36.193Z</published>
+    <updated>2019-12-28T08:33:03.786Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Sugarpaper开发目的"><a href="#Sugarpaper开发目的" class="headerlink" title="Sugarpaper开发目的"></a>Sugarpaper开发目的</h1><p>本人是个搞机爱好者，喜欢各种花哨的壁纸和字体等，也使用过好多壁纸类应用，但都没能坚持多久就卸载了，比如：</p><p><a href="https://paper.meiyuan.in/" target="_blank" rel="noopener">pap.er</a></p><p><a href="https://apps.apple.com/cn/app/unsplash-wallpapers/id1284863847?mt=12" target="_blank" rel="noopener">unsplash</a></p><p><a href="https://apps.apple.com/app/irvue-unsplash-wallpapers/id1039633667" target="_blank" rel="noopener">Irvue</a></p><p><a href="https://github.com/libcm/Strawberry-Wallpaper" target="_blank" rel="noopener">Strawberry Wallpaper</a></p><h1 id="Sugarpaper介绍"><a href="#Sugarpaper介绍" class="headerlink" title="Sugarpaper介绍"></a>Sugarpaper介绍</h1><p>Sugarpaper是一款小巧的壁纸应用，界面仿照pap.er设计，目前支持<a href="https://unsplash.com/" target="_blank" rel="noopener">unsplash</a>、<a href="https://www.pexels.com/" target="_blank" rel="noopener">pexels</a>、<a href="https://pixabay.com/" target="_blank" rel="noopener">pixabay</a>三个平台的高清壁纸，后期会继续集成其他平台高清壁纸API。</p><h1 id="Sugarpaper展示"><a href="#Sugarpaper展示" class="headerlink" title="Sugarpaper展示"></a>Sugarpaper展示</h1><p><img src="/resource/sugarpaper/1.jpg" alt="1"></p><p><img src="/resource/sugarpaper/2.jpg" alt="2"></p><p><img src="/resource/sugarpaper/3.jpg" alt="3"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Sugarpaper开发目的&quot;&gt;&lt;a href=&quot;#Sugarpaper开发目的&quot; class=&quot;headerlink&quot; title=&quot;Sugarpaper开发目的&quot;&gt;&lt;/a&gt;Sugarpaper开发目的&lt;/h1&gt;&lt;p&gt;本人是个搞机爱好者，喜欢各种花哨的壁纸和字体
+      
+    
+    </summary>
+    
+      <category term="MacOS" scheme="https://www.liyb.vip/categories/MacOS/"/>
+    
+    
+      <category term="MacOS" scheme="https://www.liyb.vip/tags/MacOS/"/>
+    
+      <category term="Sugarpaper" scheme="https://www.liyb.vip/tags/Sugarpaper/"/>
+    
+  </entry>
+  
+  <entry>
     <title>视频提取音频和音频裁剪</title>
     <link href="https://www.liyb.vip/2019/08/12/%E8%A7%86%E9%A2%91%E6%8F%90%E5%8F%96%E9%9F%B3%E9%A2%91%E5%92%8C%E9%9F%B3%E9%A2%91%E8%A3%81%E5%89%AA/"/>
     <id>https://www.liyb.vip/2019/08/12/视频提取音频和音频裁剪/</id>

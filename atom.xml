@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.liyb.vip/"/>
-  <updated>2019-09-15T07:38:07.063Z</updated>
+  <updated>2020-08-27T07:48:36.831Z</updated>
   <id>https://www.liyb.vip/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次MacOS CPU占用90%-100%</title>
+    <link href="https://www.liyb.vip/2020/08/27/%E8%AE%B0%E4%B8%80%E6%AC%A1MacOS-CPU%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>https://www.liyb.vip/2020/08/27/记一次MacOS-CPU占用过高的问题/</id>
+    <published>2020-08-27T07:12:16.302Z</published>
+    <updated>2020-08-27T07:48:36.831Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近两天突然发现我本突然掉电很快，早上来公司100%的电量，还没12点电量就剩30%-40%了，第一天也没注意，只是想着电池可能不行了。第二天又发现了这个掉电的问题，就查看了电池性能，显示的正常，这时候我就有点纳闷了，又从软件上看了风扇的转速居然达到了将近4000，一直居高不下，这是就感觉问题有点严重了，就打开了活动检测器总于发现了罪魁祸首一个名叫<code>usernoted</code>的进程一直占用CPU资源，一直活跃在90%-100%之间。</p><h1 id="usernoted进程"><a href="#usernoted进程" class="headerlink" title="usernoted进程"></a>usernoted进程</h1><p>这个进程是负责MacOS系统中通知服务，所以手动杀死这进程是无用，杀死后还会自动重启。</p><h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>google搜索好多解决方案，但都是老方案，其中有篇说是要删除<code>~/Library/Application Support/NotificationCenter/com.apple.notificationcenter</code>文件夹，但是我在<code>Application Support</code>文件夹下并未发现<code>NotificationCenter</code>文件夹。这是因为MacOS 10.10之后苹果修改此文件夹的路径。修改后的路径为<code>/private/var/folders/_q/b4sbtpzx6hlgq43xgm5fdhhr0000gn/0/com.apple.notificationcenter</code>。</p><p>进入此文件夹下我们会发现里面有两个文件夹，打开名叫<code>db2</code>的文件夹，把里面的所有文件删除，然后在杀死<code>usernoted</code>即可解决此问题。</p><h1 id="查看资料"><a href="#查看资料" class="headerlink" title="查看资料"></a>查看资料</h1><p><a href="https://apple.stackexchange.com/questions/212970/what-is-usernoted-and-why-is-it-eating-my-cpu" target="_blank" rel="noopener">What is “usernoted” and why is it eating my CPU?</a></p><p><a href="https://apple.stackexchange.com/questions/64629/does-the-os-x-log-notifications-from-the-notification-center" target="_blank" rel="noopener">Does the OS X log notifications from the Notification Center?</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;最近两天突然发现我本突然掉电很快，早上来公司100%的电量，还没12点电量就剩30%-40%了，第一天也没注意，只是想着电池可能不行了。第二
+      
+    
+    </summary>
+    
+      <category term="MacOS" scheme="https://www.liyb.vip/categories/MacOS/"/>
+    
+    
+      <category term="CPU" scheme="https://www.liyb.vip/tags/CPU/"/>
+    
+  </entry>
   
   <entry>
     <title>MacOS开发-NSCollectionView使用</title>

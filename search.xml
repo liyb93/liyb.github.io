@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[将MacOS App打包成dmg]]></title>
+    <url>%2F2020%2F09%2F10%2F%E5%B0%86MacOS%20App%E6%89%93%E5%8C%85%E6%88%90dmg%2F</url>
+    <content type="text"><![CDATA[准备工作 Xcode打包导出App 右键导出的app，显示包内容=&gt;Contents=&gt;Resources，里面的AppIcon.icons就是我们需要的app图标，复制出来与app放一起备用。 制作精美的dmg，肯定需要一张好看的背景图；这是我粗略制作的一张背景图。 创建dmg 打开磁盘工具应用，点击菜单栏文件=&gt;新建映像=&gt;空白映像，然后按下图填写完，点击存储即可。 注：名称按自己需求填写； ​ 其中大小根据准备的文件总大小大一点填写，防止导入文件提示磁盘空间不足。 创建完成，会在选择的位置生成iSWaller.dmg文件和iSWaller，右键iSWaller显示简介，会打开下图，然后把准备的icons图标拖放到下图红框处进行图标替换。 双击iSWaller，进入文件夹，把我们准备的icons图标、app、图标拖放进来。然后右键查看显示选项，如下图进行选择，把准备的背景图拖放到下面的图像选择框中，完成后就可以看到iSWaller更换了背景图。 这时是不是感觉跟别的dmg相比少了个Application替身；打开终端执行以下命令生成Application替身 12$ cd /Volumes/dmg文件名$ ln -s /Applications Applications 再次查看发现，确实出现了Application替身，但是图标和背景有点影响观感，用以下命令隐藏它们。 12$ chflags hidden 背景图名称(带后缀名)$ chflags hidden icns图标名称(带后缀名) 最后把app和Application拖放到合适的位置即可。 下图是制作完成效果 转换dmg打开磁盘工具点击菜单栏映像=&gt;转换，选择刚才dmg文件，命名后点击转换即可；这样就算完成我们的打包了，赶紧打包一个发给你们的小伙伴吧！]]></content>
+      <categories>
+        <category>MacOS</category>
+      </categories>
+      <tags>
+        <tag>dmg</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[记一次MacOS CPU占用90%-100%]]></title>
     <url>%2F2020%2F08%2F27%2F%E8%AE%B0%E4%B8%80%E6%AC%A1MacOS-CPU%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98%E7%9A%84%E9%97%AE%E9%A2%98%2F</url>
     <content type="text"><![CDATA[前言最近两天突然发现我本突然掉电很快，早上来公司100%的电量，还没12点电量就剩30%-40%了，第一天也没注意，只是想着电池可能不行了。第二天又发现了这个掉电的问题，就查看了电池性能，显示的正常，这时候我就有点纳闷了，又从软件上看了风扇的转速居然达到了将近4000，一直居高不下，这是就感觉问题有点严重了，就打开了活动检测器总于发现了罪魁祸首一个名叫usernoted的进程一直占用CPU资源，一直活跃在90%-100%之间。 usernoted进程这个进程是负责MacOS系统中通知服务，所以手动杀死这进程是无用，杀死后还会自动重启。 解决方法google搜索好多解决方案，但都是老方案，其中有篇说是要删除~/Library/Application Support/NotificationCenter/com.apple.notificationcenter文件夹，但是我在Application Support文件夹下并未发现NotificationCenter文件夹。这是因为MacOS 10.10之后苹果修改此文件夹的路径。修改后的路径为/private/var/folders/_q/b4sbtpzx6hlgq43xgm5fdhhr0000gn/0/com.apple.notificationcenter。 进入此文件夹下我们会发现里面有两个文件夹，打开名叫db2的文件夹，把里面的所有文件删除，然后在杀死usernoted即可解决此问题。 查看资料What is “usernoted” and why is it eating my CPU? Does the OS X log notifications from the Notification Center?]]></content>

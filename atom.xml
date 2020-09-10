@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.liyb.vip/"/>
-  <updated>2020-08-27T07:48:36.831Z</updated>
+  <updated>2020-09-10T09:51:29.133Z</updated>
   <id>https://www.liyb.vip/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>将MacOS App打包成dmg</title>
+    <link href="https://www.liyb.vip/2020/09/10/%E5%B0%86MacOS%20App%E6%89%93%E5%8C%85%E6%88%90dmg/"/>
+    <id>https://www.liyb.vip/2020/09/10/将MacOS App打包成dmg/</id>
+    <published>2020-09-09T16:00:00.000Z</published>
+    <updated>2020-09-10T09:51:29.133Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ol><li><p>Xcode打包导出App</p><p><img src="/resource/dmg/导出App.png" style="zoom:33%;"></p></li><li><p>右键导出的app，显示<code>包内容</code>=&gt;<code>Contents</code>=&gt;<code>Resources</code>，里面的AppIcon.icons就是我们需要的app图标，复制出来与app放一起备用。</p></li><li><p>制作精美的dmg，肯定需要一张好看的背景图；这是我粗略制作的一张背景图。</p><p><img src="/resource/dmg/背景.png" style="zoom:33%;"></p></li></ol><h1 id="创建dmg"><a href="#创建dmg" class="headerlink" title="创建dmg"></a>创建dmg</h1><ol><li><p>打开磁盘工具应用，点击菜单栏<code>文件</code>=&gt;<code>新建映像</code>=&gt;<code>空白映像</code>，然后按下图填写完，点击<code>存储</code>即可。</p><p><img src="/resource/dmg/创建dmg.png" style="zoom:33%;"></p><p>注：名称按自己需求填写；</p><p>​        其中大小根据准备的文件总大小大一点填写，防止导入文件提示磁盘空间不足。</p></li><li><p>创建完成，会在选择的位置生成<code>iSWaller.dmg</code>文件和<code>iSWaller</code>，右键<code>iSWaller</code>显示简介，会打开下图，然后把准备的icons图标拖放到下图红框处进行图标替换。</p><p><img src="/resource/dmg/更换图标.png" style="zoom:33%;"></p></li><li><p>双击<code>iSWaller</code>，进入文件夹，把我们准备的icons图标、app、图标拖放进来。然后右键查看显示选项，如下图进行选择，把准备的背景图拖放到下面的图像选择框中，完成后就可以看到<code>iSWaller</code>更换了背景图。</p><p><img src="/resource/dmg/查看选项.png" style="zoom:33%;"></p></li><li><p>这时是不是感觉跟别的dmg相比少了个Application替身；打开终端执行以下命令生成Application替身</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> cd /Volumes/dmg文件名</span><br><span class="line"><span class="meta">$</span> ln -s /Applications Applications</span><br></pre></td></tr></table></figure><p>再次查看发现，确实出现了Application替身，但是图标和背景有点影响观感，用以下命令隐藏它们。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> chflags hidden 背景图名称(带后缀名)</span><br><span class="line"><span class="meta">$</span> chflags hidden icns图标名称(带后缀名)</span><br></pre></td></tr></table></figure><p>最后把app和Application拖放到合适的位置即可。</p><p>下图是制作完成效果</p><p><img src="/resource/dmg/效果.png" style="zoom:33%;"></p></li></ol><h1 id="转换dmg"><a href="#转换dmg" class="headerlink" title="转换dmg"></a>转换dmg</h1><p>打开磁盘工具点击菜单栏<code>映像</code>=&gt;<code>转换</code>，选择刚才dmg文件，命名后点击转换即可；这样就算完成我们的打包了，赶紧打包一个发给你们的小伙伴吧！</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Xcode打包导出App&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/resource/dmg/导出App.png
+      
+    
+    </summary>
+    
+      <category term="MacOS" scheme="https://www.liyb.vip/categories/MacOS/"/>
+    
+    
+      <category term="dmg" scheme="https://www.liyb.vip/tags/dmg/"/>
+    
+  </entry>
   
   <entry>
     <title>记一次MacOS CPU占用90%-100%</title>

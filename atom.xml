@@ -255,31 +255,6 @@
   </entry>
   
   <entry>
-    <title>Protocal Buffers for iOS的安装及使用(安装篇)</title>
-    <link href="https://www.liyb.vip/2018/11/27/Protocl%20Buffers%20for%20iOS%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8(%E5%AE%89%E8%A3%85%E7%AF%87)/"/>
-    <id>https://www.liyb.vip/2018/11/27/Protocl Buffers for iOS安装及使用(安装篇)/</id>
-    <published>2018-11-27T07:39:08.939Z</published>
-    <updated>2019-08-12T10:18:08.587Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="安装Protocal-Buffers"><a href="#安装Protocal-Buffers" class="headerlink" title="安装Protocal Buffers"></a>安装Protocal Buffers</h2><p>终端执行以下命令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew -v</span><br></pre></td></tr></table></figure><p>这条命令是查看你的mac里面有没有装brew。brew是mac os里面，类似于ubuntu的apt-get的功能，都可以直接在终端输入命令然后安装程序。－v自然就是版本version的意思</p><p>下载brew安装环境</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span><br></pre></td></tr></table></figure><p>分别执行下面三条命令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install automake</span><br><span class="line">brew install libtool</span><br><span class="line">brew install protobuf</span><br></pre></td></tr></table></figure><p>就是利用brew下载安装了。protobuf就是我们想要的，另外两个是依赖库</p><h2 id="clone-Protocal-Buffers库"><a href="#clone-Protocal-Buffers库" class="headerlink" title="clone Protocal Buffers库"></a>clone Protocal Buffers库</h2><p>执行下列命令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/alexeyxo/protobuf-objc.git</span><br><span class="line">./build.sh</span><br></pre></td></tr></table></figure><p>从github下载protobuf－objc这个工程，build脚本里面做的是编译</p><p>注意：编译工程过程中，有可能会出现错误。别慌！看编译错误的提示。一般错误只是因为环境变量和路径没有配置好，少了一些东西，例如少了编译protobuf这个工程的依赖库，按照提示添加路径即可。有了工程以后，我们就可以开始测试一下怎么用protobuf了</p><h2 id="导入工程"><a href="#导入工程" class="headerlink" title="导入工程"></a>导入工程</h2><p>打开Xcode！新建一个工程！ 然后有两个方法把protobuf添加到你的工程里面，一个是直接添加，一个是利用cocoapod 强烈推荐后者，因为cocoapods能够很方便的管理第三方类库，以后人家的工程升级了，你只需要一行 pod update 就ok了。关于安装和使用cocoapod，属于另一个话题，在Podfile添加下面这个句子</p><pre><code>platform :ios , 8.0pod ProtocolBuffers,</code></pre><p>在保存之后，到终端，cd到工程里面，</p><pre><code>pod install</code></pre><p>等一会，cocoapod就会帮我们添加好，以后我们就应该打开 project的workspace，因为添加了pod作为子工程。</p><h2 id="创建Protocal-Buffers文件"><a href="#创建Protocal-Buffers文件" class="headerlink" title="创建Protocal Buffers文件"></a>创建Protocal Buffers文件</h2><p>在你的工程里面，新建一个文件夹，假如命名叫Protobuf 在这个文件夹里面新建一个proto文件。例如要在本地储存用户信息，那么就新建一个user.proto 里面内容可以如下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto2&quot;;// Protocal Buffers版本</span><br><span class="line">message PBUser &#123;</span><br><span class="line">required string userId = 1;         // 用户ID</span><br><span class="line">optional string nick = 2;            // 用户昵称</span><br><span class="line">optional string avatar = 3;        // 用户头像</span><br><span class="line">optional string password = 7;</span><br><span class="line">optional string email = 8;</span><br><span class="line">optional string mobile = 9;         // 手机号码</span><br><span class="line">optional string qqOpenId = 10;    // QQ ID</span><br><span class="line">optional string sinaId = 11;         // SINA UserID</span><br><span class="line">optional string weixinId = 12;     // WeChat UserID</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面这个例子包括了几个要素。 一个是包名。包的概念在object c里面没有，java里面有，c++里面namespace也是差不多意思。 顺便提一下，oc里面一般在库名前面添加两个字母，起的作用差不多就是包的作用，作为类的上一层组织结构。 例如官方的NS，例如AFNetworking这种第三方类库的AF。</p><p>回到正题。编写pb文件，第二个要素是message 一个message就是一个整体，里面有哪些必要的内容，哪些可选的内容。详细的proto语法随便一找一大把，就不啰嗦了。</p><h2 id="Protocal-Buffers文件转换"><a href="#Protocal-Buffers文件转换" class="headerlink" title="Protocal Buffers文件转换"></a>Protocal Buffers文件转换</h2><p>写好了proto，接下来就是编译这个proto文件，protobuf－objc这个类库会编译声称一些源码，是读写proto数据的接口API。 编译命令如下： 先打开工程，建议单独新建一个文件夹作为输出路径，例如工程下新建文件夹Gen，用来放generate出来的.pb.h文件&amp;&amp;.pb.m文件 打开终端 cd到工程路径下</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc --plugin=/usr/local/bin/protoc-gen-objc person.proto --objc_out=./Gen</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;h2 id=&quot;安装Protocal-Buffers&quot;&gt;&lt;a href=&quot;#安装Protocal-Buffers&quot; class=&quot;headerli
-      
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
-    
-    
-      <category term="ProtocalBuffers" scheme="https://www.liyb.vip/tags/ProtocalBuffers/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Protocal Buffers for iOS的安装及使用(使用篇)</title>
     <link href="https://www.liyb.vip/2018/11/27/Protocal%20Buffers%20for%20iOS%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8(%E4%BD%BF%E7%94%A8%E7%AF%87)/"/>
     <id>https://www.liyb.vip/2018/11/27/Protocal Buffers for iOS的安装及使用(使用篇)/</id>
@@ -293,6 +268,31 @@
       
       
         &lt;h1 id=&quot;使用&quot;&gt;&lt;a href=&quot;#使用&quot; class=&quot;headerlink&quot; title=&quot;使用&quot;&gt;&lt;/a&gt;使用&lt;/h1&gt;&lt;h2 id=&quot;下载源码&quot;&gt;&lt;a href=&quot;#下载源码&quot; class=&quot;headerlink&quot; title=&quot;下载源码&quot;&gt;&lt;/a&gt;下载源码&lt;/h
+      
+    
+    </summary>
+    
+      <category term="iOS" scheme="https://www.liyb.vip/categories/iOS/"/>
+    
+    
+      <category term="ProtocalBuffers" scheme="https://www.liyb.vip/tags/ProtocalBuffers/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Protocal Buffers for iOS的安装及使用(安装篇)</title>
+    <link href="https://www.liyb.vip/2018/11/27/Protocl%20Buffers%20for%20iOS%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8(%E5%AE%89%E8%A3%85%E7%AF%87)/"/>
+    <id>https://www.liyb.vip/2018/11/27/Protocl Buffers for iOS安装及使用(安装篇)/</id>
+    <published>2018-11-27T07:39:08.939Z</published>
+    <updated>2019-08-12T10:18:08.587Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="安装Protocal-Buffers"><a href="#安装Protocal-Buffers" class="headerlink" title="安装Protocal Buffers"></a>安装Protocal Buffers</h2><p>终端执行以下命令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew -v</span><br></pre></td></tr></table></figure><p>这条命令是查看你的mac里面有没有装brew。brew是mac os里面，类似于ubuntu的apt-get的功能，都可以直接在终端输入命令然后安装程序。－v自然就是版本version的意思</p><p>下载brew安装环境</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span><br></pre></td></tr></table></figure><p>分别执行下面三条命令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install automake</span><br><span class="line">brew install libtool</span><br><span class="line">brew install protobuf</span><br></pre></td></tr></table></figure><p>就是利用brew下载安装了。protobuf就是我们想要的，另外两个是依赖库</p><h2 id="clone-Protocal-Buffers库"><a href="#clone-Protocal-Buffers库" class="headerlink" title="clone Protocal Buffers库"></a>clone Protocal Buffers库</h2><p>执行下列命令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/alexeyxo/protobuf-objc.git</span><br><span class="line">./build.sh</span><br></pre></td></tr></table></figure><p>从github下载protobuf－objc这个工程，build脚本里面做的是编译</p><p>注意：编译工程过程中，有可能会出现错误。别慌！看编译错误的提示。一般错误只是因为环境变量和路径没有配置好，少了一些东西，例如少了编译protobuf这个工程的依赖库，按照提示添加路径即可。有了工程以后，我们就可以开始测试一下怎么用protobuf了</p><h2 id="导入工程"><a href="#导入工程" class="headerlink" title="导入工程"></a>导入工程</h2><p>打开Xcode！新建一个工程！ 然后有两个方法把protobuf添加到你的工程里面，一个是直接添加，一个是利用cocoapod 强烈推荐后者，因为cocoapods能够很方便的管理第三方类库，以后人家的工程升级了，你只需要一行 pod update 就ok了。关于安装和使用cocoapod，属于另一个话题，在Podfile添加下面这个句子</p><pre><code>platform :ios , 8.0pod ProtocolBuffers,</code></pre><p>在保存之后，到终端，cd到工程里面，</p><pre><code>pod install</code></pre><p>等一会，cocoapod就会帮我们添加好，以后我们就应该打开 project的workspace，因为添加了pod作为子工程。</p><h2 id="创建Protocal-Buffers文件"><a href="#创建Protocal-Buffers文件" class="headerlink" title="创建Protocal Buffers文件"></a>创建Protocal Buffers文件</h2><p>在你的工程里面，新建一个文件夹，假如命名叫Protobuf 在这个文件夹里面新建一个proto文件。例如要在本地储存用户信息，那么就新建一个user.proto 里面内容可以如下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto2&quot;;// Protocal Buffers版本</span><br><span class="line">message PBUser &#123;</span><br><span class="line">required string userId = 1;         // 用户ID</span><br><span class="line">optional string nick = 2;            // 用户昵称</span><br><span class="line">optional string avatar = 3;        // 用户头像</span><br><span class="line">optional string password = 7;</span><br><span class="line">optional string email = 8;</span><br><span class="line">optional string mobile = 9;         // 手机号码</span><br><span class="line">optional string qqOpenId = 10;    // QQ ID</span><br><span class="line">optional string sinaId = 11;         // SINA UserID</span><br><span class="line">optional string weixinId = 12;     // WeChat UserID</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面这个例子包括了几个要素。 一个是包名。包的概念在object c里面没有，java里面有，c++里面namespace也是差不多意思。 顺便提一下，oc里面一般在库名前面添加两个字母，起的作用差不多就是包的作用，作为类的上一层组织结构。 例如官方的NS，例如AFNetworking这种第三方类库的AF。</p><p>回到正题。编写pb文件，第二个要素是message 一个message就是一个整体，里面有哪些必要的内容，哪些可选的内容。详细的proto语法随便一找一大把，就不啰嗦了。</p><h2 id="Protocal-Buffers文件转换"><a href="#Protocal-Buffers文件转换" class="headerlink" title="Protocal Buffers文件转换"></a>Protocal Buffers文件转换</h2><p>写好了proto，接下来就是编译这个proto文件，protobuf－objc这个类库会编译声称一些源码，是读写proto数据的接口API。 编译命令如下： 先打开工程，建议单独新建一个文件夹作为输出路径，例如工程下新建文件夹Gen，用来放generate出来的.pb.h文件&amp;&amp;.pb.m文件 打开终端 cd到工程路径下</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc --plugin=/usr/local/bin/protoc-gen-objc person.proto --objc_out=./Gen</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;h2 id=&quot;安装Protocal-Buffers&quot;&gt;&lt;a href=&quot;#安装Protocal-Buffers&quot; class=&quot;headerli
       
     
     </summary>

@@ -21,37 +21,112 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
 	<title>ipa在线安装</title>
+	<style>
+		ul {
+		    list-style-type: none;
+		    margin: 0;
+		    padding: 0;
+		    overflow: hidden;
+		    text-align: center;
+		}
+
+		li {
+		    display: inline-block;
+		}
+
+		li a {
+		    display: block;
+		    color: #666;
+		    text-align: center;
+		    padding: 14px 16px;
+		    text-decoration: none;
+		}
+
+		li a:hover:not(.active) {
+		    background-color: #ddd;
+		    border-radius: 15px;
+		}
+
+		li a.active {
+		    color: white;
+		    background-color: #4CAF50;
+		    border-radius: 15px;
+		}
+
+		button {
+			background-color: #4CAF50;
+			color: #ffffff;
+			width: 100px;
+			height: 44px;
+			border: none;
+			border-radius: 22px;
+		}
+
+		img {
+			width: 120px;
+			height: 120px;
+			border-radius: 20px;
+		}
+	</style>
 </head>
 <body>
 <div>
-	<div align="center">
-		<button type onclick="switchApp(0)">花火阅读</button>
-		<button type onclick="switchApp(1)">香色闺阁</button>
-		<button type onclick="switchApp(2)">unc0ver</button>
+	<div>
+		<ul>
+		  <li><a class="active" id="nav-hh" onclick="switchApp(0)">花火阅读</a></li>
+		  <li><a id="nav-xs" onclick="switchApp(1)">香色闺阁</a></li>
+		  <li><a id="nav-yy" onclick="switchApp(2)">unc0ver</a></li>
+		</ul>
 	</div>
-	<div id="content" align="center">
-		<img id="content-img" src="https://liyb.vip/resource/online_install/hhyd.png" alt>
-		<a id="content-a" href="itms-services://?action=download-manifest&url=https://gitee.com/liyb93/online_install_ipa/raw/master/hhyd.plist" title target="_blank" rel="noopener">安装</a>
+	<br>
+	<div align="center">
+		<img id="logo" src="https://liyb.vip/resource/online_install/hhyd.png">
+		<br>
+		<br>
+		<button onclick="installApp()">安装</button>
 	</div>
 </div>
 </body>
 <script type="text/javascript">
-	function install() {
-		
+
+	var type = 0;
+
+	// 切换App
+	function switchApp(type) {
+		this.type = type;
+
+		var hh = document.getElementById("nav-hh");
+		var xs = document.getElementById("nav-xs");
+		var yy = document.getElementById("nav-yy");
+		var logo = document.getElementById("logo");
+
+		if (type == 0) {
+			logo.src = "https://liyb.vip/resource/online_install/hhyd.png";
+			hh.className = "active";
+			xs.className = "";
+			yy.className = "";
+		} else if (type == 1) {
+			logo.src = "https://liyb.vip/resource/online_install/xsgg.png";
+			hh.className = "";
+			xs.className = "active";
+			yy.className = "";
+		} else if (type == 2) {
+			logo.src = "https://liyb.vip/resource/online_install/unc0ver.png";
+			hh.className = "";
+			xs.className = "";
+			yy.className = "active";
+		}
+
 	}
 
-	function switchApp(type) {
-		var img = document.getElementById("content-img")
-		var a = document.getElementById("content-a")
+	// 安装App
+	function installApp() {
 		if (type == 0) {
-			img.src = "https://liyb.vip/resource/online_install/hhyd.png"
-			a.href = "itms-services://?action=download-manifest&url=https://gitee.com/liyb93/online_install_ipa/raw/master/hhyd.plist"
+			window.location.href = "itms-services://?action=download-manifest&url=https://liyb.vip/resource/online_install/hhyd.plist"
 		} else if (type == 1) {
-			img.src = "https://liyb.vip/resource/online_install/xsgg.png"
-			a.href = "itms-services://?action=download-manifest&url=https://liyb.vip/resource/online_install/xsgg.plist"
+			window.location.href = "itms-services://?action=download-manifest&url=https://liyb.vip/resource/online_install/xsgg.plist"
 		} else if (type == 2) {
-			img.src = "https://liyb.vip/resource/online_install/unc0ver.png"
-			a.href = "itms-services://?action=download-manifest&url=https://gitee.com/liyb93/online_install_ipa/raw/master/uncover.plist"
+			window.location.href = "itms-services://?action=download-manifest&url=https://liyb.vip/resource/online_install/uncover.plist"
 		}
 	}
 </script>

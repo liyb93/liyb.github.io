@@ -75,8 +75,9 @@
 		<ul>
 		  <li><a class="active" id="nav-hh" onclick="switchApp(0)">花火阅读</a></li>
 		  <li><a id="nav-xs" onclick="switchApp(1)">香色闺阁</a></li>
-		  <li><a id="nav-ss" onclick="switchApp(2)">Shadowrocket</a></li>
-		  <li><a id="nav-yy" onclick="switchApp(3)">unc0ver</a></li>
+		  <li><a id="nav-cy" onclick="switchApp(2)">彩云天气</a></li>
+		  <li><a id="nav-ss" onclick="switchApp(3)">Shadowrocket</a></li>
+		  <li><a id="nav-yy" onclick="switchApp(4)">unc0ver</a></li>
 		</ul>
 	</div>
 	<br>
@@ -96,9 +97,15 @@
 	function switchApp(type) {
 		this.type = type;
 
+		// 花火
 		var hh = document.getElementById("nav-hh");
+		// 香色
 		var xs = document.getElementById("nav-xs");
+		// 彩云
+		var cy = document.getElementById("nav-cy");
+		// shadowrocket
 		var ss = document.getElementById("nav-ss");
+		// unc0ver
 		var yy = document.getElementById("nav-yy");
 		var logo = document.getElementById("logo");
 
@@ -106,24 +113,35 @@
 			logo.src = "https://liyb.vip/resource/online_install/hhyd.png";
 			hh.className = "active";
 			xs.className = "";
+			cy.className = "";
 			ss.className = "";
 			yy.className = "";
 		} else if (type == 1) {
 			logo.src = "https://liyb.vip/resource/online_install/xsgg.png";
 			hh.className = "";
 			xs.className = "active";
+			cy.className = "";
 			ss.className = "";
 			yy.className = "";
 		} else if (type == 2) {
+			logo.src = "https://liyb.vip/resource/online_install/cytq.png";
+			hh.className = "";
+			xs.className = "";
+			cy.className = "active";
+			ss.className = "";
+			yy.className = "";
+		} else if (type == 3) {
 			logo.src = "https://liyb.vip/resource/online_install/shadowrocket.png";
 			hh.className = "";
 			xs.className = "";
+			cy.className = "";
 			ss.className = "active";
 			yy.className = "";
-		} else {
+		} else if (type == 4) {
 			logo.src = "https://liyb.vip/resource/online_install/unc0ver.png";
 			hh.className = "";
 			xs.className = "";
+			cy.className = "";
 			ss.className = "";
 			yy.className = "active";
 		}
@@ -137,8 +155,10 @@
 		} else if (type == 1) {
 			window.location.href = "itms-services://?action=download-manifest&url=https://liyb.vip/resource/online_install/xsgg.plist"
 		} else if (type == 2) {
+			window.location.href = "itms-services://?action=download-manifest&url=https://liyb.vip/resource/online_install/cytq.plist"
+		} else if (type == 3) {
 			window.location.href = "itms-services://?action=download-manifest&url=https://liyb.vip/resource/online_install/shadowrocket.plist"
-		} else {
+		} else if (type == 4) {
 			window.location.href = "itms-services://?action=download-manifest&url=https://liyb.vip/resource/online_install/uncover.plist"
 		}
 	}

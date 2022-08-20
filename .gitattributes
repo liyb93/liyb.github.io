@@ -1,1 +1,2 @@
 cytq_6.0.7.ipa filter=lfs diff=lfs merge=lfs -text
+resource/online_install/cytq_6.0.7.ipa filter=lfs diff=lfs merge=lfs -text
